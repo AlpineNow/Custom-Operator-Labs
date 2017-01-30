@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Process Description="" UserName="7" Version="6.3.0.0">
+<DataSources>
+<DataSource name="AWS-CDH57" type="Hadoop">
+<Parameter key="connName" value="AWS-CDH57"/>
+<Parameter key="hdfsHostname" value="awscdh57singlenode.alpinenow.local"/>
+<Parameter key="hdfsPort" value="8020"/>
+<Parameter key="hadoopVersion" value="Cloudera CDH5.4-5.7"/>
+<Parameter key="jobHostname" value="awscdh57singlenode.alpinenow.local"/>
+<Parameter key="jobPort" value="8032"/>
+<Parameter key="userName" value="yarn"/>
+<Parameter key="useHA" value="false"/>
+<Parameter key="groupName" value="hadoop"/>
+<Parameter key="securityMode" value="simple"/>
+<Parameter key="hdfsPrincipal" value=""/>
+<Parameter key="hdfsKeyTab" value=""/>
+<Parameter key="mapredPrincipal" value=""/>
+<Parameter key="mapredKeyTab" value=""/>
+<Parameter key="schedulerHost" value="awscdh57singlenode.alpinenow.local"/>
+<Parameter key="schedulerPort" value="8030"/>
+<Parameter key="ALP_HD_KVP[mapreduce.jobhistory.address]" value="awscdh57singlenode.alpinenow.local:10020"/>
+<Parameter key="ALP_HD_KVP[mapreduce.jobhistory.webapp.address]" value="awscdh57singlenode.alpinenow.local:19888"/>
+<Parameter key="ALP_HD_KVP[yarn.resourcemanager.scheduler.address]" value="awscdh57singlenode.alpinenow.local:8030"/>
+<Parameter key="ALP_HD_KVP[alpine.hadoopuser.enabled]" value="false"/>
+<Parameter key="ALP_HD_KVP[yarn.resourcemanager.admin.address]" value="awscdh57singlenode.alpinenow.local:8033"/>
+<Parameter key="ALP_HD_KVP[yarn.resourcemanager.resource-tracker.address]" value="awscdh57singlenode.alpinenow.local:8031"/>
+<Parameter key="ALP_HD_KVP[yarn.app.mapreduce.am.staging-dir]" value="/tmp"/>
+</DataSource>
+</DataSources>
+<Operator X="276" Y="46" name="Resampling - Balance Exact" type="com.alpine.miner.gef.runoperator.plugin10.Plugin10Operator" uuid="1485815665815">
+<Note/>
+<Plugin10Proxy>
+<SignatureClassName name="com.alpine.plugin.transformations.Resample.ResampleSignature"/>
+</Plugin10Proxy>
+<OperatorDialog dataSourceSelectionEnabled="true" label="main">
+<TabularDatasetColumnDropdownBoxImpl id="class" label="Column to Resample" selectionGroupId="" sourceOperatorUUID="1485815754288">
+<AvailableValues>
+<Value value="Class"/>
+</AvailableValues>
+<SelectedValue value="Class"/>
+<ColumnFilter>
+<AcceptedNameRegex regex=".+"/>
+<AcceptedType type="String"/>
+<AcceptedType type="Int"/>
+<AcceptedType type="Long"/>
+</ColumnFilter>
+</TabularDatasetColumnDropdownBoxImpl>
+<RadioButtonsImpl id="balanceAllSelect" label="Balance All Values in Selected Column">
+<AvailableValues>
+<Value value="Yes"/>
+<Value value="No"/>
+</AvailableValues>
+<SelectedValue value="Yes"/>
+</RadioButtonsImpl>
+<StringBoxImpl id="classKey" isLarge="false" isRequired="false" label="Single Value from Selected Column for Resampling" regex=".*" value=""/>
+<DoubleBoxImpl id="fraction" inclusiveMax="true" inclusiveMin="false" label="Multiplier for Up-Sampling or Down-Sampling" max="2.147483647E9" min="0.0" value="1.0"/>
+<RadioButtonsImpl id="replacementSelect" label="Sample with Replacement">
+<AvailableValues>
+<Value value="Yes"/>
+<Value value="No"/>
+</AvailableValues>
+<SelectedValue value="Yes"/>
+</RadioButtonsImpl>
+<RadioButtonsImpl id="exact" label="Exact (Slower)">
+<AvailableValues>
+<Value value="Yes"/>
+<Value value="No"/>
+</AvailableValues>
+<SelectedValue value="Yes"/>
+</RadioButtonsImpl>
+<RadioButtonsImpl id="userSeedSelect" label="Use Random Seed">
+<AvailableValues>
+<Value value="Yes"/>
+<Value value="No"/>
+</AvailableValues>
+<SelectedValue value="No"/>
+</RadioButtonsImpl>
+<IntegerBoxImpl id="randomSeed" label="Random Seed" max="2147483647" min="-2147483648" value="0"/>
+<DropdownBoxImpl id="badData" label="Write Rows Removed Due to Null Data To File">
+<AvailableValues>
+<Value value="Do Not Write Null Rows to File"/>
+<Value value="Write Up to 1000 Null Rows to File"/>
+<Value value="Write All Null Rows to File"/>
+<Value value="Do Not Write or Count Null Rows (Fastest)"/>
+</AvailableValues>
+<SelectedValue value="Do Not Write Null Rows to File"/>
+</DropdownBoxImpl>
+<DropdownBoxImpl id="storageFormat" label="Storage Format">
+<AvailableValues>
+<Value value="Parquet"/>
+<Value value="Avro"/>
+<Value value="CSV"/>
+</AvailableValues>
+<SelectedValue value="CSV"/>
+</DropdownBoxImpl>
+<HdfsFileSelectorImpl id="outputDirectory" isDirectorySelector="true" isRequired="true" label="Output Directory" selectedPath="@default_tempdir/alpine_out/@user_name/@flow_name"/>
+<StringBoxImpl id="outputName" isLarge="false" isRequired="true" label="Output Name" regex=".+" value="@operator_name_uuid"/>
+<RadioButtonsImpl id="overwrite" label="Overwrite Output">
+<AvailableValues>
+<Value value="true"/>
+<Value value="false"/>
+</AvailableValues>
+<SelectedValue value="true"/>
+</RadioButtonsImpl>
+</OperatorDialog>
+<OperatorDataSourceManager runtimeDataSourceName="AWS-CDH57"/>
+<InPutFieldList>
+<Parameter key="groupName" value="hadoop"/>
+<Parameter key="jobPort" value="8032"/>
+<Parameter key="schedulerPort" value="8030"/>
+<Parameter key="hdfsPort" value="8020"/>
+<Parameter key="ALP_HD_KVP[yarn.resourcemanager.admin.address]" value="awscdh57singlenode.alpinenow.local:8033"/>
+<Parameter key="ALP_HD_KVP[mapreduce.jobhistory.webapp.address]" value="awscdh57singlenode.alpinenow.local:19888"/>
+<Parameter key="hdfsHostname" value="awscdh57singlenode.alpinenow.local"/>
+<Parameter key="ALP_HD_KVP[yarn.resourcemanager.scheduler.address]" value="awscdh57singlenode.alpinenow.local:8030"/>
+<Parameter key="useHA" value="false"/>
+<Parameter key="schedulerHost" value="awscdh57singlenode.alpinenow.local"/>
+<Parameter key="ALP_HD_KVP[yarn.resourcemanager.resource-tracker.address]" value="awscdh57singlenode.alpinenow.local:8031"/>
+<Parameter key="ALP_HD_KVP[mapreduce.jobhistory.address]" value="awscdh57singlenode.alpinenow.local:10020"/>
+<Parameter key="mapredPrincipal" value=""/>
+<Parameter key="jobHostname" value="awscdh57singlenode.alpinenow.local"/>
+<Parameter key="hadoopVersion" value="Cloudera CDH5.4-5.7"/>
+<Parameter key="ALP_HD_KVP[yarn.app.mapreduce.am.staging-dir]" value="/tmp"/>
+<Parameter key="ALP_HD_KVP[alpine.hadoopuser.enabled]" value="false"/>
+<Parameter key="connName" value="AWS-CDH57"/>
+<Parameter key="userName" value="yarn"/>
+<Parameter key="securityMode" value="simple"/>
+<Parameter key="hdfsPrincipal" value=""/>
+<Parameter key="hdfsKeyTab" value=""/>
+<Parameter key="mapredKeyTab" value=""/>
+</InPutFieldList>
+</Operator>
+<Operator X="138" Y="99" name="wine.csv" type="com.alpine.miner.gef.runoperator.hadoop.HadoopFileOperator" uuid="1485815754288">
+<Note/>
+<Parameter key="connName" value="AWS-CDH57"/>
+<Parameter key="hadoopFileName" value="/user/tjbay/wine.csv"/>
+<Parameter key="hadoopFileFormat" value="Text File"/>
+<HadoopFileStructureModel delimiter="Comma" escapChar="\" includeHeader="true" other="" quoteChar="&quot;">
+<col n="Class" t="long"/>
+<col n="Alcohol" t="double"/>
+<col n="Malic_acid" t="double"/>
+<col n="Ash" t="double"/>
+<col n="Alcalinity_ash" t="double"/>
+<col n="Magnesium" t="long"/>
+<col n="Total_phenols" t="double"/>
+<col n="Flavanoids" t="double"/>
+<col n="Nonflavanoid_phenols" t="double"/>
+<col n="Proanthocyanins" t="double"/>
+<col n="Color_intensity" t="double"/>
+<col n="Hue" t="double"/>
+<col n="OD280_OD315" t="double"/>
+<col n="Proline" t="long"/>
+</HadoopFileStructureModel>
+<InPutFieldList>
+<Parameter key="connName" value="AWS-CDH57"/>
+<Parameter key="hadoopCompressionFormat" value=""/>
+<Parameter key="hadoopFileName" value="/user/tjbay/wine.csv"/>
+</InPutFieldList>
+</Operator>
+<Operator X="279" Y="161" name="Resampling - Oversample Class 1 by 2.5x" type="com.alpine.miner.gef.runoperator.plugin10.Plugin10Operator" uuid="1485815806970_0">
+<Note/>
+<Plugin10Proxy>
+<SignatureClassName name="com.alpine.plugin.transformations.Resample.ResampleSignature"/>
+</Plugin10Proxy>
+<OperatorDialog dataSourceSelectionEnabled="true" label="main">
+<TabularDatasetColumnDropdownBoxImpl id="class" label="Column to Resample" selectionGroupId="" sourceOperatorUUID="1485815754288">
+<AvailableValues>
+<Value value="Class"/>
+</AvailableValues>
+<SelectedValue value="Class"/>
+<ColumnFilter>
+<AcceptedNameRegex regex=".+"/>
+<AcceptedType type="String"/>
+<AcceptedType type="Int"/>
+<AcceptedType type="Long"/>
+</ColumnFilter>
+</TabularDatasetColumnDropdownBoxImpl>
+<RadioButtonsImpl id="balanceAllSelect" label="Balance All Values in Selected Column">
+<AvailableValues>
+<Value value="Yes"/>
+<Value value="No"/>
+</AvailableValues>
+<SelectedValue value="No"/>
+</RadioButtonsImpl>
+<StringBoxImpl id="classKey" isLarge="false" isRequired="false" label="Single Value from Selected Column for Resampling" regex=".*" value="1"/>
+<DoubleBoxImpl id="fraction" inclusiveMax="true" inclusiveMin="false" label="Multiplier for Up-Sampling or Down-Sampling" max="2.147483647E9" min="0.0" value="2.5"/>
+<RadioButtonsImpl id="replacementSelect" label="Sample with Replacement">
+<AvailableValues>
+<Value value="Yes"/>
+<Value value="No"/>
+</AvailableValues>
+<SelectedValue value="Yes"/>
+</RadioButtonsImpl>
+<RadioButtonsImpl id="exact" label="Exact (Slower)">
+<AvailableValues>
+<Value value="Yes"/>
+<Value value="No"/>
+</AvailableValues>
+<SelectedValue value="No"/>
+</RadioButtonsImpl>
+<RadioButtonsImpl id="userSeedSelect" label="Use Random Seed">
+<AvailableValues>
+<Value value="Yes"/>
+<Value value="No"/>
+</AvailableValues>
+<SelectedValue value="No"/>
+</RadioButtonsImpl>
+<IntegerBoxImpl id="randomSeed" label="Random Seed" max="2147483647" min="-2147483648" value="0"/>
+<DropdownBoxImpl id="badData" label="Write Rows Removed Due to Null Data To File">
+<AvailableValues>
+<Value value="Do Not Write Null Rows to File"/>
+<Value value="Write Up to 1000 Null Rows to File"/>
+<Value value="Write All Null Rows to File"/>
+<Value value="Do Not Write or Count Null Rows (Fastest)"/>
+</AvailableValues>
+<SelectedValue value="Do Not Write Null Rows to File"/>
+</DropdownBoxImpl>
+<DropdownBoxImpl id="storageFormat" label="Storage Format">
+<AvailableValues>
+<Value value="Parquet"/>
+<Value value="Avro"/>
+<Value value="CSV"/>
+</AvailableValues>
+<SelectedValue value="CSV"/>
+</DropdownBoxImpl>
+<HdfsFileSelectorImpl id="outputDirectory" isDirectorySelector="true" isRequired="true" label="Output Directory" selectedPath="@default_tempdir/alpine_out/@user_name/@flow_name"/>
+<StringBoxImpl id="outputName" isLarge="false" isRequired="true" label="Output Name" regex=".+" value="@operator_name_uuid"/>
+<RadioButtonsImpl id="overwrite" label="Overwrite Output">
+<AvailableValues>
+<Value value="true"/>
+<Value value="false"/>
+</AvailableValues>
+<SelectedValue value="true"/>
+</RadioButtonsImpl>
+</OperatorDialog>
+<OperatorDataSourceManager runtimeDataSourceName="AWS-CDH57"/>
+<InPutFieldList>
+<Parameter key="groupName" value="hadoop"/>
+<Parameter key="jobPort" value="8032"/>
+<Parameter key="schedulerPort" value="8030"/>
+<Parameter key="hdfsPort" value="8020"/>
+<Parameter key="ALP_HD_KVP[yarn.resourcemanager.admin.address]" value="awscdh57singlenode.alpinenow.local:8033"/>
+<Parameter key="ALP_HD_KVP[mapreduce.jobhistory.webapp.address]" value="awscdh57singlenode.alpinenow.local:19888"/>
+<Parameter key="hdfsHostname" value="awscdh57singlenode.alpinenow.local"/>
+<Parameter key="ALP_HD_KVP[yarn.resourcemanager.scheduler.address]" value="awscdh57singlenode.alpinenow.local:8030"/>
+<Parameter key="useHA" value="false"/>
+<Parameter key="schedulerHost" value="awscdh57singlenode.alpinenow.local"/>
+<Parameter key="ALP_HD_KVP[yarn.resourcemanager.resource-tracker.address]" value="awscdh57singlenode.alpinenow.local:8031"/>
+<Parameter key="ALP_HD_KVP[mapreduce.jobhistory.address]" value="awscdh57singlenode.alpinenow.local:10020"/>
+<Parameter key="mapredPrincipal" value=""/>
+<Parameter key="jobHostname" value="awscdh57singlenode.alpinenow.local"/>
+<Parameter key="hadoopVersion" value="Cloudera CDH5.4-5.7"/>
+<Parameter key="ALP_HD_KVP[yarn.app.mapreduce.am.staging-dir]" value="/tmp"/>
+<Parameter key="ALP_HD_KVP[alpine.hadoopuser.enabled]" value="false"/>
+<Parameter key="connName" value="AWS-CDH57"/>
+<Parameter key="userName" value="yarn"/>
+<Parameter key="securityMode" value="simple"/>
+<Parameter key="hdfsPrincipal" value=""/>
+<Parameter key="hdfsKeyTab" value=""/>
+<Parameter key="mapredKeyTab" value=""/>
+</InPutFieldList>
+</Operator>
+<Operator X="140" Y="256" name="Aggregation" type="com.alpine.miner.gef.runoperator.hadoop.HadoopAggregateOperator" uuid="1485815869118">
+<Note/>
+<Parameter key="storeResults" value="false"/>
+<Parameter key="resultsLocation" value="/tmp/alpine_out/@user_name/@flow_name"/>
+<Parameter key="resultsName" value="agg_0"/>
+<Parameter key="override" value="Yes"/>
+<Parameter key="hiveResultDatabase" value="@default_schema"/>
+<Parameter key="hiveResultTableName" value="alp@user_id_@flow_id_agg_0"/>
+<Parameter key="dropIfExist" value="Yes"/>
+<AggregateFieldsModel>
+<groupBy columnName="Class"/>
+<AggregateField aggregateType="COUNT" columnName="COUNT_Class" dataType="long" expression="COUNT(Class)"/>
+</AggregateFieldsModel>
+<InPutFieldList>
+<Parameter key="connName" value="AWS-CDH57"/>
+<Parameter key="hadoopCompressionFormat" value=""/>
+<Parameter key="hadoopFileName" value="/user/tjbay/wine.csv"/>
+</InPutFieldList>
+</Operator>
+<Operator X="450" Y="44" name="Aggregation 1" type="com.alpine.miner.gef.runoperator.hadoop.HadoopAggregateOperator" uuid="1485816021235_0">
+<Note/>
+<Parameter key="storeResults" value="false"/>
+<Parameter key="resultsLocation" value="/tmp/alpine_out/@user_name/@flow_name"/>
+<Parameter key="resultsName" value="agg_1"/>
+<Parameter key="override" value="Yes"/>
+<Parameter key="hiveResultDatabase" value="@default_schema"/>
+<Parameter key="hiveResultTableName" value="alp@user_id_@flow_id_agg_1"/>
+<Parameter key="dropIfExist" value="Yes"/>
+<AggregateFieldsModel>
+<groupBy columnName="Class"/>
+<AggregateField aggregateType="COUNT" columnName="COUNT_Class" dataType="long" expression="COUNT(Class)"/>
+</AggregateFieldsModel>
+<InPutFieldList>
+<Parameter key="connName" value="AWS-CDH57"/>
+<Parameter key="hadoopCompressionFormat" value=""/>
+<Parameter key="hadoopFileName" value="/1485815665815"/>
+</InPutFieldList>
+</Operator>
+<Operator X="452" Y="163" name="Aggregation 2" type="com.alpine.miner.gef.runoperator.hadoop.HadoopAggregateOperator" uuid="1485816027106_0">
+<Note/>
+<Parameter key="storeResults" value="false"/>
+<Parameter key="resultsLocation" value="/tmp/alpine_out/@user_name/@flow_name"/>
+<Parameter key="resultsName" value="agg_2"/>
+<Parameter key="override" value="Yes"/>
+<Parameter key="hiveResultDatabase" value="@default_schema"/>
+<Parameter key="hiveResultTableName" value="alp@user_id_@flow_id_agg_2"/>
+<Parameter key="dropIfExist" value="Yes"/>
+<AggregateFieldsModel>
+<groupBy columnName="Class"/>
+<AggregateField aggregateType="COUNT" columnName="COUNT_Class" dataType="long" expression="COUNT(Class)"/>
+</AggregateFieldsModel>
+<InPutFieldList>
+<Parameter key="connName" value="AWS-CDH57"/>
+<Parameter key="hadoopCompressionFormat" value=""/>
+<Parameter key="hadoopFileName" value="/1485815806970_0"/>
+</InPutFieldList>
+</Operator>
+<Link source="wine.csv" target="Resampling - Balance Exact"/>
+<Link source="wine.csv" target="Resampling - Oversample Class 1 by 2.5x"/>
+<Link source="wine.csv" target="Aggregation"/>
+<Link source="Resampling - Balance Exact" target="Aggregation 1"/>
+<Link source="Resampling - Oversample Class 1 by 2.5x" target="Aggregation 2"/>
+<VariableModel>
+<Variable>
+<Name>@flow_name</Name>
+<Value>@flow_name</Value>
+</Variable>
+<Variable>
+<Name>@user_name</Name>
+<Value>@user_name</Value>
+</Variable>
+<Variable>
+<Name>@user_id</Name>
+<Value>@user_id</Value>
+</Variable>
+<Variable>
+<Name>@flow_id</Name>
+<Value>@flow_id</Value>
+</Variable>
+<Variable>
+<Name>@default_schema</Name>
+<Value>public</Value>
+</Variable>
+<Variable>
+<Name>@default_prefix</Name>
+<Value>ch7</Value>
+</Variable>
+<Variable>
+<Name>@default_tempdir</Name>
+<Value>/tmp</Value>
+</Variable>
+<Variable>
+<Name>@default_delimiter</Name>
+<Value>,</Value>
+</Variable>
+<Variable>
+<Name>@pig_number_of_reducers</Name>
+<Value>-1</Value>
+</Variable>
+</VariableModel>
+</Process>
