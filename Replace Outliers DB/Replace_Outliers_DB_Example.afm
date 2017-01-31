@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Process Description="" UserName="5" Version="6.3.0.0">
+<DataSources>
+<DataSource name="miner_demo" type="Database">
+<Parameter key="dbConnectionName" value="miner_demo"/>
+<Parameter key="url" value="jdbc:postgresql://10.10.0.151:5432/miner_demo"/>
+<Parameter key="userName" value="miner_demo"/>
+<Parameter key="useSSL" value="false"/>
+<Parameter key="password" value="bWluZXJfZGVtbw=="/>
+<Parameter key="system" value="Greenplum"/>
+</DataSource>
+</DataSources>
+<Operator X="244" Y="90" name="Replace Outliers (DB)" type="com.alpine.miner.gef.runoperator.plugin10.Plugin10Operator" uuid="1485832057103">
+<Note/>
+<Plugin10Proxy>
+<SignatureClassName name="com.alpine.plugin.transformations.replaceOutliers.ReplaceOutliersDBSignature"/>
+</Plugin10Proxy>
+<OperatorDialog dataSourceSelectionEnabled="true" label="main">
+<TabularDatasetColumnCheckboxesImpl id="cols" label="Columns" selectionGroupId="" sourceOperatorUUID="1485832137954">
+<AvailableValues>
+<Value value="debt_ratio"/>
+<Value value="monthly_income"/>
+</AvailableValues>
+<SelectedValues>
+<Value value="debt_ratio"/>
+<Value value="monthly_income"/>
+</SelectedValues>
+<ColumnFilter>
+<AcceptedNameRegex regex=".+"/>
+<AcceptedType type="Int"/>
+<AcceptedType type="Long"/>
+<AcceptedType type="Float"/>
+<AcceptedType type="Double"/>
+</ColumnFilter>
+</TabularDatasetColumnCheckboxesImpl>
+<DoubleBoxImpl id="lower" inclusiveMax="true" inclusiveMin="true" label="Lower Boundary (%)" max="100.0" min="0.0" value="1.0"/>
+<DoubleBoxImpl id="upper" inclusiveMax="true" inclusiveMin="true" label="Upper Boundary (%)" max="100.0" min="0.0" value="99.0"/>
+<RadioButtonsImpl id="viewOrTable" label="Output Type">
+<AvailableValues>
+<Value value="TABLE"/>
+<Value value="VIEW"/>
+</AvailableValues>
+<SelectedValue value="TABLE"/>
+</RadioButtonsImpl>
+<DBSchemaDropdownBoxImpl id="outputSchema" label="Output Schema">
+<AvailableValues>
+<Value value="@default_schema"/>
+</AvailableValues>
+<SelectedValue value="@default_schema"/>
+</DBSchemaDropdownBoxImpl>
+<StringBoxImpl id="resultTableName" isLarge="false" isRequired="true" label="Output Table" regex=".+" value="alp@user_id_@flow_id_@operator_name_uuid"/>
+<RadioButtonsImpl id="dropIfExist" label="Drop If Exists">
+<AvailableValues>
+<Value value="Yes"/>
+<Value value="No"/>
+</AvailableValues>
+<SelectedValue value="Yes"/>
+</RadioButtonsImpl>
+</OperatorDialog>
+<OperatorDataSourceManager runtimeDataSourceName="miner_demo"/>
+<InPutFieldList id="1485832137954">
+<Parameter key="schema" value="demo"/>
+<Parameter key="table" value="credit"/>
+<Parameter key="tableType" value="TABLE"/>
+<Parameter key="dbConnectionName" value="miner_demo"/>
+<Fields>
+<Field name="id" type="BIGINT"/>
+<Field name="times90dayslate" type="INTEGER"/>
+<Field name="revolving_util" type="NUMERIC"/>
+<Field name="debt_ratio" type="NUMERIC"/>
+<Field name="credit_lines" type="INTEGER"/>
+<Field name="monthly_income" type="NUMERIC"/>
+<Field name="times30dayslate_2years" type="INTEGER"/>
+<Field name="srsdlqncy" type="INTEGER"/>
+</Fields>
+</InPutFieldList>
+<Parameter key="dbConnectionName" value="miner_demo"/>
+</Operator>
+<Operator X="83" Y="79" name="credit" type="com.alpine.miner.gef.runoperator.datasource.DbTableOperator" uuid="1485832137954">
+<Note/>
+<Parameter key="dbConnectionName" value="miner_demo"/>
+<Parameter key="schemaName" value="demo"/>
+<Parameter key="tableName" value="credit"/>
+</Operator>
+<Operator X="427" Y="87" name="Column Filter" type="com.alpine.miner.gef.runoperator.field.ColumnFilterOperator" uuid="1485832162384">
+<Note/>
+<Parameter key="columnNames" value="id,times90dayslate,debt_ratio,monthly_income,times30dayslate_2years,srsdlqncy"/>
+<Parameter key="outputType" value="TABLE"/>
+<Parameter key="outputSchema" value="@default_schema"/>
+<Parameter key="outputTable" value="alp@user_id_@flow_id_colfil_0"/>
+<StorageParameters appendOnly="false" columnarStorage="false" compression="false" compressionLevel="1" isDistributedRandomly="true"/>
+<Parameter key="dropIfExist" value="Yes"/>
+<InPutFieldList id="1485832057103">
+<Parameter key="schema" value="unknown"/>
+<Parameter key="table" value="1485832057103"/>
+<Parameter key="tableType" value="VIEW"/>
+<Parameter key="dbConnectionName" value="miner_demo"/>
+<Fields>
+<Field name="id" type="Int"/>
+<Field name="times90dayslate" type="Int"/>
+<Field name="revolving_util" type="Double"/>
+<Field name="debt_ratio" type="Double"/>
+<Field name="credit_lines" type="Int"/>
+<Field name="monthly_income" type="Double"/>
+<Field name="times30dayslate_2years" type="Int"/>
+<Field name="srsdlqncy" type="Int"/>
+</Fields>
+</InPutFieldList>
+</Operator>
+<Link source="credit" target="Replace Outliers (DB)"/>
+<Link source="Replace Outliers (DB)" target="Column Filter"/>
+<VariableModel>
+<Variable>
+<Name>@flow_name</Name>
+<Value>@flow_name</Value>
+</Variable>
+<Variable>
+<Name>@user_name</Name>
+<Value>@user_name</Value>
+</Variable>
+<Variable>
+<Name>@user_id</Name>
+<Value>@user_id</Value>
+</Variable>
+<Variable>
+<Name>@flow_id</Name>
+<Value>@flow_id</Value>
+</Variable>
+<Variable>
+<Name>@default_schema</Name>
+<Value>public</Value>
+</Variable>
+<Variable>
+<Name>@default_prefix</Name>
+<Value>ch5</Value>
+</Variable>
+<Variable>
+<Name>@default_tempdir</Name>
+<Value>/tmp</Value>
+</Variable>
+<Variable>
+<Name>@default_delimiter</Name>
+<Value>,</Value>
+</Variable>
+<Variable>
+<Name>@pig_number_of_reducers</Name>
+<Value>-1</Value>
+</Variable>
+</VariableModel>
+</Process>
