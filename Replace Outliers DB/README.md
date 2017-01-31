@@ -1,0 +1,1 @@
+The *Replace Outliers DB* operator is DB Transformation operator that identifies values outside a specified percentile in a dataset and replaces them with the maximum or minimum value within that range.
