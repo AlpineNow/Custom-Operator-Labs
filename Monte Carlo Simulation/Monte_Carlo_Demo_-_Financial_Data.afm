@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Process Description="" UserName="94" Version="6.1.1.0">
+<DataSources>
+<DataSource name="Cloudera CDH5 with Spark" type="Hadoop">
+<Parameter key="connName" value="Cloudera CDH5 with Spark"/>
+<Parameter key="hdfsHostname" value="sdn-cdh5-nn.alpinedemo.com"/>
+<Parameter key="hdfsPort" value="8020"/>
+<Parameter key="hadoopVersion" value="Cloudera CDH5.4-5.7"/>
+<Parameter key="jobHostname" value="sdn-cdh5-nn.alpinedemo.com"/>
+<Parameter key="jobPort" value="8032"/>
+<Parameter key="userName" value="hdfs"/>
+<Parameter key="useHA" value="false"/>
+<Parameter key="groupName" value="supergroup"/>
+<Parameter key="securityMode" value="simple"/>
+<Parameter key="hdfsPrincipal" value=""/>
+<Parameter key="hdfsKeyTab" value=""/>
+<Parameter key="mapredPrincipal" value=""/>
+<Parameter key="mapredKeyTab" value=""/>
+<Parameter key="schedulerHost" value="sdn-cdh5-nn.alpinedemo.com"/>
+<Parameter key="schedulerPort" value="8030"/>
+<Parameter key="ALP_HD_KVP[mapreduce.jobhistory.address]" value="sdn-cdh5-nn.alpinedemo.com:10020"/>
+<Parameter key="ALP_HD_KVP[mapreduce.reduce.java.opts]" value="-Xmx7000m"/>
+<Parameter key="ALP_HD_KVP[mapreduce.map.memory.mb]" value="8000"/>
+<Parameter key="ALP_HD_KVP[mapreduce.jobhistory.webapp.address]" value="sdn-cdh5-nn.alpinedemo.com:19888"/>
+<Parameter key="ALP_HD_KVP[yarn.resourcemanager.scheduler.address]" value="sdn-cdh5-nn.alpinedemo.com:8030"/>
+<Parameter key="ALP_HD_KVP[alpine.hadoopuser.enabled]" value="false"/>
+<Parameter key="ALP_HD_KVP[yarn.resourcemanager.admin.address]" value="sdn-cdh5-nn.alpinedemo.com:8033"/>
+<Parameter key="ALP_HD_KVP[yarn.resourcemanager.hostname]" value="sdn-cdh5-nn.alpinedemo.com"/>
+<Parameter key="ALP_HD_KVP[mapred.child.java.opts]" value="-Xmx2048m"/>
+<Parameter key="ALP_HD_KVP[mapreduce.map.java.opts]" value="-Xmx7000m"/>
+<Parameter key="ALP_HD_KVP[yarn.resourcemanager.resource-tracker.address]" value="sdn-cdh5-nn.alpinedemo.com:8031"/>
+<Parameter key="ALP_HD_KVP[mapreduce.task.io.sort.mb]" value="1024"/>
+<Parameter key="ALP_HD_KVP[mapreduce.reduce.memory.mb]" value="8000"/>
+<Parameter key="ALP_HD_KVP[dfs.client.use.datanode.hostname]" value="true"/>
+<Parameter key="ALP_HD_KVP[yarn.app.mapreduce.am.staging-dir]" value="/user"/>
+</DataSource>
+</DataSources>
+<Operator X="447" Y="60" name="Monte Carlo Simulation" type="com.alpine.miner.gef.runoperator.plugin10.Plugin10Operator" uuid="1485551454636">
+<Note/>
+<Plugin10Proxy>
+<SignatureClassName name="com.alpine.plugin.sampling.montecarlo.MonteCarloSignature"/>
+</Plugin10Proxy>
+<OperatorDialog dataSourceSelectionEnabled="true" label="main">
+<TabularDatasetColumnCheckboxesImpl id="columnsGaussian" label="Columns to fit Gaussian distribution" selectionGroupId="main" sourceOperatorUUID="1485898786965">
+<AvailableValues>
+<Value value="rtn_SP500"/>
+</AvailableValues>
+<SelectedValues>
+<Value value="rtn_SP500"/>
+</SelectedValues>
+<ColumnFilter>
+<AcceptedNameRegex regex=".+"/>
+<AcceptedType type="Int"/>
+<AcceptedType type="Long"/>
+<AcceptedType type="Float"/>
+<AcceptedType type="Double"/>
+</ColumnFilter>
+</TabularDatasetColumnCheckboxesImpl>
+<TabularDatasetColumnCheckboxesImpl id="columnsPoisson" label="Columns to fit Poisson distribution" selectionGroupId="main" sourceOperatorUUID="1485898786965">
+<AvailableValues/>
+<SelectedValues/>
+<ColumnFilter>
+<AcceptedNameRegex regex=".+"/>
+<AcceptedType type="Int"/>
+<AcceptedType type="Long"/>
+<AcceptedType type="Float"/>
+<AcceptedType type="Double"/>
+</ColumnFilter>
+</TabularDatasetColumnCheckboxesImpl>
+<TabularDatasetColumnCheckboxesImpl id="columnsEmpirical" label="Columns to fit empirical distribution" selectionGroupId="main" sourceOperatorUUID="1485898786965">
+<AvailableValues/>
+<SelectedValues/>
+<ColumnFilter>
+<AcceptedNameRegex regex=".+"/>
+<AcceptedType type="Int"/>
+<AcceptedType type="Long"/>
+<AcceptedType type="Float"/>
+<AcceptedType type="Double"/>
+</ColumnFilter>
+</TabularDatasetColumnCheckboxesImpl>
+<TabularDatasetColumnCheckboxesImpl id="columnsWeibull" label="Columns to fit Weibull distribution" selectionGroupId="main" sourceOperatorUUID="1485898786965">
+<AvailableValues/>
+<SelectedValues/>
+<ColumnFilter>
+<AcceptedNameRegex regex=".+"/>
+<AcceptedType type="Int"/>
+<AcceptedType type="Long"/>
+<AcceptedType type="Float"/>
+<AcceptedType type="Double"/>
+</ColumnFilter>
+</TabularDatasetColumnCheckboxesImpl>
+<IntegerBoxImpl id="numberOfSamples" label="Number of samples to draw" max="2147483647" min="1" value="100"/>
+<DropdownBoxImpl id="storageFormat" label="Storage Format">
+<AvailableValues>
+<Value value="Parquet"/>
+<Value value="Avro"/>
+<Value value="CSV"/>
+</AvailableValues>
+<SelectedValue value="CSV"/>
+</DropdownBoxImpl>
+<HdfsFileSelectorImpl id="outputDirectory" isDirectorySelector="true" label="Output Directory" selectedPath="@default_tempdir/alpine_out/@user_name/@flow_name"/>
+<StringBoxImpl id="outputName" isLarge="false" isRequired="true" label="Output Name" regex=".+" value="@operator_name_uuid"/>
+<RadioButtonsImpl id="overwrite" label="Overwrite Output">
+<AvailableValues>
+<Value value="true"/>
+<Value value="false"/>
+</AvailableValues>
+<SelectedValue value="true"/>
+</RadioButtonsImpl>
+</OperatorDialog>
+<OperatorDataSourceManager runtimeDataSourceName="Cloudera CDH5 with Spark"/>
+<InPutFieldList>
+<Parameter key="ALP_HD_KVP[mapreduce.map.java.opts]" value="-Xmx7000m"/>
+<Parameter key="groupName" value="supergroup"/>
+<Parameter key="jobPort" value="8032"/>
+<Parameter key="schedulerPort" value="8030"/>
+<Parameter key="hdfsHostname" value="sdn-cdh5-nn.alpinedemo.com"/>
+<Parameter key="ALP_HD_KVP[yarn.resourcemanager.scheduler.address]" value="sdn-cdh5-nn.alpinedemo.com:8030"/>
+<Parameter key="ALP_HD_KVP[yarn.resourcemanager.hostname]" value="sdn-cdh5-nn.alpinedemo.com"/>
+<Parameter key="ALP_HD_KVP[yarn.resourcemanager.resource-tracker.address]" value="sdn-cdh5-nn.alpinedemo.com:8031"/>
+<Parameter key="ALP_HD_KVP[mapred.child.java.opts]" value="-Xmx2048m"/>
+<Parameter key="hadoopVersion" value="Cloudera CDH5.4-5.7"/>
+<Parameter key="ALP_HD_KVP[mapreduce.reduce.java.opts]" value="-Xmx7000m"/>
+<Parameter key="ALP_HD_KVP[mapreduce.task.io.sort.mb]" value="1024"/>
+<Parameter key="connName" value="Cloudera CDH5 with Spark"/>
+<Parameter key="securityMode" value="simple"/>
+<Parameter key="userName" value="hdfs"/>
+<Parameter key="hdfsPort" value="8020"/>
+<Parameter key="ALP_HD_KVP[mapreduce.jobhistory.webapp.address]" value="sdn-cdh5-nn.alpinedemo.com:19888"/>
+<Parameter key="ALP_HD_KVP[yarn.resourcemanager.admin.address]" value="sdn-cdh5-nn.alpinedemo.com:8033"/>
+<Parameter key="useHA" value="false"/>
+<Parameter key="schedulerHost" value="sdn-cdh5-nn.alpinedemo.com"/>
+<Parameter key="mapredPrincipal" value=""/>
+<Parameter key="ALP_HD_KVP[mapreduce.jobhistory.address]" value="sdn-cdh5-nn.alpinedemo.com:10020"/>
+<Parameter key="ALP_HD_KVP[mapreduce.map.memory.mb]" value="8000"/>
+<Parameter key="jobHostname" value="sdn-cdh5-nn.alpinedemo.com"/>
+<Parameter key="ALP_HD_KVP[yarn.app.mapreduce.am.staging-dir]" value="/user"/>
+<Parameter key="ALP_HD_KVP[alpine.hadoopuser.enabled]" value="false"/>
+<Parameter key="hdfsKeyTab" value=""/>
+<Parameter key="hdfsPrincipal" value=""/>
+<Parameter key="mapredKeyTab" value=""/>
+<Parameter key="ALP_HD_KVP[dfs.client.use.datanode.hostname]" value="true"/>
+<Parameter key="ALP_HD_KVP[mapreduce.reduce.memory.mb]" value="8000"/>
+</InPutFieldList>
+</Operator>
+<Operator X="242" Y="58" name="Compute Historical Returns" type="com.alpine.miner.gef.runoperator.hadoop.HadoopVariableOperator" uuid="1485898786965">
+<Note/>
+<Parameter key="columnNames" value="Date"/>
+<Parameter key="storeResults" value="false"/>
+<Parameter key="resultsLocation" value="/tmp/alpine_out/@user_name/@flow_name"/>
+<Parameter key="resultsName" value="var_0"/>
+<Parameter key="override" value="Yes"/>
+<Parameter key="hiveResultDatabase" value="@default_schema"/>
+<Parameter key="hiveResultTableName" value="alp@user_id_@flow_id_var_0"/>
+<Parameter key="dropIfExist" value="Yes"/>
+<QuantileModel useApproximation=""/>
+<DerivedFieldsModel>
+<DerivedFieldItem columnName="rtn_SP500" dataType="double" expression="LOG(Settle/Open)" multiVarColumn="" multiVarFormat="" multiVarReplacementExpression="LOG(Settle/Open)" multiVarReturnColumns=""/>
+</DerivedFieldsModel>
+<InPutFieldList>
+<Parameter key="connName" value="Cloudera CDH5 with Spark"/>
+<Parameter key="hadoopCompressionFormat" value=""/>
+<Parameter key="hadoopFileName" value="/public_datasets/S_P_500_Futures_Data"/>
+<HadoopFileStructureModel delimiter="Comma" escapChar="\" includeHeader="true" other="" quoteChar="&quot;">
+<columnNames columnName="Date"/>
+<columnNames columnName="Open"/>
+<columnNames columnName="High"/>
+<columnNames columnName="Low"/>
+<columnNames columnName="Last"/>
+<columnNames columnName="Change"/>
+<columnNames columnName="Settle"/>
+<columnNames columnName="Volume"/>
+<columnNames columnName="Previous_Day_Open_Interest"/>
+<columnTypes columnType="chararray"/>
+<columnTypes columnType="double"/>
+<columnTypes columnType="double"/>
+<columnTypes columnType="double"/>
+<columnTypes columnType="double"/>
+<columnTypes columnType="double"/>
+<columnTypes columnType="double"/>
+<columnTypes columnType="double"/>
+<columnTypes columnType="double"/>
+</HadoopFileStructureModel>
+</InPutFieldList>
+</Operator>
+<Operator X="71" Y="56" name="Futures Data" type="com.alpine.miner.gef.runoperator.hadoop.HadoopFileOperator" uuid="1485900479703">
+<Note/>
+<Parameter key="connName" value="Cloudera CDH5 with Spark"/>
+<Parameter key="hadoopFileName" value="/public_datasets/S_P_500_Futures_Data"/>
+<Parameter key="hadoopFileFormat" value="Text File"/>
+<HadoopFileStructureModel delimiter="Comma" escapChar="\" includeHeader="true" other="" quoteChar="&quot;">
+<columnNames columnName="Date"/>
+<columnNames columnName="Open"/>
+<columnNames columnName="High"/>
+<columnNames columnName="Low"/>
+<columnNames columnName="Last"/>
+<columnNames columnName="Change"/>
+<columnNames columnName="Settle"/>
+<columnNames columnName="Volume"/>
+<columnNames columnName="Previous_Day_Open_Interest"/>
+<columnTypes columnType="chararray"/>
+<columnTypes columnType="double"/>
+<columnTypes columnType="double"/>
+<columnTypes columnType="double"/>
+<columnTypes columnType="double"/>
+<columnTypes columnType="double"/>
+<columnTypes columnType="double"/>
+<columnTypes columnType="double"/>
+<columnTypes columnType="double"/>
+</HadoopFileStructureModel>
+<InPutFieldList>
+<Parameter key="connName" value="Cloudera CDH5 with Spark"/>
+<Parameter key="hadoopCompressionFormat" value=""/>
+<Parameter key="hadoopFileName" value="/public_datasets/S_P_500_Futures_Data"/>
+<HadoopFileStructureModel delimiter="Comma" escapChar="\" includeHeader="true" other="" quoteChar="&quot;">
+<columnNames columnName="Date"/>
+<columnNames columnName="Open"/>
+<columnNames columnName="High"/>
+<columnNames columnName="Low"/>
+<columnNames columnName="Last"/>
+<columnNames columnName="Change"/>
+<columnNames columnName="Settle"/>
+<columnNames columnName="Volume"/>
+<columnNames columnName="Previous_Day_Open_Interest"/>
+<columnTypes columnType="chararray"/>
+<columnTypes columnType="double"/>
+<columnTypes columnType="double"/>
+<columnTypes columnType="double"/>
+<columnTypes columnType="double"/>
+<columnTypes columnType="double"/>
+<columnTypes columnType="double"/>
+<columnTypes columnType="double"/>
+<columnTypes columnType="double"/>
+</HadoopFileStructureModel>
+</InPutFieldList>
+</Operator>
+<Link source="Compute Historical Returns" target="Monte Carlo Simulation"/>
+<Link source="Futures Data" target="Compute Historical Returns"/>
+<VariableModel>
+<Variable>
+<Name>@flow_name</Name>
+<Value>@flow_name</Value>
+</Variable>
+<Variable>
+<Name>@user_name</Name>
+<Value>@user_name</Value>
+</Variable>
+<Variable>
+<Name>@user_id</Name>
+<Value>@user_id</Value>
+</Variable>
+<Variable>
+<Name>@flow_id</Name>
+<Value>@flow_id</Value>
+</Variable>
+<Variable>
+<Name>@default_schema</Name>
+<Value>public</Value>
+</Variable>
+<Variable>
+<Name>@default_prefix</Name>
+<Value>ch94</Value>
+</Variable>
+<Variable>
+<Name>@default_tempdir</Name>
+<Value>/tmp</Value>
+</Variable>
+<Variable>
+<Name>@default_delimiter</Name>
+<Value>,</Value>
+</Variable>
+<Variable>
+<Name>@pig_number_of_reducers</Name>
+<Value>4</Value>
+</Variable>
+</VariableModel>
+</Process>
