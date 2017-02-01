@@ -1,1 +1,3 @@
+Minimum Alpine Version: 6.2
+
 The *Association Rules* operator is Spark Modeling operator that applies the FP-Growth - Association Rules algorithm in order to find patterns that occur frequently within a dataset (e.g. frequent sets of items bought together in Market Basket Analysis). It identifies frequent itemsets and constructs strong rules - with a single item as the consequent - selected using measures of significance such as support, confidence and lift <i>(e.g:  If a customer buys a product A, he is 80% likely to also purchase product B). Association Rules are used in many areas such as shopping basket analysis, cross-marketing, product clustering, clickstream analysis or DNA sequence analyses.
