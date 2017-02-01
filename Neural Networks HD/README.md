@@ -1,3 +1,5 @@
+Minimum Alpine Version: 6.2
+
 The *Neural Networks* operator is Spark Modeling operator which trains a Neural Network Classification Model from MLLib MultiLayerPerceptronClassifier (feed forward back propagation).
 Training parameters are: layers, max iterations, tolerance, seed, blocksize. Optimizer is L-BGFS (quasi-Newton method), which tends to converge
 faster than SGD (stochastic gradient descent). Adaptive step size and regularization is included in L-BGFS optimizer.

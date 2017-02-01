@@ -1,3 +1,5 @@
+Minimum Alpine Version: 6.2
+
 The *Sessionization* operator is Spark Transformation operator that identifies sessions in time series-data (widely used in web analytics, predictive maintenance etc...)
 
 From an HDFS input with a timestamp column (and optional user ID column(s) and status column), it creates 2 additional columns "new_session" (1 or 0) and "session_id" for each user (if id columns are specified) or the whole input.
