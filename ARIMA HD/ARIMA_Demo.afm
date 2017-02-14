@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Process Description="" UserName="94" Version="6.2.0.0">
+<DataSources>
+<DataSource name="Greenplum" type="Database">
+<Parameter key="dbConnectionName" value="Greenplum"/>
+<Parameter key="url" value="jdbc:postgresql://50.18.119.74:5432/miner_demo"/>
+<Parameter key="userName" value="miner_demo"/>
+<Parameter key="useSSL" value="false"/>
+<Parameter key="password" value="bWluZXJfZGVtbw=="/>
+<Parameter key="system" value="PostgreSQL"/>
+</DataSource>
+<DataSource name="Cloudera CDH5 with Spark" type="Hadoop">
+<Parameter key="connName" value="Cloudera CDH5 with Spark"/>
+<Parameter key="hdfsHostname" value="sdn-cdh5-nn.alpinedemo.com"/>
+<Parameter key="hdfsPort" value="8020"/>
+<Parameter key="hadoopVersion" value="Cloudera CDH5.4-5.7"/>
+<Parameter key="jobHostname" value="sdn-cdh5-nn.alpinedemo.com"/>
+<Parameter key="jobPort" value="8032"/>
+<Parameter key="userName" value="hdfs"/>
+<Parameter key="useHA" value="false"/>
+<Parameter key="groupName" value="supergroup"/>
+<Parameter key="securityMode" value="simple"/>
+<Parameter key="hdfsPrincipal" value=""/>
+<Parameter key="hdfsKeyTab" value=""/>
+<Parameter key="mapredPrincipal" value=""/>
+<Parameter key="mapredKeyTab" value=""/>
+<Parameter key="schedulerHost" value="sdn-cdh5-nn.alpinedemo.com"/>
+<Parameter key="schedulerPort" value="8030"/>
+<Parameter key="ALP_HD_KVP[mapreduce.jobhistory.address]" value="sdn-cdh5-nn.alpinedemo.com:10020"/>
+<Parameter key="ALP_HD_KVP[mapreduce.reduce.java.opts]" value="-Xmx7000m"/>
+<Parameter key="ALP_HD_KVP[mapreduce.map.memory.mb]" value="8000"/>
+<Parameter key="ALP_HD_KVP[mapreduce.jobhistory.webapp.address]" value="sdn-cdh5-nn.alpinedemo.com:19888"/>
+<Parameter key="ALP_HD_KVP[yarn.resourcemanager.scheduler.address]" value="sdn-cdh5-nn.alpinedemo.com:8030"/>
+<Parameter key="ALP_HD_KVP[alpine.hadoopuser.enabled]" value="false"/>
+<Parameter key="ALP_HD_KVP[yarn.resourcemanager.admin.address]" value="sdn-cdh5-nn.alpinedemo.com:8033"/>
+<Parameter key="ALP_HD_KVP[yarn.resourcemanager.hostname]" value="sdn-cdh5-nn.alpinedemo.com"/>
+<Parameter key="ALP_HD_KVP[mapred.child.java.opts]" value="-Xmx2048m"/>
+<Parameter key="ALP_HD_KVP[mapreduce.map.java.opts]" value="-Xmx7000m"/>
+<Parameter key="ALP_HD_KVP[yarn.resourcemanager.resource-tracker.address]" value="sdn-cdh5-nn.alpinedemo.com:8031"/>
+<Parameter key="ALP_HD_KVP[mapreduce.task.io.sort.mb]" value="1024"/>
+<Parameter key="ALP_HD_KVP[mapreduce.reduce.memory.mb]" value="8000"/>
+<Parameter key="ALP_HD_KVP[dfs.client.use.datanode.hostname]" value="true"/>
+<Parameter key="ALP_HD_KVP[yarn.app.mapreduce.am.staging-dir]" value="/user"/>
+</DataSource>
+</DataSources>
+<Operator X="122" Y="67" name="Time_series_data with categories.csv" type="com.alpine.miner.gef.runoperator.hadoop.HadoopFileOperator" uuid="1484253875569">
+<Note/>
+<Parameter key="connName" value="Cloudera CDH5 with Spark"/>
+<Parameter key="hadoopFileName" value="/public_datasets/arima_test/Time_series_data with categories.csv"/>
+<Parameter key="hadoopFileFormat" value="Text File"/>
+<HadoopFileStructureModel delimiter="Comma" escapChar="\" includeHeader="true" other="" quoteChar="&quot;">
+<col n="DateID" t="long"/>
+<col n="Month" t="chararray"/>
+<col n="Year" t="long"/>
+<col n="Category" t="chararray"/>
+<col n="AirPassengers" t="double"/>
+</HadoopFileStructureModel>
+<InPutFieldList>
+<Parameter key="connName" value="Cloudera CDH5 with Spark"/>
+<Parameter key="hadoopCompressionFormat" value=""/>
+<Parameter key="hadoopFileName" value="/public_datasets/arima_test/Time_series_data with categories.csv"/>
+</InPutFieldList>
+</Operator>
+<Operator X="358" Y="66" name="ARIMA (HD)" type="com.alpine.miner.gef.runoperator.plugin10.Plugin10Operator" uuid="1484683110602">
+<Note/>
+<Plugin10Proxy>
+<SignatureClassName name="com.alpine.finance.ARIMASignature"/>
+</Plugin10Proxy>
+<OperatorDialog dataSourceSelectionEnabled="true" label="main">
+<TabularDatasetColumnDropdownBoxImpl id="arima_hd_timestamp_column" label="Column to Order By" selectionGroupId="*" sourceOperatorUUID="1484253875569">
+<AvailableValues>
+<Value value="DateID"/>
+</AvailableValues>
+<SelectedValue value="DateID"/>
+<ColumnFilter>
+<AcceptedNameRegex regex=".+"/>
+<AcceptedType type="*"/>
+</ColumnFilter>
+</TabularDatasetColumnDropdownBoxImpl>
+<TabularDatasetColumnDropdownBoxImpl id="arima_hd_groupby_column" label="Grouping Column" selectionGroupId="*" sourceOperatorUUID="1484253875569">
+<AvailableValues>
+<Value value="Category"/>
+</AvailableValues>
+<SelectedValue value="Category"/>
+<ColumnFilter>
+<AcceptedNameRegex regex=".+"/>
+<AcceptedType type="*"/>
+</ColumnFilter>
+</TabularDatasetColumnDropdownBoxImpl>
+<TabularDatasetColumnDropdownBoxImpl id="arima_hd_selected_column" label="Timeseries" selectionGroupId="*" sourceOperatorUUID="1484253875569">
+<AvailableValues>
+<Value value="AirPassengers"/>
+</AvailableValues>
+<SelectedValue value="AirPassengers"/>
+<ColumnFilter>
+<AcceptedNameRegex regex=".+"/>
+<AcceptedType type="*"/>
+</ColumnFilter>
+</TabularDatasetColumnDropdownBoxImpl>
+<IntegerBoxImpl id="arima_hd_p" label="p (1-5)" max="5" min="1" value="2"/>
+<IntegerBoxImpl id="arima_hd_d" label="d (0-5)" max="5" min="0" value="1"/>
+<IntegerBoxImpl id="arima_hd_q" label="q (1-5)" max="5" min="1" value="2"/>
+<IntegerBoxImpl id="arima_hd_num_preds" label="Steps Ahead" max="1000" min="1" value="10"/>
+<HdfsFileSelectorImpl id="outputDirectory" isDirectorySelector="true" isRequired="true" label="Output Directory" selectedPath="@default_tempdir/alpine_out/@user_name/@flow_name"/>
+<StringBoxImpl id="outputName" isLarge="false" isRequired="true" label="Output Name" regex=".+" value="@operator_name_uuid"/>
+<RadioButtonsImpl id="overwrite" label="Overwrite Output">
+<AvailableValues>
+<Value value="true"/>
+<Value value="false"/>
+</AvailableValues>
+<SelectedValue value="true"/>
+</RadioButtonsImpl>
+<DropdownBoxImpl id="storageFormat" label="Storage Format">
+<AvailableValues>
+<Value value="Parquet"/>
+<Value value="Avro"/>
+<Value value="CSV"/>
+</AvailableValues>
+<SelectedValue value="CSV"/>
+</DropdownBoxImpl>
+</OperatorDialog>
+<OperatorDataSourceManager runtimeDataSourceName="Cloudera CDH5 with Spark"/>
+<InPutFieldList>
+<Parameter key="ALP_HD_KVP[mapreduce.map.java.opts]" value="-Xmx7000m"/>
+<Parameter key="groupName" value="supergroup"/>
+<Parameter key="jobPort" value="8032"/>
+<Parameter key="schedulerPort" value="8030"/>
+<Parameter key="hdfsHostname" value="sdn-cdh5-nn.alpinedemo.com"/>
+<Parameter key="ALP_HD_KVP[yarn.resourcemanager.scheduler.address]" value="sdn-cdh5-nn.alpinedemo.com:8030"/>
+<Parameter key="ALP_HD_KVP[yarn.resourcemanager.hostname]" value="sdn-cdh5-nn.alpinedemo.com"/>
+<Parameter key="ALP_HD_KVP[yarn.resourcemanager.resource-tracker.address]" value="sdn-cdh5-nn.alpinedemo.com:8031"/>
+<Parameter key="ALP_HD_KVP[mapred.child.java.opts]" value="-Xmx2048m"/>
+<Parameter key="hadoopVersion" value="Cloudera CDH5.4-5.7"/>
+<Parameter key="ALP_HD_KVP[mapreduce.reduce.java.opts]" value="-Xmx7000m"/>
+<Parameter key="ALP_HD_KVP[mapreduce.task.io.sort.mb]" value="1024"/>
+<Parameter key="connName" value="Cloudera CDH5 with Spark"/>
+<Parameter key="securityMode" value="simple"/>
+<Parameter key="userName" value="hdfs"/>
+<Parameter key="hdfsPort" value="8020"/>
+<Parameter key="ALP_HD_KVP[mapreduce.jobhistory.webapp.address]" value="sdn-cdh5-nn.alpinedemo.com:19888"/>
+<Parameter key="ALP_HD_KVP[yarn.resourcemanager.admin.address]" value="sdn-cdh5-nn.alpinedemo.com:8033"/>
+<Parameter key="useHA" value="false"/>
+<Parameter key="schedulerHost" value="sdn-cdh5-nn.alpinedemo.com"/>
+<Parameter key="mapredPrincipal" value=""/>
+<Parameter key="ALP_HD_KVP[mapreduce.jobhistory.address]" value="sdn-cdh5-nn.alpinedemo.com:10020"/>
+<Parameter key="ALP_HD_KVP[mapreduce.map.memory.mb]" value="8000"/>
+<Parameter key="jobHostname" value="sdn-cdh5-nn.alpinedemo.com"/>
+<Parameter key="ALP_HD_KVP[yarn.app.mapreduce.am.staging-dir]" value="/user"/>
+<Parameter key="ALP_HD_KVP[alpine.hadoopuser.enabled]" value="false"/>
+<Parameter key="hdfsKeyTab" value=""/>
+<Parameter key="hdfsPrincipal" value=""/>
+<Parameter key="mapredKeyTab" value=""/>
+<Parameter key="ALP_HD_KVP[dfs.client.use.datanode.hostname]" value="true"/>
+<Parameter key="ALP_HD_KVP[mapreduce.reduce.memory.mb]" value="8000"/>
+</InPutFieldList>
+</Operator>
+<Operator X="603" Y="64" name="Summary Statistics" type="com.alpine.miner.gef.runoperator.hadoop.HadoopValueAnalysisOperator" uuid="1485207348760">
+<Note/>
+<Parameter key="columnNames" value="AirPassengers"/>
+<Parameter key="groupByColumnNames" value="Category"/>
+<Parameter key="doDistinct" value="Yes"/>
+<Parameter key="topN" value="10"/>
+<Parameter key="storeResults" value="false"/>
+<Parameter key="resultsLocation" value="/tmp/alpine_out/@user_name/@flow_name"/>
+<Parameter key="resultsName" value="summary_0"/>
+<Parameter key="override" value="Yes"/>
+<Parameter key="hiveResultDatabase" value="@default_schema"/>
+<Parameter key="hiveResultTableName" value="alp@user_id_@flow_id_summary_0"/>
+<Parameter key="dropIfExist" value="Yes"/>
+<Parameter key="useSpark" value="Yes"/>
+<advancedSettings>
+<AdvancedParameterSubParameter defaultValue="" displayName="Disable Dynamic Allocation" key="noDynamicAllocation" overridden="false" userSpecified="false" value="false"/>
+<AdvancedParameterSubParameter defaultValue="" displayName="Number of Spark Executors (-1=Automatic)" key="numSparkWorkers" overridden="false" userSpecified="false" value="-1"/>
+<AdvancedParameterSubParameter defaultValue="" displayName="Spark Executor Memory (MB) (-1=Automatic)" key="sparkExecutorMemory" overridden="false" userSpecified="false" value="-1"/>
+<AdvancedParameterSubParameter defaultValue="" displayName="Spark Driver Memory (MB) (-1=Automatic)" key="sparkDriverMemory" overridden="false" userSpecified="false" value="-1"/>
+</advancedSettings>
+<InPutFieldList>
+<Parameter key="connName" value="Cloudera CDH5 with Spark"/>
+<Parameter key="hadoopCompressionFormat" value=""/>
+<Parameter key="hadoopFileName" value="/1484683110602"/>
+</InPutFieldList>
+</Operator>
+<Link source="Time_series_data with categories.csv" target="ARIMA (HD)"/>
+<Link source="ARIMA (HD)" target="Summary Statistics"/>
+<VariableModel>
+<Variable>
+<Name>@flow_name</Name>
+<Value>@flow_name</Value>
+</Variable>
+<Variable>
+<Name>@user_name</Name>
+<Value>@user_name</Value>
+</Variable>
+<Variable>
+<Name>@user_id</Name>
+<Value>@user_id</Value>
+</Variable>
+<Variable>
+<Name>@flow_id</Name>
+<Value>@flow_id</Value>
+</Variable>
+<Variable>
+<Name>@default_schema</Name>
+<Value>public</Value>
+</Variable>
+<Variable>
+<Name>@default_prefix</Name>
+<Value>ch94</Value>
+</Variable>
+<Variable>
+<Name>@default_tempdir</Name>
+<Value>/tmp</Value>
+</Variable>
+<Variable>
+<Name>@default_delimiter</Name>
+<Value>,</Value>
+</Variable>
+<Variable>
+<Name>@pig_number_of_reducers</Name>
+<Value>4</Value>
+</Variable>
+</VariableModel>
+</Process>
