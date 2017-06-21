@@ -81,7 +81,7 @@
 <Parameter key="hadoopFileName" value="/user/alpine/2016_US_County_Level_Presidential_Results.csv"/>
 </InPutFieldList>
 </Operator>
-<Operator X="150" Y="250" name="TreeMap Visualization" type="com.alpine.miner.gef.runoperator.plugin10.Plugin10Operator" uuid="1497635180241">
+<Operator X="150" Y="250" name="Treemap" type="com.alpine.miner.gef.runoperator.plugin10.Plugin10Operator" uuid="1498084108799">
 <Note/>
 <Plugin10Proxy>
 <SignatureClassName name="com.alpine.plugin.TreeMapVisualizationSignature"/>
@@ -158,7 +158,7 @@
 </InPutFieldList>
 </Operator>
 <Link source="2016_US_County_Level_Presidential_Results.csv" target="Aggregation"/>
-<Link source="Aggregation" target="TreeMap Visualization"/>
+<Link source="Aggregation" target="Treemap"/>
 <VariableModel>
 <Variable>
 <Name>@flow_name</Name>
