@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Process Description="" UserName="1" Version="6.3.0.0">
+<DataSources>
+<DataSource name="CDH57" type="Hadoop">
+<Parameter key="connName" value="CDH57"/>
+<Parameter key="hdfsHostname" value="10.0.0.143"/>
+<Parameter key="hdfsPort" value="8020"/>
+<Parameter key="hadoopVersion" value="Cloudera CDH5.4-5.7"/>
+<Parameter key="jobHostname" value="10.0.0.143"/>
+<Parameter key="jobPort" value="8032"/>
+<Parameter key="userName" value="yarn"/>
+<Parameter key="useHA" value="false"/>
+<Parameter key="groupName" value="hadoop"/>
+<Parameter key="securityMode" value="simple"/>
+<Parameter key="hdfsPrincipal" value=""/>
+<Parameter key="hdfsKeyTab" value=""/>
+<Parameter key="mapredPrincipal" value=""/>
+<Parameter key="mapredKeyTab" value=""/>
+<Parameter key="schedulerHost" value="cdh57singlenode.alpinenow.local"/>
+<Parameter key="schedulerPort" value="8030"/>
+<Parameter key="ALP_HD_KVP[hadoop.rpc.protection]" value="authentication"/>
+<Parameter key="ALP_HD_KVP[hadoop.security.authentication]" value="simple"/>
+<Parameter key="ALP_HD_KVP[mapreduce.job.map.output.collector.class]" value="org.apache.hadoop.mapred.MapTask$MapOutputBuffer"/>
+<Parameter key="ALP_HD_KVP[mapreduce.job.reduce.shuffle.consumer.plugin.class]" value="org.apache.hadoop.mapreduce.task.reduce.Shuffle"/>
+<Parameter key="ALP_HD_KVP[mapreduce.jobhistory.address]" value="cdh57singlenode.alpinenow.local:10020"/>
+<Parameter key="ALP_HD_KVP[mapreduce.jobhistory.keytab]" value="/etc/security/keytab/jhs.service.keytab"/>
+<Parameter key="ALP_HD_KVP[mapreduce.jobhistory.principal]" value="jhs/_HOST@REALM.TLD"/>
+<Parameter key="ALP_HD_KVP[mapreduce.jobhistory.webapp.address]" value="cdh57singlenode.alpinenow.local:19888"/>
+<Parameter key="ALP_HD_KVP[mapreduce.reduce.memory.mb]" value="-1"/>
+<Parameter key="ALP_HD_KVP[yarn.app.mapreduce.am.staging-dir]" value="/tmp/hadoop-yarn/staging"/>
+<Parameter key="ALP_HD_KVP[yarn.resourcemanager.admin.address]" value="cdh57singlenode.alpinenow.local:8033"/>
+<Parameter key="ALP_HD_KVP[yarn.resourcemanager.keytab]" value="/etc/krb5.keytab"/>
+<Parameter key="ALP_HD_KVP[yarn.resourcemanager.resource-tracker.address]" value="cdh57singlenode.alpinenow.local:8031"/>
+<Parameter key="ALP_HD_KVP[yarn.resourcemanager.scheduler.address]" value="cdh57singlenode.alpinenow.local:8030"/>
+<Parameter key="ALP_HD_KVP[alpine.hadoopuser.enabled]" value="false"/>
+<Parameter key="ALP_HD_KVP[hive.security.thirdparty.enabled]" value="false"/>
+</DataSource>
+</DataSources>
+<Operator X="150" Y="50" name="2016_US_County_Level_Presidential_Results.csv" type="com.alpine.miner.gef.runoperator.hadoop.HadoopFileOperator" uuid="1497635103494">
+<Note/>
+<Parameter key="connName" value="CDH57"/>
+<Parameter key="hadoopFileName" value="/user/alpine/2016_US_County_Level_Presidential_Results.csv"/>
+<Parameter key="hadoopFileFormat" value="Text File"/>
+<HadoopFileStructureModel delimiter="Comma" escapChar="\" includeHeader="true" other="" quoteChar="&quot;">
+<col n="id" t="long"/>
+<col n="votes_dem" t="long"/>
+<col n="votes_gop" t="long"/>
+<col n="total_votes" t="long"/>
+<col n="per_dem" t="double"/>
+<col n="per_gop" t="double"/>
+<col n="diff_votes" t="long"/>
+<col n="per_point_diff" t="double"/>
+<col n="state_abbr" t="chararray"/>
+<col n="county_name" t="chararray"/>
+<col n="combined_fips" t="long"/>
+</HadoopFileStructureModel>
+<InPutFieldList>
+<Parameter key="connName" value="CDH57"/>
+<Parameter key="hadoopCompressionFormat" value=""/>
+<Parameter key="hadoopFileName" value="/user/alpine/2016_US_County_Level_Presidential_Results.csv"/>
+</InPutFieldList>
+</Operator>
+<Operator X="150" Y="150" name="Aggregation" type="com.alpine.miner.gef.runoperator.hadoop.HadoopAggregateOperator" uuid="1497635147872">
+<Note/>
+<Parameter key="storeResults" value="false"/>
+<Parameter key="resultsLocation" value="@default_tempdir/alpine_out/@user_name/@flow_name"/>
+<Parameter key="resultsName" value="agg_0"/>
+<Parameter key="override" value="Yes"/>
+<Parameter key="hiveResultDatabase" value="@default_schema"/>
+<Parameter key="hiveResultTableName" value="alp@user_id_@flow_id_agg_0"/>
+<Parameter key="dropIfExist" value="Yes"/>
+<Parameter key="outputFormat" value="parquet"/>
+<Parameter key="outputCompression" value="gzip"/>
+<AggregateFieldsModel>
+<groupBy columnName="state_abbr"/>
+<AggregateField aggregateType="SUM" columnName="SUM_total_votes" dataType="double" expression="SUM(total_votes)"/>
+</AggregateFieldsModel>
+<InPutFieldList>
+<Parameter key="connName" value="CDH57"/>
+<Parameter key="hadoopCompressionFormat" value=""/>
+<Parameter key="hadoopFileName" value="/user/alpine/2016_US_County_Level_Presidential_Results.csv"/>
+</InPutFieldList>
+</Operator>
+<Operator X="150" Y="250" name="Treemap" type="com.alpine.miner.gef.runoperator.plugin10.Plugin10Operator" uuid="1498084108799">
+<Note/>
+<Plugin10Proxy>
+<SignatureClassName name="com.alpine.plugin.TreeMapVisualizationSignature"/>
+</Plugin10Proxy>
+<OperatorDialog dataSourceSelectionEnabled="true" label="main">
+<TabularDatasetColumnDropdownBoxImpl id="parentColumn" isRequired="true" label="Parent Column" selectionGroupId="main" sourceOperatorUUID="1497635147872">
+<AvailableValues>
+<Value value="state_abbr"/>
+</AvailableValues>
+<SelectedValue value="state_abbr"/>
+<ColumnFilter>
+<AcceptedNameRegex regex=".+"/>
+<AcceptedType type="*"/>
+</ColumnFilter>
+</TabularDatasetColumnDropdownBoxImpl>
+<TabularDatasetColumnDropdownBoxImpl id="childColumn" isRequired="false" label="Child Column" selectionGroupId="main" sourceOperatorUUID="1497635147872">
+<AvailableValues>
+<Value value=""/>
+</AvailableValues>
+<SelectedValue value=""/>
+<ColumnFilter>
+<AcceptedNameRegex regex=".+"/>
+<AcceptedType type="*"/>
+</ColumnFilter>
+</TabularDatasetColumnDropdownBoxImpl>
+<TabularDatasetColumnDropdownBoxImpl id="valueColumn" isRequired="true" label="Value Column" selectionGroupId="main" sourceOperatorUUID="1497635147872">
+<AvailableValues>
+<Value value="SUM_total_votes"/>
+</AvailableValues>
+<SelectedValue value="SUM_total_votes"/>
+<ColumnFilter>
+<AcceptedNameRegex regex=".+"/>
+<AcceptedType type="Int"/>
+<AcceptedType type="Long"/>
+<AcceptedType type="Float"/>
+<AcceptedType type="Double"/>
+</ColumnFilter>
+</TabularDatasetColumnDropdownBoxImpl>
+</OperatorDialog>
+<OperatorDataSourceManager runtimeDataSourceName="CDH57"/>
+<InPutFieldList>
+<Parameter key="ALP_HD_KVP[yarn.resourcemanager.keytab]" value="/etc/krb5.keytab"/>
+<Parameter key="mapredPrincipal" value=""/>
+<Parameter key="connName" value="CDH57"/>
+<Parameter key="hdfsPrincipal" value=""/>
+<Parameter key="ALP_HD_KVP[mapreduce.jobhistory.keytab]" value="/etc/security/keytab/jhs.service.keytab"/>
+<Parameter key="ALP_HD_KVP[alpine.hadoopuser.enabled]" value="false"/>
+<Parameter key="ALP_HD_KVP[yarn.resourcemanager.scheduler.address]" value="cdh57singlenode.alpinenow.local:8030"/>
+<Parameter key="jobPort" value="8032"/>
+<Parameter key="hdfsPort" value="8020"/>
+<Parameter key="ALP_HD_KVP[yarn.resourcemanager.admin.address]" value="cdh57singlenode.alpinenow.local:8033"/>
+<Parameter key="ALP_HD_KVP[hadoop.security.authentication]" value="simple"/>
+<Parameter key="schedulerPort" value="8030"/>
+<Parameter key="hdfsHostname" value="10.0.0.143"/>
+<Parameter key="ALP_HD_KVP[hadoop.rpc.protection]" value="authentication"/>
+<Parameter key="ALP_HD_KVP[hive.security.thirdparty.enabled]" value="false"/>
+<Parameter key="ALP_HD_KVP[yarn.app.mapreduce.am.staging-dir]" value="/tmp/hadoop-yarn/staging"/>
+<Parameter key="mapredKeyTab" value=""/>
+<Parameter key="hadoopVersion" value="Cloudera CDH5.4-5.7"/>
+<Parameter key="useHA" value="false"/>
+<Parameter key="hdfsKeyTab" value=""/>
+<Parameter key="ALP_HD_KVP[mapreduce.job.map.output.collector.class]" value="org.apache.hadoop.mapred.MapTask$MapOutputBuffer"/>
+<Parameter key="jobHostname" value="10.0.0.143"/>
+<Parameter key="ALP_HD_KVP[mapreduce.jobhistory.principal]" value="jhs/_HOST@REALM.TLD"/>
+<Parameter key="securityMode" value="simple"/>
+<Parameter key="userName" value="yarn"/>
+<Parameter key="ALP_HD_KVP[mapreduce.jobhistory.webapp.address]" value="cdh57singlenode.alpinenow.local:19888"/>
+<Parameter key="groupName" value="hadoop"/>
+<Parameter key="ALP_HD_KVP[yarn.resourcemanager.resource-tracker.address]" value="cdh57singlenode.alpinenow.local:8031"/>
+<Parameter key="ALP_HD_KVP[mapreduce.jobhistory.address]" value="cdh57singlenode.alpinenow.local:10020"/>
+<Parameter key="schedulerHost" value="cdh57singlenode.alpinenow.local"/>
+<Parameter key="ALP_HD_KVP[mapreduce.job.reduce.shuffle.consumer.plugin.class]" value="org.apache.hadoop.mapreduce.task.reduce.Shuffle"/>
+<Parameter key="ALP_HD_KVP[mapreduce.reduce.memory.mb]" value="-1"/>
+</InPutFieldList>
+</Operator>
+<Link source="2016_US_County_Level_Presidential_Results.csv" target="Aggregation"/>
+<Link source="Aggregation" target="Treemap"/>
+<VariableModel>
+<Variable>
+<Name>@flow_name</Name>
+<Value>@flow_name</Value>
+</Variable>
+<Variable>
+<Name>@user_name</Name>
+<Value>@user_name</Value>
+</Variable>
+<Variable>
+<Name>@user_id</Name>
+<Value>@user_id</Value>
+</Variable>
+<Variable>
+<Name>@flow_id</Name>
+<Value>@flow_id</Value>
+</Variable>
+<Variable>
+<Name>@default_schema</Name>
+<Value>public</Value>
+</Variable>
+<Variable>
+<Name>@default_tempdir</Name>
+<Value>/tmp</Value>
+</Variable>
+<Variable>
+<Name>@default_delimiter</Name>
+<Value>,</Value>
+</Variable>
+<Variable>
+<Name>@pig_number_of_reducers</Name>
+<Value>-1</Value>
+</Variable>
+</VariableModel>
+</Process>
