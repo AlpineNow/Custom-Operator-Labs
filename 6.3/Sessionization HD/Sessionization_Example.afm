@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Process Description="" UserName="5" Version="6.3.0.0">
+<DataSources>
+<DataSource name="AWS-CDH57" type="Hadoop">
+<Parameter key="connName" value="AWS-CDH57"/>
+<Parameter key="hdfsHostname" value="awscdh57singlenode.alpinenow.local"/>
+<Parameter key="hdfsPort" value="8020"/>
+<Parameter key="hadoopVersion" value="Cloudera CDH5.4-5.7"/>
+<Parameter key="jobHostname" value="awscdh57singlenode.alpinenow.local"/>
+<Parameter key="jobPort" value="8032"/>
+<Parameter key="userName" value="yarn"/>
+<Parameter key="useHA" value="false"/>
+<Parameter key="groupName" value="hadoop"/>
+<Parameter key="securityMode" value="simple"/>
+<Parameter key="hdfsPrincipal" value=""/>
+<Parameter key="hdfsKeyTab" value=""/>
+<Parameter key="mapredPrincipal" value=""/>
+<Parameter key="mapredKeyTab" value=""/>
+<Parameter key="schedulerHost" value="awscdh57singlenode.alpinenow.local"/>
+<Parameter key="schedulerPort" value="8030"/>
+<Parameter key="ALP_HD_KVP[mapreduce.jobhistory.address]" value="awscdh57singlenode.alpinenow.local:10020"/>
+<Parameter key="ALP_HD_KVP[mapreduce.jobhistory.webapp.address]" value="awscdh57singlenode.alpinenow.local:19888"/>
+<Parameter key="ALP_HD_KVP[yarn.resourcemanager.scheduler.address]" value="awscdh57singlenode.alpinenow.local:8030"/>
+<Parameter key="ALP_HD_KVP[alpine.hadoopuser.enabled]" value="false"/>
+<Parameter key="ALP_HD_KVP[yarn.resourcemanager.admin.address]" value="awscdh57singlenode.alpinenow.local:8033"/>
+<Parameter key="ALP_HD_KVP[yarn.resourcemanager.resource-tracker.address]" value="awscdh57singlenode.alpinenow.local:8031"/>
+<Parameter key="ALP_HD_KVP[yarn.app.mapreduce.am.staging-dir]" value="/tmp"/>
+</DataSource>
+</DataSources>
+<Operator X="83" Y="134" name="maintenance_measures" type="com.alpine.miner.gef.runoperator.hadoop.HadoopFileOperator" uuid="1485892389373">
+<Note/>
+<Parameter key="connName" value="AWS-CDH57"/>
+<Parameter key="hadoopFileName" value="/tmp/maintenance_measures"/>
+<Parameter key="hadoopFileFormat" value="Text File"/>
+<HadoopFileStructureModel delimiter="Comma" escapChar="\" includeHeader="true" other="" quoteChar="&quot;">
+<col n="machine_uid" t="chararray"/>
+<col n="timestamp" t="datetime yyyy-MM-dd HH:mm:ss"/>
+<col n="meas_type" t="chararray"/>
+<col n="product" t="chararray"/>
+<col n="meas1" t="double"/>
+<col n="meas2" t="double"/>
+<col n="meas3" t="double"/>
+</HadoopFileStructureModel>
+<InPutFieldList>
+<Parameter key="connName" value="AWS-CDH57"/>
+<Parameter key="hadoopCompressionFormat" value=""/>
+<Parameter key="hadoopFileName" value="/tmp/maintenance_measures"/>
+</InPutFieldList>
+</Operator>
+<Operator X="264" Y="88" name="Sessionization-by time threshold" type="com.alpine.miner.gef.runoperator.plugin10.Plugin10Operator" uuid="1485892424659">
+<Note/>
+<Plugin10Proxy>
+<SignatureClassName name="com.alpine.plugin.transformations.Sessionization.SessionizationSignature"/>
+</Plugin10Proxy>
+<OperatorDialog dataSourceSelectionEnabled="true" label="main">
+<DropdownBoxImpl id="sessionTypeID" label="Session Boundaries">
+<AvailableValues>
+<Value value="Time Interval Threshold"/>
+<Value value="Change of Status"/>
+</AvailableValues>
+<SelectedValue value="Time Interval Threshold"/>
+</DropdownBoxImpl>
+<TabularDatasetColumnDropdownBoxImpl id="timeColID" label="TimeStamp Column" selectionGroupId="main" sourceOperatorUUID="1485892389373">
+<AvailableValues>
+<Value value="timestamp"/>
+</AvailableValues>
+<SelectedValue value="timestamp"/>
+<ColumnFilter>
+<AcceptedNameRegex regex=".+"/>
+<AcceptedType type="*dates"/>
+</ColumnFilter>
+</TabularDatasetColumnDropdownBoxImpl>
+<StringBoxImpl id="timeThresholdID" isLarge="false" isRequired="false" label="Time Interval Threshold (s)" regex="\d+(\.\d+)?$" value="1000"/>
+<TabularDatasetColumnDropdownBoxImpl id="StatusColID" label="Status Column" selectionGroupId="main" sourceOperatorUUID="1485892389373">
+<AvailableValues>
+<Value value=""/>
+</AvailableValues>
+<SelectedValue value=""/>
+<ColumnFilter>
+<AcceptedNameRegex regex=".+"/>
+<AcceptedType type="String"/>
+<AcceptedType type="Int"/>
+<AcceptedType type="Long"/>
+</ColumnFilter>
+</TabularDatasetColumnDropdownBoxImpl>
+<TabularDatasetColumnCheckboxesImpl id="partitionsColsID" label="User ID Column(s)" selectionGroupId="main" sourceOperatorUUID="1485892389373">
+<AvailableValues>
+<Value value="machine_uid"/>
+</AvailableValues>
+<SelectedValues>
+<Value value="machine_uid"/>
+</SelectedValues>
+<ColumnFilter>
+<AcceptedNameRegex regex=".+"/>
+<AcceptedType type="*"/>
+</ColumnFilter>
+</TabularDatasetColumnCheckboxesImpl>
+<TabularDatasetColumnCheckboxesImpl id="colsToKeepID" label="Columns to Keep" selectionGroupId="second" sourceOperatorUUID="1485892389373">
+<AvailableValues>
+<Value value="machine_uid"/>
+<Value value="meas_type"/>
+<Value value="product"/>
+<Value value="meas1"/>
+<Value value="meas2"/>
+<Value value="meas3"/>
+</AvailableValues>
+<SelectedValues>
+<Value value="machine_uid"/>
+<Value value="meas_type"/>
+<Value value="product"/>
+<Value value="meas1"/>
+<Value value="meas2"/>
+<Value value="meas3"/>
+</SelectedValues>
+<ColumnFilter>
+<AcceptedNameRegex regex=".+"/>
+<AcceptedType type="*"/>
+</ColumnFilter>
+</TabularDatasetColumnCheckboxesImpl>
+<DropdownBoxImpl id="badData" label="Write Rows Removed Due to Null Data To File">
+<AvailableValues>
+<Value value="Do Not Write Null Rows to File"/>
+<Value value="Write Up to 1000 Null Rows to File"/>
+<Value value="Write All Null Rows to File"/>
+<Value value="Do Not Write or Count Null Rows (Fastest)"/>
+</AvailableValues>
+<SelectedValue value="Do Not Write Null Rows to File"/>
+</DropdownBoxImpl>
+<DropdownBoxImpl id="storageFormat" label="Storage Format">
+<AvailableValues>
+<Value value="Parquet"/>
+<Value value="Avro"/>
+<Value value="CSV"/>
+</AvailableValues>
+<SelectedValue value="CSV"/>
+</DropdownBoxImpl>
+<HdfsFileSelectorImpl id="outputDirectory" isDirectorySelector="true" isRequired="true" label="Output Directory" selectedPath="@default_tempdir/alpine_out/@user_name/@flow_name"/>
+<StringBoxImpl id="outputName" isLarge="false" isRequired="true" label="Output Name" regex=".+" value="@operator_name_uuid"/>
+<RadioButtonsImpl id="overwrite" label="Overwrite Output">
+<AvailableValues>
+<Value value="true"/>
+<Value value="false"/>
+</AvailableValues>
+<SelectedValue value="true"/>
+</RadioButtonsImpl>
+<AdvancedSparkSettingsBoxImpl id="sparkSettings" label="Advanced Spark Settings">
+<AdvancedParameterSubParameter defaultValue="false" displayName="Disable Dynamic Allocation" key="noDynamicAllocation" overridden="false" userSpecified="false" value="false"/>
+<AdvancedParameterSubParameter defaultValue="3" displayName="Number of Executors" key="spark_numExecutors" overridden="false" userSpecified="false" value=""/>
+<AdvancedParameterSubParameter defaultValue="-1" displayName="Executor Memory in MB" key="spark_executorMB" overridden="false" userSpecified="false" value=""/>
+<AdvancedParameterSubParameter defaultValue="-1" displayName="Driver Memory in MB" key="spark_driverMB" overridden="false" userSpecified="false" value=""/>
+<AdvancedParameterSubParameter defaultValue="-1" displayName="Number of Executor Cores" key="spark_numExecutorCores" overridden="false" userSpecified="false" value=""/>
+<AdvancedParameterSubParameter defaultValue="MEMORY_AND_DISK" displayName="Storage Level" key="spark_storage_level" overridden="false" userSpecified="false" value=""/>
+<AdvancedParameterSubParameter defaultValue="-XX:MaxPermSize=256m -XX:+CMSClassUnloadingEnabled -XX:+CMSPermGenSweepingEnabled" displayName="spark.driver.extraJavaOptions" key="spark.driver.extraJavaOptions" overridden="true" userSpecified="true" value="-XX:MaxPermSize=256m -XX:+CMSClassUnloadingEnabled -XX:+CMSPermGenSweepingEnabled"/>
+<AdvancedParameterSubParameter defaultValue="200" displayName="spark.sql.shuffle.partitions" key="spark.sql.shuffle.partitions" overridden="true" userSpecified="true" value="200"/>
+</AdvancedSparkSettingsBoxImpl>
+</OperatorDialog>
+<OperatorDataSourceManager runtimeDataSourceName="AWS-CDH57"/>
+<InPutFieldList>
+<Parameter key="groupName" value="hadoop"/>
+<Parameter key="jobPort" value="8032"/>
+<Parameter key="schedulerPort" value="8030"/>
+<Parameter key="hdfsPort" value="8020"/>
+<Parameter key="ALP_HD_KVP[yarn.resourcemanager.admin.address]" value="awscdh57singlenode.alpinenow.local:8033"/>
+<Parameter key="ALP_HD_KVP[mapreduce.jobhistory.webapp.address]" value="awscdh57singlenode.alpinenow.local:19888"/>
+<Parameter key="hdfsHostname" value="awscdh57singlenode.alpinenow.local"/>
+<Parameter key="ALP_HD_KVP[yarn.resourcemanager.scheduler.address]" value="awscdh57singlenode.alpinenow.local:8030"/>
+<Parameter key="useHA" value="false"/>
+<Parameter key="schedulerHost" value="awscdh57singlenode.alpinenow.local"/>
+<Parameter key="ALP_HD_KVP[yarn.resourcemanager.resource-tracker.address]" value="awscdh57singlenode.alpinenow.local:8031"/>
+<Parameter key="ALP_HD_KVP[mapreduce.jobhistory.address]" value="awscdh57singlenode.alpinenow.local:10020"/>
+<Parameter key="mapredPrincipal" value=""/>
+<Parameter key="jobHostname" value="awscdh57singlenode.alpinenow.local"/>
+<Parameter key="hadoopVersion" value="Cloudera CDH5.4-5.7"/>
+<Parameter key="ALP_HD_KVP[yarn.app.mapreduce.am.staging-dir]" value="/tmp"/>
+<Parameter key="ALP_HD_KVP[alpine.hadoopuser.enabled]" value="false"/>
+<Parameter key="connName" value="AWS-CDH57"/>
+<Parameter key="userName" value="yarn"/>
+<Parameter key="securityMode" value="simple"/>
+<Parameter key="hdfsPrincipal" value=""/>
+<Parameter key="hdfsKeyTab" value=""/>
+<Parameter key="mapredKeyTab" value=""/>
+</InPutFieldList>
+</Operator>
+<Operator X="265" Y="189" name="Sessionization-by change of status" type="com.alpine.miner.gef.runoperator.plugin10.Plugin10Operator" uuid="1485892438307_0">
+<Note/>
+<Plugin10Proxy>
+<SignatureClassName name="com.alpine.plugin.transformations.Sessionization.SessionizationSignature"/>
+</Plugin10Proxy>
+<OperatorDialog dataSourceSelectionEnabled="true" label="main">
+<DropdownBoxImpl id="sessionTypeID" label="Session Boundaries">
+<AvailableValues>
+<Value value="Time Interval Threshold"/>
+<Value value="Change of Status"/>
+</AvailableValues>
+<SelectedValue value="Change of Status"/>
+</DropdownBoxImpl>
+<TabularDatasetColumnDropdownBoxImpl id="timeColID" label="TimeStamp Column" selectionGroupId="main" sourceOperatorUUID="1485892389373">
+<AvailableValues>
+<Value value="timestamp"/>
+</AvailableValues>
+<SelectedValue value="timestamp"/>
+<ColumnFilter>
+<AcceptedNameRegex regex=".+"/>
+<AcceptedType type="*dates"/>
+</ColumnFilter>
+</TabularDatasetColumnDropdownBoxImpl>
+<StringBoxImpl id="timeThresholdID" isLarge="false" isRequired="false" label="Time Interval Threshold (s)" regex="\d+(\.\d+)?$" value=""/>
+<TabularDatasetColumnDropdownBoxImpl id="StatusColID" label="Status Column" selectionGroupId="main" sourceOperatorUUID="1485892389373">
+<AvailableValues>
+<Value value="product"/>
+</AvailableValues>
+<SelectedValue value="product"/>
+<ColumnFilter>
+<AcceptedNameRegex regex=".+"/>
+<AcceptedType type="String"/>
+<AcceptedType type="Int"/>
+<AcceptedType type="Long"/>
+</ColumnFilter>
+</TabularDatasetColumnDropdownBoxImpl>
+<TabularDatasetColumnCheckboxesImpl id="partitionsColsID" label="User ID Column(s)" selectionGroupId="main" sourceOperatorUUID="1485892389373">
+<AvailableValues>
+<Value value="machine_uid"/>
+</AvailableValues>
+<SelectedValues>
+<Value value="machine_uid"/>
+</SelectedValues>
+<ColumnFilter>
+<AcceptedNameRegex regex=".+"/>
+<AcceptedType type="*"/>
+</ColumnFilter>
+</TabularDatasetColumnCheckboxesImpl>
+<TabularDatasetColumnCheckboxesImpl id="colsToKeepID" label="Columns to Keep" selectionGroupId="second" sourceOperatorUUID="1485892389373">
+<AvailableValues>
+<Value value="machine_uid"/>
+<Value value="meas_type"/>
+<Value value="product"/>
+<Value value="meas1"/>
+<Value value="meas2"/>
+<Value value="meas3"/>
+</AvailableValues>
+<SelectedValues>
+<Value value="machine_uid"/>
+<Value value="meas_type"/>
+<Value value="product"/>
+<Value value="meas1"/>
+<Value value="meas2"/>
+<Value value="meas3"/>
+</SelectedValues>
+<ColumnFilter>
+<AcceptedNameRegex regex=".+"/>
+<AcceptedType type="*"/>
+</ColumnFilter>
+</TabularDatasetColumnCheckboxesImpl>
+<DropdownBoxImpl id="badData" label="Write Rows Removed Due to Null Data To File">
+<AvailableValues>
+<Value value="Do Not Write Null Rows to File"/>
+<Value value="Write Up to 1000 Null Rows to File"/>
+<Value value="Write All Null Rows to File"/>
+<Value value="Do Not Write or Count Null Rows (Fastest)"/>
+</AvailableValues>
+<SelectedValue value="Do Not Write Null Rows to File"/>
+</DropdownBoxImpl>
+<DropdownBoxImpl id="storageFormat" label="Storage Format">
+<AvailableValues>
+<Value value="Parquet"/>
+<Value value="Avro"/>
+<Value value="CSV"/>
+</AvailableValues>
+<SelectedValue value="CSV"/>
+</DropdownBoxImpl>
+<HdfsFileSelectorImpl id="outputDirectory" isDirectorySelector="true" isRequired="true" label="Output Directory" selectedPath="@default_tempdir/alpine_out/@user_name/@flow_name"/>
+<StringBoxImpl id="outputName" isLarge="false" isRequired="true" label="Output Name" regex=".+" value="@operator_name_uuid"/>
+<RadioButtonsImpl id="overwrite" label="Overwrite Output">
+<AvailableValues>
+<Value value="true"/>
+<Value value="false"/>
+</AvailableValues>
+<SelectedValue value="true"/>
+</RadioButtonsImpl>
+<AdvancedSparkSettingsBoxImpl id="sparkSettings" label="Advanced Spark Settings">
+<AdvancedParameterSubParameter defaultValue="false" displayName="Disable Dynamic Allocation" key="noDynamicAllocation" overridden="false" userSpecified="false" value="false"/>
+<AdvancedParameterSubParameter defaultValue="3" displayName="Number of Executors" key="spark_numExecutors" overridden="false" userSpecified="false" value=""/>
+<AdvancedParameterSubParameter defaultValue="-1" displayName="Executor Memory in MB" key="spark_executorMB" overridden="false" userSpecified="false" value=""/>
+<AdvancedParameterSubParameter defaultValue="-1" displayName="Driver Memory in MB" key="spark_driverMB" overridden="false" userSpecified="false" value=""/>
+<AdvancedParameterSubParameter defaultValue="-1" displayName="Number of Executor Cores" key="spark_numExecutorCores" overridden="false" userSpecified="false" value=""/>
+<AdvancedParameterSubParameter defaultValue="MEMORY_AND_DISK" displayName="Storage Level" key="spark_storage_level" overridden="false" userSpecified="false" value=""/>
+<AdvancedParameterSubParameter defaultValue="-XX:MaxPermSize=256m -XX:+CMSClassUnloadingEnabled -XX:+CMSPermGenSweepingEnabled" displayName="spark.driver.extraJavaOptions" key="spark.driver.extraJavaOptions" overridden="true" userSpecified="true" value="-XX:MaxPermSize=256m -XX:+CMSClassUnloadingEnabled -XX:+CMSPermGenSweepingEnabled"/>
+<AdvancedParameterSubParameter defaultValue="200" displayName="spark.sql.shuffle.partitions" key="spark.sql.shuffle.partitions" overridden="true" userSpecified="true" value="200"/>
+</AdvancedSparkSettingsBoxImpl>
+</OperatorDialog>
+<OperatorDataSourceManager runtimeDataSourceName="AWS-CDH57"/>
+<InPutFieldList>
+<Parameter key="groupName" value="hadoop"/>
+<Parameter key="jobPort" value="8032"/>
+<Parameter key="schedulerPort" value="8030"/>
+<Parameter key="hdfsPort" value="8020"/>
+<Parameter key="ALP_HD_KVP[yarn.resourcemanager.admin.address]" value="awscdh57singlenode.alpinenow.local:8033"/>
+<Parameter key="ALP_HD_KVP[mapreduce.jobhistory.webapp.address]" value="awscdh57singlenode.alpinenow.local:19888"/>
+<Parameter key="hdfsHostname" value="awscdh57singlenode.alpinenow.local"/>
+<Parameter key="ALP_HD_KVP[yarn.resourcemanager.scheduler.address]" value="awscdh57singlenode.alpinenow.local:8030"/>
+<Parameter key="useHA" value="false"/>
+<Parameter key="schedulerHost" value="awscdh57singlenode.alpinenow.local"/>
+<Parameter key="ALP_HD_KVP[yarn.resourcemanager.resource-tracker.address]" value="awscdh57singlenode.alpinenow.local:8031"/>
+<Parameter key="ALP_HD_KVP[mapreduce.jobhistory.address]" value="awscdh57singlenode.alpinenow.local:10020"/>
+<Parameter key="mapredPrincipal" value=""/>
+<Parameter key="jobHostname" value="awscdh57singlenode.alpinenow.local"/>
+<Parameter key="hadoopVersion" value="Cloudera CDH5.4-5.7"/>
+<Parameter key="ALP_HD_KVP[yarn.app.mapreduce.am.staging-dir]" value="/tmp"/>
+<Parameter key="ALP_HD_KVP[alpine.hadoopuser.enabled]" value="false"/>
+<Parameter key="connName" value="AWS-CDH57"/>
+<Parameter key="userName" value="yarn"/>
+<Parameter key="securityMode" value="simple"/>
+<Parameter key="hdfsPrincipal" value=""/>
+<Parameter key="hdfsKeyTab" value=""/>
+<Parameter key="mapredKeyTab" value=""/>
+</InPutFieldList>
+</Operator>
+<Operator X="491" Y="189" name="Aggregation- Create features by session_id -1" type="com.alpine.miner.gef.runoperator.hadoop.HadoopAggregateOperator" uuid="1485892737426">
+<Note/>
+<Parameter key="storeResults" value="false"/>
+<Parameter key="resultsLocation" value="/tmp/alpine_out/@user_name/@flow_name"/>
+<Parameter key="resultsName" value="agg_0"/>
+<Parameter key="override" value="Yes"/>
+<Parameter key="hiveResultDatabase" value="@default_schema"/>
+<Parameter key="hiveResultTableName" value="alp@user_id_@flow_id_agg_0"/>
+<Parameter key="dropIfExist" value="Yes"/>
+<AggregateFieldsModel>
+<groupBy columnName="machine_uid"/>
+<groupBy columnName="session_id"/>
+<AggregateField aggregateType="AVG" columnName="AVG_meas3" dataType="double" expression="AVG(meas3)"/>
+<AggregateField aggregateType="AVG" columnName="AVG_meas2" dataType="double" expression="AVG(meas2)"/>
+<AggregateField aggregateType="AVG" columnName="AVG_meas1" dataType="double" expression="AVG(meas1)"/>
+</AggregateFieldsModel>
+<InPutFieldList>
+<Parameter key="connName" value="AWS-CDH57"/>
+<Parameter key="hadoopCompressionFormat" value=""/>
+<Parameter key="hadoopFileName" value="/1485892438307_0"/>
+</InPutFieldList>
+</Operator>
+<Operator X="493" Y="88" name="Aggregation- Create features by session_id" type="com.alpine.miner.gef.runoperator.hadoop.HadoopAggregateOperator" uuid="1485892787802_0">
+<Note/>
+<Parameter key="storeResults" value="false"/>
+<Parameter key="resultsLocation" value="/tmp/alpine_out/@user_name/@flow_name"/>
+<Parameter key="resultsName" value="agg_1"/>
+<Parameter key="override" value="Yes"/>
+<Parameter key="hiveResultDatabase" value="@default_schema"/>
+<Parameter key="hiveResultTableName" value="alp@user_id_@flow_id_agg_1"/>
+<Parameter key="dropIfExist" value="Yes"/>
+<AggregateFieldsModel>
+<groupBy columnName="machine_uid"/>
+<groupBy columnName="session_id"/>
+<AggregateField aggregateType="AVG" columnName="AVG_meas3" dataType="double" expression="AVG(meas3)"/>
+<AggregateField aggregateType="AVG" columnName="AVG_meas2" dataType="double" expression="AVG(meas2)"/>
+<AggregateField aggregateType="AVG" columnName="AVG_meas1" dataType="double" expression="AVG(meas1)"/>
+</AggregateFieldsModel>
+<InPutFieldList>
+<Parameter key="connName" value="AWS-CDH57"/>
+<Parameter key="hadoopCompressionFormat" value=""/>
+<Parameter key="hadoopFileName" value="/1485892424659"/>
+</InPutFieldList>
+</Operator>
+<Link source="maintenance_measures" target="Sessionization-by time threshold"/>
+<Link source="maintenance_measures" target="Sessionization-by change of status"/>
+<Link source="Sessionization-by change of status" target="Aggregation- Create features by session_id -1"/>
+<Link source="Sessionization-by time threshold" target="Aggregation- Create features by session_id"/>
+<VariableModel>
+<Variable>
+<Name>@flow_name</Name>
+<Value>@flow_name</Value>
+</Variable>
+<Variable>
+<Name>@user_name</Name>
+<Value>@user_name</Value>
+</Variable>
+<Variable>
+<Name>@user_id</Name>
+<Value>@user_id</Value>
+</Variable>
+<Variable>
+<Name>@flow_id</Name>
+<Value>@flow_id</Value>
+</Variable>
+<Variable>
+<Name>@default_schema</Name>
+<Value>public</Value>
+</Variable>
+<Variable>
+<Name>@default_prefix</Name>
+<Value>ch5</Value>
+</Variable>
+<Variable>
+<Name>@default_tempdir</Name>
+<Value>/tmp</Value>
+</Variable>
+<Variable>
+<Name>@default_delimiter</Name>
+<Value>,</Value>
+</Variable>
+<Variable>
+<Name>@pig_number_of_reducers</Name>
+<Value>-1</Value>
+</Variable>
+</VariableModel>
+</Process>

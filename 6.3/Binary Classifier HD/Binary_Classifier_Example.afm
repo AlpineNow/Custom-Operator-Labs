@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Process Description="" UserName="5" Version="6.3.0.0">
+<DataSources>
+<DataSource name="AWS-CDH57" type="Hadoop">
+<Parameter key="connName" value="AWS-CDH57"/>
+<Parameter key="hdfsHostname" value="awscdh57singlenode.alpinenow.local"/>
+<Parameter key="hdfsPort" value="8020"/>
+<Parameter key="hadoopVersion" value="Cloudera CDH5.4-5.7"/>
+<Parameter key="jobHostname" value="awscdh57singlenode.alpinenow.local"/>
+<Parameter key="jobPort" value="8032"/>
+<Parameter key="userName" value="yarn"/>
+<Parameter key="useHA" value="false"/>
+<Parameter key="groupName" value="hadoop"/>
+<Parameter key="securityMode" value="simple"/>
+<Parameter key="hdfsPrincipal" value=""/>
+<Parameter key="hdfsKeyTab" value=""/>
+<Parameter key="mapredPrincipal" value=""/>
+<Parameter key="mapredKeyTab" value=""/>
+<Parameter key="schedulerHost" value="awscdh57singlenode.alpinenow.local"/>
+<Parameter key="schedulerPort" value="8030"/>
+<Parameter key="ALP_HD_KVP[mapreduce.jobhistory.address]" value="awscdh57singlenode.alpinenow.local:10020"/>
+<Parameter key="ALP_HD_KVP[mapreduce.jobhistory.webapp.address]" value="awscdh57singlenode.alpinenow.local:19888"/>
+<Parameter key="ALP_HD_KVP[yarn.resourcemanager.scheduler.address]" value="awscdh57singlenode.alpinenow.local:8030"/>
+<Parameter key="ALP_HD_KVP[alpine.hadoopuser.enabled]" value="false"/>
+<Parameter key="ALP_HD_KVP[yarn.resourcemanager.admin.address]" value="awscdh57singlenode.alpinenow.local:8033"/>
+<Parameter key="ALP_HD_KVP[yarn.resourcemanager.resource-tracker.address]" value="awscdh57singlenode.alpinenow.local:8031"/>
+<Parameter key="ALP_HD_KVP[yarn.app.mapreduce.am.staging-dir]" value="/tmp"/>
+</DataSource>
+</DataSources>
+<Operator X="517" Y="366" name="Binary Classifier (conf threshold = 0.68)" type="com.alpine.miner.gef.runoperator.plugin10.Plugin10Operator" uuid="1485893245480">
+<Note/>
+<Plugin10Proxy>
+<SignatureClassName name="com.alpine.plugin.stats.BinaryClassifier.BinaryClassifierSignature"/>
+</Plugin10Proxy>
+<OperatorDialog dataSourceSelectionEnabled="true" label="main">
+<TabularDatasetColumnCheckboxesImpl id="predictionID" label="Confidences Column(s)" selectionGroupId="a" sourceOperatorUUID="1485893329114">
+<AvailableValues>
+<Value value="INFO_LOR"/>
+</AvailableValues>
+<SelectedValues>
+<Value value="INFO_LOR"/>
+</SelectedValues>
+<ColumnFilter>
+<AcceptedNameRegex regex=".+"/>
+<AcceptedType type="Sparse"/>
+</ColumnFilter>
+</TabularDatasetColumnCheckboxesImpl>
+<StringBoxImpl id="classToPredictID" isLarge="false" isRequired="true" label="Class to Predict" regex=".*" value="1"/>
+<StringBoxImpl id="otherClassesID" isLarge="false" isRequired="false" label="New Value for Other Classes (if multi-class)" regex=".*" value=""/>
+<DoubleBoxImpl id="confidenceThresholdID" inclusiveMax="true" inclusiveMin="true" label="Confidence Threshold (inclusive)" max="1.0" min="0.0" value="0.6"/>
+<TabularDatasetColumnCheckboxesImpl id="passthroughID" label="Columns to Keep" selectionGroupId="b" sourceOperatorUUID="1485893329114">
+<AvailableValues>
+<Value value="name"/>
+<Value value="age"/>
+<Value value="PRED_LOR"/>
+<Value value="CONF_LOR"/>
+<Value value="INFO_LOR"/>
+<Value value="PRED_AFC"/>
+<Value value="CONF_AFC"/>
+<Value value="INFO_AFC"/>
+</AvailableValues>
+<SelectedValues>
+<Value value="name"/>
+<Value value="age"/>
+<Value value="PRED_LOR"/>
+<Value value="CONF_LOR"/>
+<Value value="INFO_LOR"/>
+</SelectedValues>
+<ColumnFilter>
+<AcceptedNameRegex regex=".+"/>
+<AcceptedType type="*"/>
+</ColumnFilter>
+</TabularDatasetColumnCheckboxesImpl>
+<DropdownBoxImpl id="badData" label="Write Rows Removed Due to Null Data To File">
+<AvailableValues>
+<Value value="Do Not Write Null Rows to File"/>
+<Value value="Write Up to 1000 Null Rows to File"/>
+<Value value="Write All Null Rows to File"/>
+<Value value="Do Not Write or Count Null Rows (Fastest)"/>
+</AvailableValues>
+<SelectedValue value="Do Not Write Null Rows to File"/>
+</DropdownBoxImpl>
+<DropdownBoxImpl id="storageFormat" label="Storage Format">
+<AvailableValues>
+<Value value="Parquet"/>
+<Value value="Avro"/>
+<Value value="CSV"/>
+</AvailableValues>
+<SelectedValue value="CSV"/>
+</DropdownBoxImpl>
+<HdfsFileSelectorImpl id="outputDirectory" isDirectorySelector="true" isRequired="true" label="Output Directory" selectedPath="@default_tempdir/alpine_out/@user_name/@flow_name"/>
+<StringBoxImpl id="outputName" isLarge="false" isRequired="true" label="Output Name" regex=".+" value="@operator_name_uuid"/>
+<RadioButtonsImpl id="overwrite" label="Overwrite Output">
+<AvailableValues>
+<Value value="true"/>
+<Value value="false"/>
+</AvailableValues>
+<SelectedValue value="true"/>
+</RadioButtonsImpl>
+<AdvancedSparkSettingsBoxImpl id="sparkSettings" label="Advanced Spark Settings">
+<AdvancedParameterSubParameter defaultValue="false" displayName="Disable Dynamic Allocation" key="noDynamicAllocation" overridden="false" userSpecified="false" value="false"/>
+<AdvancedParameterSubParameter defaultValue="3" displayName="Number of Executors" key="spark_numExecutors" overridden="false" userSpecified="false" value=""/>
+<AdvancedParameterSubParameter defaultValue="-1" displayName="Executor Memory in MB" key="spark_executorMB" overridden="false" userSpecified="false" value=""/>
+<AdvancedParameterSubParameter defaultValue="-1" displayName="Driver Memory in MB" key="spark_driverMB" overridden="false" userSpecified="false" value=""/>
+<AdvancedParameterSubParameter defaultValue="-1" displayName="Number of Executor Cores" key="spark_numExecutorCores" overridden="false" userSpecified="false" value=""/>
+<AdvancedParameterSubParameter defaultValue="NONE" displayName="Storage Level" key="spark_storage_level" overridden="false" userSpecified="false" value=""/>
+</AdvancedSparkSettingsBoxImpl>
+</OperatorDialog>
+<OperatorDataSourceManager runtimeDataSourceName="AWS-CDH57"/>
+<InPutFieldList>
+<Parameter key="groupName" value="hadoop"/>
+<Parameter key="jobPort" value="8032"/>
+<Parameter key="schedulerPort" value="8030"/>
+<Parameter key="hdfsPort" value="8020"/>
+<Parameter key="ALP_HD_KVP[yarn.resourcemanager.admin.address]" value="awscdh57singlenode.alpinenow.local:8033"/>
+<Parameter key="ALP_HD_KVP[mapreduce.jobhistory.webapp.address]" value="awscdh57singlenode.alpinenow.local:19888"/>
+<Parameter key="hdfsHostname" value="awscdh57singlenode.alpinenow.local"/>
+<Parameter key="ALP_HD_KVP[yarn.resourcemanager.scheduler.address]" value="awscdh57singlenode.alpinenow.local:8030"/>
+<Parameter key="useHA" value="false"/>
+<Parameter key="schedulerHost" value="awscdh57singlenode.alpinenow.local"/>
+<Parameter key="ALP_HD_KVP[yarn.resourcemanager.resource-tracker.address]" value="awscdh57singlenode.alpinenow.local:8031"/>
+<Parameter key="ALP_HD_KVP[mapreduce.jobhistory.address]" value="awscdh57singlenode.alpinenow.local:10020"/>
+<Parameter key="mapredPrincipal" value=""/>
+<Parameter key="jobHostname" value="awscdh57singlenode.alpinenow.local"/>
+<Parameter key="hadoopVersion" value="Cloudera CDH5.4-5.7"/>
+<Parameter key="ALP_HD_KVP[yarn.app.mapreduce.am.staging-dir]" value="/tmp"/>
+<Parameter key="ALP_HD_KVP[alpine.hadoopuser.enabled]" value="false"/>
+<Parameter key="connName" value="AWS-CDH57"/>
+<Parameter key="userName" value="yarn"/>
+<Parameter key="securityMode" value="simple"/>
+<Parameter key="hdfsPrincipal" value=""/>
+<Parameter key="hdfsKeyTab" value=""/>
+<Parameter key="mapredKeyTab" value=""/>
+</InPutFieldList>
+</Operator>
+<Operator X="568" Y="88" name="Logistic Regression" type="com.alpine.miner.gef.runoperator.hadoop.HadoopLogisticRegressionOperator" uuid="1485893252882">
+<Note/>
+<Parameter key="dependentColumn" value="survived"/>
+<Parameter key="max_generations" value="20"/>
+<Parameter key="epsilon" value="0.0001"/>
+<Parameter key="columnNames" value="pclass,sex,age,parch,fare,embarked"/>
+<Parameter key="useApproximation" value="No"/>
+<Parameter key="useReg" value="No"/>
+<Parameter key="lorPenalizingParameter" value="0"/>
+<Parameter key="retrainWORegularization" value="No"/>
+<Parameter key="elasticParameter" value="0.0"/>
+<Parameter key="useSpark" value="Yes"/>
+<advancedSettings>
+<AdvancedParameterSubParameter defaultValue="" displayName="Max JVM Heap Size (MB) (-1=Automatic)" key="inMemoryRfVMSize" overridden="false" userSpecified="false" value="-1"/>
+<AdvancedParameterSubParameter defaultValue="" displayName="Disable Dynamic Allocation" key="noDynamicAllocation" overridden="false" userSpecified="false" value="false"/>
+<AdvancedParameterSubParameter defaultValue="" displayName="Number of Spark Executors (-1=Automatic)" key="numSparkWorkers" overridden="false" userSpecified="false" value="-1"/>
+<AdvancedParameterSubParameter defaultValue="" displayName="Spark Executor Memory (MB) (-1=Automatic)" key="sparkExecutorMemory" overridden="false" userSpecified="false" value="-1"/>
+<AdvancedParameterSubParameter defaultValue="" displayName="Spark Driver Memory (MB) (-1=Automatic)" key="sparkDriverMemory" overridden="false" userSpecified="false" value="-1"/>
+<AdvancedParameterSubParameter defaultValue="" displayName="Storage Level" key="sparkStorageLevel" overridden="false" userSpecified="false" value="MEMORY_AND_DISK_SER"/>
+<AdvancedParameterSubParameter defaultValue="" displayName="Repartition the RDD" key="repartitionRDD" overridden="false" userSpecified="false" value="false"/>
+<AdvancedParameterSubParameter defaultValue="" displayName="Number of partitions (-1=Automatic)" key="numPartitions" overridden="false" userSpecified="false" value="-1"/>
+<AdvancedParameterSubParameter defaultValue="" displayName="Categorical Feature Unique Value Limit" key="maxNumCategoricalBins" overridden="false" userSpecified="false" value="256"/>
+</advancedSettings>
+<Parameter key="varSelPath" value=""/>
+<InPutFieldList>
+<Parameter key="connName" value="AWS-CDH57"/>
+<Parameter key="hadoopCompressionFormat" value=""/>
+<Parameter key="hadoopFileName" value="@default_tempdir/alpine_runtime/@user_name/@flow_name/rsamp_0/Sample_1"/>
+</InPutFieldList>
+</Operator>
+<Operator X="223" Y="128" name="Random Sampling" type="com.alpine.miner.gef.runoperator.hadoop.HadoopRandomSamplingOperator" uuid="1485893266780">
+<Note/>
+<Parameter key="sampleCount" value="2"/>
+<Parameter key="sampleSizeType" value="Percentage"/>
+<Parameter key="randomSeed" value=" "/>
+<Parameter key="consistent" value="false"/>
+<Parameter key="replacement" value="false"/>
+<Parameter key="disjoint" value="true"/>
+<Parameter key="storeResults" value="false"/>
+<Parameter key="resultsLocation" value="/tmp/alpine_out/@user_name/@flow_name"/>
+<Parameter key="resultsName" value="rsamp_0"/>
+<Parameter key="override" value="Yes"/>
+<Parameter key="hiveResultDatabase" value="@default_schema"/>
+<Parameter key="hiveResultTableName" value="alp@user_id_@flow_id_rsamp_0"/>
+<Parameter key="dropIfExist" value="Yes"/>
+<SampleSizeModel>
+<sampleIDs sampleID="1"/>
+<sampleIDs sampleID="2"/>
+<sampleSizes sampleSize="75"/>
+<sampleSizes sampleSize="25"/>
+</SampleSizeModel>
+<InPutFieldList>
+<Parameter key="connName" value="AWS-CDH57"/>
+<Parameter key="hadoopCompressionFormat" value=""/>
+<Parameter key="hadoopFileName" value="/automation_test_data/csv/titanic.csv"/>
+</InPutFieldList>
+</Operator>
+<Operator X="362" Y="213" name="Testing 25%" type="com.alpine.miner.gef.runoperator.hadoop.HadoopSampleSelectorOperator" uuid="1485893273048">
+<Note/>
+<Parameter key="selectedFile" value="Sample_2"/>
+<InPutFieldList>
+<Parameter key="connName" value="AWS-CDH57"/>
+<Parameter key="hadoopCompressionFormat" value=""/>
+<Parameter key="hadoopFileName" value="@default_tempdir/alpine_runtime/@user_name/@flow_name/rsamp_0/Sample_1"/>
+</InPutFieldList>
+<InPutFieldList>
+<Parameter key="connName" value="AWS-CDH57"/>
+<Parameter key="hadoopCompressionFormat" value=""/>
+<Parameter key="hadoopFileName" value="@default_tempdir/alpine_runtime/@user_name/@flow_name/rsamp_0/Sample_2"/>
+</InPutFieldList>
+</Operator>
+<Operator X="368" Y="107" name="Training 75%" type="com.alpine.miner.gef.runoperator.hadoop.HadoopSampleSelectorOperator" uuid="1485893275427_0">
+<Note/>
+<Parameter key="selectedFile" value="Sample_1"/>
+<InPutFieldList>
+<Parameter key="connName" value="AWS-CDH57"/>
+<Parameter key="hadoopCompressionFormat" value=""/>
+<Parameter key="hadoopFileName" value="@default_tempdir/alpine_runtime/@user_name/@flow_name/rsamp_0/Sample_1"/>
+</InPutFieldList>
+<InPutFieldList>
+<Parameter key="connName" value="AWS-CDH57"/>
+<Parameter key="hadoopCompressionFormat" value=""/>
+<Parameter key="hadoopFileName" value="@default_tempdir/alpine_runtime/@user_name/@flow_name/rsamp_0/Sample_2"/>
+</InPutFieldList>
+</Operator>
+<Operator X="516" Y="273" name="Classifier" type="com.alpine.miner.gef.runoperator.hadoop.HadoopClassifierPredictOperator" uuid="1485893329114">
+<Note/>
+<Parameter key="storeResults" value="false"/>
+<Parameter key="resultsLocation" value="/tmp/alpine_out/@user_name/@flow_name"/>
+<Parameter key="resultsName" value="classifier_0"/>
+<Parameter key="override" value="Yes"/>
+<Parameter key="hiveResultDatabase" value="@default_schema"/>
+<Parameter key="hiveResultTableName" value="alp@user_id_@flow_id_classifier_0"/>
+<Parameter key="dropIfExist" value="Yes"/>
+<InPutFieldList>
+<Parameter key="connName" value="AWS-CDH57"/>
+<Parameter key="hadoopCompressionFormat" value=""/>
+<Parameter key="hadoopFileName" value="@default_tempdir/alpine_runtime/@user_name/@flow_name/rsamp_0/Sample_2"/>
+</InPutFieldList>
+</Operator>
+<Operator X="695" Y="276" name="Classification Threshold Metrics (Logistic Regression)" type="com.alpine.miner.gef.runoperator.plugin10.Plugin10Operator" uuid="1485893383677">
+<Note/>
+<Plugin10Proxy>
+<SignatureClassName name="com.alpine.plugin.stats.classificationThresholdTuning.ClassificationThresholdTuningSignature"/>
+</Plugin10Proxy>
+<OperatorDialog dataSourceSelectionEnabled="true" label="main">
+<TabularDatasetColumnDropdownBoxImpl id="column_label" label="Dependent Column" selectionGroupId="a" sourceOperatorUUID="1485893329114">
+<AvailableValues>
+<Value value="survived"/>
+</AvailableValues>
+<SelectedValue value="survived"/>
+<ColumnFilter>
+<AcceptedNameRegex regex=".+"/>
+<AcceptedType type="String"/>
+<AcceptedType type="Int"/>
+<AcceptedType type="Long"/>
+<AcceptedType type="Double"/>
+<AcceptedType type="Float"/>
+</ColumnFilter>
+</TabularDatasetColumnDropdownBoxImpl>
+<TabularDatasetColumnDropdownBoxImpl id="col_predictions" label="Confidences Column" selectionGroupId="a" sourceOperatorUUID="1485893329114">
+<AvailableValues>
+<Value value="INFO_LOR"/>
+</AvailableValues>
+<SelectedValue value="INFO_LOR"/>
+<ColumnFilter>
+<AcceptedNameRegex regex=".+"/>
+<AcceptedType type="Sparse"/>
+</ColumnFilter>
+</TabularDatasetColumnDropdownBoxImpl>
+<StringBoxImpl id="class_to_predict" isLarge="false" isRequired="true" label="Class to Predict" regex=".*" value="1"/>
+<IntegerBoxImpl id="num_bins" label="Number of Bins (approx.)" max="500" min="0" value="25"/>
+<DoubleBoxImpl id="beta" inclusiveMax="true" inclusiveMin="true" label="Beta Value for F-measure (β)" max="20.0" min="0.0" value="1.0"/>
+<DropdownBoxImpl id="badData" label="Write Rows Removed Due to Null Data To File">
+<AvailableValues>
+<Value value="Do Not Write Null Rows to File"/>
+<Value value="Write Up to 1000 Null Rows to File"/>
+<Value value="Write All Null Rows to File"/>
+<Value value="Do Not Write or Count Null Rows (Fastest)"/>
+</AvailableValues>
+<SelectedValue value="Do Not Write Null Rows to File"/>
+</DropdownBoxImpl>
+<DropdownBoxImpl id="storageFormat" label="Storage Format">
+<AvailableValues>
+<Value value="Parquet"/>
+<Value value="Avro"/>
+<Value value="CSV"/>
+</AvailableValues>
+<SelectedValue value="CSV"/>
+</DropdownBoxImpl>
+<HdfsFileSelectorImpl id="outputDirectory" isDirectorySelector="true" isRequired="true" label="Output Directory" selectedPath="@default_tempdir/alpine_out/@user_name/@flow_name"/>
+<StringBoxImpl id="outputName" isLarge="false" isRequired="true" label="Output Name" regex=".+" value="@operator_name_uuid"/>
+<RadioButtonsImpl id="overwrite" label="Overwrite Output">
+<AvailableValues>
+<Value value="true"/>
+<Value value="false"/>
+</AvailableValues>
+<SelectedValue value="true"/>
+</RadioButtonsImpl>
+<AdvancedSparkSettingsBoxImpl id="sparkSettings" label="Advanced Spark Settings">
+<AdvancedParameterSubParameter defaultValue="false" displayName="Disable Dynamic Allocation" key="noDynamicAllocation" overridden="false" userSpecified="false" value="false"/>
+<AdvancedParameterSubParameter defaultValue="3" displayName="Number of Executors" key="spark_numExecutors" overridden="false" userSpecified="false" value=""/>
+<AdvancedParameterSubParameter defaultValue="-1" displayName="Executor Memory in MB" key="spark_executorMB" overridden="false" userSpecified="false" value=""/>
+<AdvancedParameterSubParameter defaultValue="-1" displayName="Driver Memory in MB" key="spark_driverMB" overridden="false" userSpecified="false" value=""/>
+<AdvancedParameterSubParameter defaultValue="-1" displayName="Number of Executor Cores" key="spark_numExecutorCores" overridden="false" userSpecified="false" value=""/>
+<AdvancedParameterSubParameter defaultValue="NONE" displayName="Storage Level" key="spark_storage_level" overridden="false" userSpecified="false" value=""/>
+</AdvancedSparkSettingsBoxImpl>
+</OperatorDialog>
+<OperatorDataSourceManager runtimeDataSourceName="AWS-CDH57"/>
+<InPutFieldList>
+<Parameter key="groupName" value="hadoop"/>
+<Parameter key="jobPort" value="8032"/>
+<Parameter key="schedulerPort" value="8030"/>
+<Parameter key="hdfsPort" value="8020"/>
+<Parameter key="ALP_HD_KVP[yarn.resourcemanager.admin.address]" value="awscdh57singlenode.alpinenow.local:8033"/>
+<Parameter key="ALP_HD_KVP[mapreduce.jobhistory.webapp.address]" value="awscdh57singlenode.alpinenow.local:19888"/>
+<Parameter key="hdfsHostname" value="awscdh57singlenode.alpinenow.local"/>
+<Parameter key="ALP_HD_KVP[yarn.resourcemanager.scheduler.address]" value="awscdh57singlenode.alpinenow.local:8030"/>
+<Parameter key="useHA" value="false"/>
+<Parameter key="schedulerHost" value="awscdh57singlenode.alpinenow.local"/>
+<Parameter key="ALP_HD_KVP[yarn.resourcemanager.resource-tracker.address]" value="awscdh57singlenode.alpinenow.local:8031"/>
+<Parameter key="ALP_HD_KVP[mapreduce.jobhistory.address]" value="awscdh57singlenode.alpinenow.local:10020"/>
+<Parameter key="mapredPrincipal" value=""/>
+<Parameter key="jobHostname" value="awscdh57singlenode.alpinenow.local"/>
+<Parameter key="hadoopVersion" value="Cloudera CDH5.4-5.7"/>
+<Parameter key="ALP_HD_KVP[yarn.app.mapreduce.am.staging-dir]" value="/tmp"/>
+<Parameter key="ALP_HD_KVP[alpine.hadoopuser.enabled]" value="false"/>
+<Parameter key="connName" value="AWS-CDH57"/>
+<Parameter key="userName" value="yarn"/>
+<Parameter key="securityMode" value="simple"/>
+<Parameter key="hdfsPrincipal" value=""/>
+<Parameter key="hdfsKeyTab" value=""/>
+<Parameter key="mapredKeyTab" value=""/>
+</InPutFieldList>
+</Operator>
+<Operator X="484" Y="201" name="Confusion Matrix" type="com.alpine.miner.gef.runoperator.hadoop.HadoopConfusionOperator" uuid="1485893625483">
+<Note/>
+<InPutFieldList>
+<Parameter key="connName" value="AWS-CDH57"/>
+<Parameter key="hadoopCompressionFormat" value=""/>
+<Parameter key="hadoopFileName" value="@default_tempdir/alpine_runtime/@user_name/@flow_name/rsamp_0/Sample_2"/>
+</InPutFieldList>
+</Operator>
+<Operator X="86" Y="124" name="titanic.csv" type="com.alpine.miner.gef.runoperator.hadoop.HadoopFileOperator" uuid="1485893953087">
+<Note/>
+<Parameter key="connName" value="AWS-CDH57"/>
+<Parameter key="hadoopFileName" value="/automation_test_data/csv/titanic.csv"/>
+<Parameter key="hadoopFileFormat" value="Text File"/>
+<HadoopFileStructureModel delimiter="Comma" escapChar="\" includeHeader="true" other="" quoteChar="&quot;">
+<col n="pclass" t="long"/>
+<col n="survived" t="long"/>
+<col n="name" t="chararray"/>
+<col n="sex" t="chararray"/>
+<col n="age" t="long"/>
+<col n="sibsp" t="long"/>
+<col n="parch" t="long"/>
+<col n="ticket" t="chararray"/>
+<col n="fare" t="double"/>
+<col n="cabin" t="chararray"/>
+<col n="embarked" t="chararray"/>
+<col n="boat" t="chararray"/>
+<col n="body" t="long"/>
+<col n="home" t="chararray"/>
+</HadoopFileStructureModel>
+<InPutFieldList>
+<Parameter key="connName" value="AWS-CDH57"/>
+<Parameter key="hadoopCompressionFormat" value=""/>
+<Parameter key="hadoopFileName" value="/automation_test_data/csv/titanic.csv"/>
+</InPutFieldList>
+</Operator>
+<Operator X="602" Y="449" name="Increasing conf threshold to 0.68 to get &gt;80% precision" type="com.alpine.miner.gef.runoperator.structual.NoteOperator" uuid="1485894849607">
+<Note/>
+</Operator>
+<Link source="Random Sampling" target="Testing 25%"/>
+<Link source="Random Sampling" target="Training 75%"/>
+<Link source="Training 75%" target="Logistic Regression"/>
+<Link source="Logistic Regression" target="Classifier"/>
+<Link source="Testing 25%" target="Classifier"/>
+<Link source="Classifier" target="Classification Threshold Metrics (Logistic Regression)"/>
+<Link source="Classifier" target="Binary Classifier (conf threshold = 0.68)"/>
+<Link source="Testing 25%" target="Confusion Matrix"/>
+<Link source="titanic.csv" target="Random Sampling"/>
+<Link source="Logistic Regression" target="Confusion Matrix"/>
+<Link source="Binary Classifier (conf threshold = 0.68)" target="Increasing conf threshold to 0.68 to get &gt;80% precision"/>
+<VariableModel>
+<Variable>
+<Name>@flow_name</Name>
+<Value>@flow_name</Value>
+</Variable>
+<Variable>
+<Name>@user_name</Name>
+<Value>@user_name</Value>
+</Variable>
+<Variable>
+<Name>@user_id</Name>
+<Value>@user_id</Value>
+</Variable>
+<Variable>
+<Name>@flow_id</Name>
+<Value>@flow_id</Value>
+</Variable>
+<Variable>
+<Name>@default_schema</Name>
+<Value>public</Value>
+</Variable>
+<Variable>
+<Name>@default_prefix</Name>
+<Value>ch5</Value>
+</Variable>
+<Variable>
+<Name>@default_tempdir</Name>
+<Value>/tmp</Value>
+</Variable>
+<Variable>
+<Name>@default_delimiter</Name>
+<Value>,</Value>
+</Variable>
+<Variable>
+<Name>@pig_number_of_reducers</Name>
+<Value>-1</Value>
+</Variable>
+</VariableModel>
+</Process>
