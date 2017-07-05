@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Process Description="" UserName="1" Version="6.3.0.0">
+<DataSources>
+<DataSource name="miner_demo" type="Database">
+<Parameter key="dbConnectionName" value="miner_demo"/>
+<Parameter key="url" value="jdbc:postgresql://10.10.0.151:5432/miner_demo"/>
+<Parameter key="userName" value="miner_demo"/>
+<Parameter key="useSSL" value="false"/>
+<Parameter key="password" value="bWluZXJfZGVtbw=="/>
+<Parameter key="system" value="Greenplum"/>
+</DataSource>
+</DataSources>
+<Operator X="67" Y="58" name="Twitter Search" type="com.alpine.miner.gef.runoperator.plugin10.Plugin10Operator" uuid="1499278267974">
+<Note/>
+<Plugin10Proxy>
+<SignatureClassName name="com.alpine.plugin.twitter.TwitterSearchOperatorSignature"/>
+</Plugin10Proxy>
+<OperatorDialog dataSourceSelectionEnabled="true" label="main">
+<StringBoxImpl id="search_string" isLarge="false" isRequired="true" label="Search String" regex=".+" value="from:alpinedatalabs"/>
+<StringBoxImpl id="search_limit" isLarge="false" isRequired="true" label="Search Count Limit" regex="[0-9]+" value="100"/>
+<DBSchemaDropdownBoxImpl id="outputSchema" label="Output Schema">
+<AvailableValues>
+<Value value="@default_schema"/>
+</AvailableValues>
+<SelectedValue value="@default_schema"/>
+</DBSchemaDropdownBoxImpl>
+<StringBoxImpl id="resultTableName" isLarge="false" isRequired="true" label="Output Table" regex=".+" value="@operator_name_uuid"/>
+<RadioButtonsImpl id="dropIfExist" label="Drop If Exists">
+<AvailableValues>
+<Value value="Yes"/>
+<Value value="No"/>
+</AvailableValues>
+<SelectedValue value="Yes"/>
+</RadioButtonsImpl>
+</OperatorDialog>
+<OperatorDataSourceManager runtimeDataSourceName="miner_demo"/>
+<Parameter key="dbConnectionName" value="miner_demo"/>
+</Operator>
+<VariableModel>
+<Variable>
+<Name>@flow_name</Name>
+<Value>@flow_name</Value>
+</Variable>
+<Variable>
+<Name>@user_name</Name>
+<Value>@user_name</Value>
+</Variable>
+<Variable>
+<Name>@user_id</Name>
+<Value>@user_id</Value>
+</Variable>
+<Variable>
+<Name>@flow_id</Name>
+<Value>@flow_id</Value>
+</Variable>
+<Variable>
+<Name>@default_schema</Name>
+<Value>public</Value>
+</Variable>
+<Variable>
+<Name>@default_tempdir</Name>
+<Value>/tmp</Value>
+</Variable>
+<Variable>
+<Name>@default_delimiter</Name>
+<Value>,</Value>
+</Variable>
+<Variable>
+<Name>@pig_number_of_reducers</Name>
+<Value>-1</Value>
+</Variable>
+</VariableModel>
+</Process>
