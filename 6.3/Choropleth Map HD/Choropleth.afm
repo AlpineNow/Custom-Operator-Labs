@@ -81,10 +81,10 @@
 <Parameter key="hadoopFileName" value="/user/alpine/2016_US_County_Level_Presidential_Results.csv"/>
 </InPutFieldList>
 </Operator>
-<Operator X="150" Y="350" name="Cloropleth" type="com.alpine.miner.gef.runoperator.plugin10.Plugin10Operator" uuid="1498779294018">
+<Operator X="150" Y="350" name="Choropleth" type="com.alpine.miner.gef.runoperator.plugin10.Plugin10Operator" uuid="1498779294018">
 <Note/>
 <Plugin10Proxy>
-<SignatureClassName name="com.alpine.plugin.CloroplethOperatorSignature"/>
+<SignatureClassName name="com.alpine.plugin.ChoroplethOperatorSignature"/>
 </Plugin10Proxy>
 <OperatorDialog dataSourceSelectionEnabled="true" label="main">
 <TabularDatasetColumnDropdownBoxImpl id="location" isRequired="true" label="Location" selectionGroupId="main" sourceOperatorUUID="1498779907214">
@@ -227,7 +227,7 @@
 </Operator>
 <Link source="2016_US_County_Level_Presidential_Results.csv" target="Aggregate votes by State"/>
 <Link source="Aggregate votes by State" target="Normalize vote counts"/>
-<Link source="Normalize vote counts" target="Cloropleth"/>
+<Link source="Normalize vote counts" target="Choropleth"/>
 <VariableModel>
 <Variable>
 <Name>@flow_name</Name>
