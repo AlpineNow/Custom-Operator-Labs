@@ -1,12 +1,12 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Process Description="" UserName="5" Version="6.3.0.0">
-<Operator X="174" Y="127" name="credit" type="com.alpine.miner.gef.runoperator.datasource.DbTableOperator" uuid="1498494524580">
+<?xml version="1.0" encoding="UTF-8"?>
+<Process Description="" UserName="48" Version="6.2.2.0">
+<Operator X="113" Y="162" name="credit" type="com.alpine.miner.gef.runoperator.datasource.DbTableOperator" uuid="1499377105819">
 <Note/>
-<Parameter key="dbConnectionName" value="robot_automation"/>
-<Parameter key="schemaName" value="auto_test_data"/>
+<Parameter key="dbConnectionName" value="miner_demo"/>
+<Parameter key="schemaName" value="public"/>
 <Parameter key="tableName" value="credit"/>
 </Operator>
-<Operator X="300" Y="124" name="Export to FTP (DB)" type="com.alpine.miner.gef.runoperator.plugin10.Plugin10Operator" uuid="1498836993756">
+<Operator X="297" Y="159" name="Export to FTP (DB)" type="com.alpine.miner.gef.runoperator.plugin10.Plugin10Operator" uuid="1499377110221">
 <Note/>
 <Plugin10Proxy>
 <SignatureClassName name="com.alpine.FTPExport.FTPExportSignature"/>
@@ -17,7 +17,7 @@
 <StringBoxImpl id="userKey" isLarge="false" isRequired="true" label="Username" regex=".*" value=""/>
 <StringBoxImpl id="passwordKey" isLarge="false" isRequired="true" label="Password" regex=".*" value=""/>
 <StringBoxImpl id="accountKey" isLarge="false" isRequired="false" label="Account" regex=".*" value=""/>
-<StringBoxImpl id="outputDirKey" isLarge="false" isRequired="true" label="Output Directory" regex="^/.*$" value="/emillie"/>
+<StringBoxImpl id="outputDirKey" isLarge="false" isRequired="true" label="Output Directory" regex="^/.*$" value="/tmp_dir/"/>
 <StringBoxImpl id="outputNameKey" isLarge="false" isRequired="true" label="Output Name" regex="^[-_.0-9a-zA-Z]+$" value="credit.csv"/>
 <RadioButtonsImpl id="overwriteParameterKey" label="Overwrite File if Exists">
 <AvailableValues>
@@ -27,14 +27,14 @@
 <SelectedValue value="true"/>
 </RadioButtonsImpl>
 </OperatorDialog>
-<OperatorDataSourceManager runtimeDataSourceName="robot_automation"/>
-<InPutFieldList id="1498494524580">
-<Parameter key="schema" value="auto_test_data"/>
+<OperatorDataSourceManager runtimeDataSourceName="miner_demo"/>
+<InPutFieldList id="1499377105819">
+<Parameter key="schema" value="public"/>
 <Parameter key="table" value="credit"/>
 <Parameter key="tableType" value="TABLE"/>
-<Parameter key="dbConnectionName" value="robot_automation"/>
+<Parameter key="dbConnectionName" value="miner_demo"/>
 <Fields>
-<Field name="id" type="BIGINT"/>
+<Field name="id" type="INTEGER"/>
 <Field name="times90dayslate" type="INTEGER"/>
 <Field name="revolving_util" type="NUMERIC"/>
 <Field name="debt_ratio" type="NUMERIC"/>
@@ -44,7 +44,7 @@
 <Field name="srsdlqncy" type="INTEGER"/>
 </Fields>
 </InPutFieldList>
-<Parameter key="dbConnectionName" value="robot_automation"/>
+<Parameter key="dbConnectionName" value="miner_demo"/>
 </Operator>
 <Link source="credit" target="Export to FTP (DB)"/>
 <VariableModel>
@@ -69,6 +69,10 @@
 <Value>public</Value>
 </Variable>
 <Variable>
+<Name>@default_prefix</Name>
+<Value>ch48</Value>
+</Variable>
+<Variable>
 <Name>@default_tempdir</Name>
 <Value>/tmp</Value>
 </Variable>
@@ -78,7 +82,7 @@
 </Variable>
 <Variable>
 <Name>@pig_number_of_reducers</Name>
-<Value>-1</Value>
+<Value>4</Value>
 </Variable>
 </VariableModel>
 </Process>
