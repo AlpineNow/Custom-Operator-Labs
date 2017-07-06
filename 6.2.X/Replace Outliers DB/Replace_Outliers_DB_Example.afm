@@ -1,15 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Process Description="" UserName="5" Version="6.3.0.0">
-<DataSources>
-<DataSource name="miner_demo" type="Database">
-<Parameter key="dbConnectionName" value="miner_demo"/>
-<Parameter key="url" value="jdbc:postgresql://10.10.0.151:5432/miner_demo"/>
-<Parameter key="userName" value="miner_demo"/>
-<Parameter key="useSSL" value="false"/>
-<Parameter key="password" value="bWluZXJfZGVtbw=="/>
-<Parameter key="system" value="Greenplum"/>
-</DataSource>
-</DataSources>
 <Operator X="244" Y="90" name="Replace Outliers (DB)" type="com.alpine.miner.gef.runoperator.plugin10.Plugin10Operator" uuid="1485832057103">
 <Note/>
 <Plugin10Proxy>

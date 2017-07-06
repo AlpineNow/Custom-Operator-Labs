@@ -1,15 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <Process Description="" UserName="5" Version="6.3.0.0">
-<DataSources>
-<DataSource name="robot_automation" type="Database">
-<Parameter key="dbConnectionName" value="robot_automation"/>
-<Parameter key="url" value="jdbc:postgresql://10.10.0.151:5432/robot_automation"/>
-<Parameter key="userName" value="miner_demo"/>
-<Parameter key="useSSL" value="false"/>
-<Parameter key="password" value="bWluZXJfZGVtbw=="/>
-<Parameter key="system" value="Greenplum"/>
-</DataSource>
-</DataSources>
 <Operator X="174" Y="127" name="credit" type="com.alpine.miner.gef.runoperator.datasource.DbTableOperator" uuid="1498494524580">
 <Note/>
 <Parameter key="dbConnectionName" value="robot_automation"/>

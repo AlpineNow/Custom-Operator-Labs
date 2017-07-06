@@ -1,48 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Process Description="" UserName="94" Version="6.2.0.0">
-<DataSources>
-<DataSource name="Greenplum" type="Database">
-<Parameter key="dbConnectionName" value="Greenplum"/>
-<Parameter key="url" value="jdbc:postgresql://50.18.119.74:5432/miner_demo"/>
-<Parameter key="userName" value="miner_demo"/>
-<Parameter key="useSSL" value="false"/>
-<Parameter key="password" value="bWluZXJfZGVtbw=="/>
-<Parameter key="system" value="PostgreSQL"/>
-</DataSource>
-<DataSource name="Cloudera CDH5 with Spark" type="Hadoop">
-<Parameter key="connName" value="Cloudera CDH5 with Spark"/>
-<Parameter key="hdfsHostname" value="sdn-cdh5-nn.alpinedemo.com"/>
-<Parameter key="hdfsPort" value="8020"/>
-<Parameter key="hadoopVersion" value="Cloudera CDH5.4-5.7"/>
-<Parameter key="jobHostname" value="sdn-cdh5-nn.alpinedemo.com"/>
-<Parameter key="jobPort" value="8032"/>
-<Parameter key="userName" value="hdfs"/>
-<Parameter key="useHA" value="false"/>
-<Parameter key="groupName" value="supergroup"/>
-<Parameter key="securityMode" value="simple"/>
-<Parameter key="hdfsPrincipal" value=""/>
-<Parameter key="hdfsKeyTab" value=""/>
-<Parameter key="mapredPrincipal" value=""/>
-<Parameter key="mapredKeyTab" value=""/>
-<Parameter key="schedulerHost" value="sdn-cdh5-nn.alpinedemo.com"/>
-<Parameter key="schedulerPort" value="8030"/>
-<Parameter key="ALP_HD_KVP[mapreduce.jobhistory.address]" value="sdn-cdh5-nn.alpinedemo.com:10020"/>
-<Parameter key="ALP_HD_KVP[mapreduce.reduce.java.opts]" value="-Xmx7000m"/>
-<Parameter key="ALP_HD_KVP[mapreduce.map.memory.mb]" value="8000"/>
-<Parameter key="ALP_HD_KVP[mapreduce.jobhistory.webapp.address]" value="sdn-cdh5-nn.alpinedemo.com:19888"/>
-<Parameter key="ALP_HD_KVP[yarn.resourcemanager.scheduler.address]" value="sdn-cdh5-nn.alpinedemo.com:8030"/>
-<Parameter key="ALP_HD_KVP[alpine.hadoopuser.enabled]" value="false"/>
-<Parameter key="ALP_HD_KVP[yarn.resourcemanager.admin.address]" value="sdn-cdh5-nn.alpinedemo.com:8033"/>
-<Parameter key="ALP_HD_KVP[yarn.resourcemanager.hostname]" value="sdn-cdh5-nn.alpinedemo.com"/>
-<Parameter key="ALP_HD_KVP[mapred.child.java.opts]" value="-Xmx2048m"/>
-<Parameter key="ALP_HD_KVP[mapreduce.map.java.opts]" value="-Xmx7000m"/>
-<Parameter key="ALP_HD_KVP[yarn.resourcemanager.resource-tracker.address]" value="sdn-cdh5-nn.alpinedemo.com:8031"/>
-<Parameter key="ALP_HD_KVP[mapreduce.task.io.sort.mb]" value="1024"/>
-<Parameter key="ALP_HD_KVP[mapreduce.reduce.memory.mb]" value="8000"/>
-<Parameter key="ALP_HD_KVP[dfs.client.use.datanode.hostname]" value="true"/>
-<Parameter key="ALP_HD_KVP[yarn.app.mapreduce.am.staging-dir]" value="/user"/>
-</DataSource>
-</DataSources>
 <Operator X="122" Y="67" name="Time_series_data with categories.csv" type="com.alpine.miner.gef.runoperator.hadoop.HadoopFileOperator" uuid="1484253875569">
 <Note/>
 <Parameter key="connName" value="Cloudera CDH5 with Spark"/>
@@ -120,39 +77,6 @@
 </DropdownBoxImpl>
 </OperatorDialog>
 <OperatorDataSourceManager runtimeDataSourceName="Cloudera CDH5 with Spark"/>
-<InPutFieldList>
-<Parameter key="ALP_HD_KVP[mapreduce.map.java.opts]" value="-Xmx7000m"/>
-<Parameter key="groupName" value="supergroup"/>
-<Parameter key="jobPort" value="8032"/>
-<Parameter key="schedulerPort" value="8030"/>
-<Parameter key="hdfsHostname" value="sdn-cdh5-nn.alpinedemo.com"/>
-<Parameter key="ALP_HD_KVP[yarn.resourcemanager.scheduler.address]" value="sdn-cdh5-nn.alpinedemo.com:8030"/>
-<Parameter key="ALP_HD_KVP[yarn.resourcemanager.hostname]" value="sdn-cdh5-nn.alpinedemo.com"/>
-<Parameter key="ALP_HD_KVP[yarn.resourcemanager.resource-tracker.address]" value="sdn-cdh5-nn.alpinedemo.com:8031"/>
-<Parameter key="ALP_HD_KVP[mapred.child.java.opts]" value="-Xmx2048m"/>
-<Parameter key="hadoopVersion" value="Cloudera CDH5.4-5.7"/>
-<Parameter key="ALP_HD_KVP[mapreduce.reduce.java.opts]" value="-Xmx7000m"/>
-<Parameter key="ALP_HD_KVP[mapreduce.task.io.sort.mb]" value="1024"/>
-<Parameter key="connName" value="Cloudera CDH5 with Spark"/>
-<Parameter key="securityMode" value="simple"/>
-<Parameter key="userName" value="hdfs"/>
-<Parameter key="hdfsPort" value="8020"/>
-<Parameter key="ALP_HD_KVP[mapreduce.jobhistory.webapp.address]" value="sdn-cdh5-nn.alpinedemo.com:19888"/>
-<Parameter key="ALP_HD_KVP[yarn.resourcemanager.admin.address]" value="sdn-cdh5-nn.alpinedemo.com:8033"/>
-<Parameter key="useHA" value="false"/>
-<Parameter key="schedulerHost" value="sdn-cdh5-nn.alpinedemo.com"/>
-<Parameter key="mapredPrincipal" value=""/>
-<Parameter key="ALP_HD_KVP[mapreduce.jobhistory.address]" value="sdn-cdh5-nn.alpinedemo.com:10020"/>
-<Parameter key="ALP_HD_KVP[mapreduce.map.memory.mb]" value="8000"/>
-<Parameter key="jobHostname" value="sdn-cdh5-nn.alpinedemo.com"/>
-<Parameter key="ALP_HD_KVP[yarn.app.mapreduce.am.staging-dir]" value="/user"/>
-<Parameter key="ALP_HD_KVP[alpine.hadoopuser.enabled]" value="false"/>
-<Parameter key="hdfsKeyTab" value=""/>
-<Parameter key="hdfsPrincipal" value=""/>
-<Parameter key="mapredKeyTab" value=""/>
-<Parameter key="ALP_HD_KVP[dfs.client.use.datanode.hostname]" value="true"/>
-<Parameter key="ALP_HD_KVP[mapreduce.reduce.memory.mb]" value="8000"/>
-</InPutFieldList>
 </Operator>
 <Operator X="603" Y="64" name="Summary Statistics" type="com.alpine.miner.gef.runoperator.hadoop.HadoopValueAnalysisOperator" uuid="1485207348760">
 <Note/>

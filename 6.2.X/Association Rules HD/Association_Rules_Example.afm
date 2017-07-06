@@ -1,32 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Process Description="" UserName="5" Version="6.3.0.0">
-<DataSources>
-<DataSource name="AWS-CDH57" type="Hadoop">
-<Parameter key="connName" value="AWS-CDH57"/>
-<Parameter key="hdfsHostname" value="awscdh57singlenode.alpinenow.local"/>
-<Parameter key="hdfsPort" value="8020"/>
-<Parameter key="hadoopVersion" value="Cloudera CDH5.4-5.7"/>
-<Parameter key="jobHostname" value="awscdh57singlenode.alpinenow.local"/>
-<Parameter key="jobPort" value="8032"/>
-<Parameter key="userName" value="yarn"/>
-<Parameter key="useHA" value="false"/>
-<Parameter key="groupName" value="hadoop"/>
-<Parameter key="securityMode" value="simple"/>
-<Parameter key="hdfsPrincipal" value=""/>
-<Parameter key="hdfsKeyTab" value=""/>
-<Parameter key="mapredPrincipal" value=""/>
-<Parameter key="mapredKeyTab" value=""/>
-<Parameter key="schedulerHost" value="awscdh57singlenode.alpinenow.local"/>
-<Parameter key="schedulerPort" value="8030"/>
-<Parameter key="ALP_HD_KVP[mapreduce.jobhistory.address]" value="awscdh57singlenode.alpinenow.local:10020"/>
-<Parameter key="ALP_HD_KVP[mapreduce.jobhistory.webapp.address]" value="awscdh57singlenode.alpinenow.local:19888"/>
-<Parameter key="ALP_HD_KVP[yarn.resourcemanager.scheduler.address]" value="awscdh57singlenode.alpinenow.local:8030"/>
-<Parameter key="ALP_HD_KVP[alpine.hadoopuser.enabled]" value="false"/>
-<Parameter key="ALP_HD_KVP[yarn.resourcemanager.admin.address]" value="awscdh57singlenode.alpinenow.local:8033"/>
-<Parameter key="ALP_HD_KVP[yarn.resourcemanager.resource-tracker.address]" value="awscdh57singlenode.alpinenow.local:8031"/>
-<Parameter key="ALP_HD_KVP[yarn.app.mapreduce.am.staging-dir]" value="/tmp"/>
-</DataSource>
-</DataSources>
 <Operator X="69" Y="109" name="online_retail.csv" type="com.alpine.miner.gef.runoperator.hadoop.HadoopFileOperator" uuid="1469602084831">
 <Note/>
 <Parameter key="connName" value="AWS-CDH57"/>
@@ -216,31 +189,6 @@
 </AdvancedSparkSettingsBoxImpl>
 </OperatorDialog>
 <OperatorDataSourceManager runtimeDataSourceName="AWS-CDH57"/>
-<InPutFieldList>
-<Parameter key="groupName" value="hadoop"/>
-<Parameter key="jobPort" value="8032"/>
-<Parameter key="schedulerPort" value="8030"/>
-<Parameter key="hdfsPort" value="8020"/>
-<Parameter key="ALP_HD_KVP[yarn.resourcemanager.admin.address]" value="awscdh57singlenode.alpinenow.local:8033"/>
-<Parameter key="ALP_HD_KVP[mapreduce.jobhistory.webapp.address]" value="awscdh57singlenode.alpinenow.local:19888"/>
-<Parameter key="hdfsHostname" value="awscdh57singlenode.alpinenow.local"/>
-<Parameter key="ALP_HD_KVP[yarn.resourcemanager.scheduler.address]" value="awscdh57singlenode.alpinenow.local:8030"/>
-<Parameter key="useHA" value="false"/>
-<Parameter key="schedulerHost" value="awscdh57singlenode.alpinenow.local"/>
-<Parameter key="ALP_HD_KVP[yarn.resourcemanager.resource-tracker.address]" value="awscdh57singlenode.alpinenow.local:8031"/>
-<Parameter key="ALP_HD_KVP[mapreduce.jobhistory.address]" value="awscdh57singlenode.alpinenow.local:10020"/>
-<Parameter key="mapredPrincipal" value=""/>
-<Parameter key="jobHostname" value="awscdh57singlenode.alpinenow.local"/>
-<Parameter key="hadoopVersion" value="Cloudera CDH5.4-5.7"/>
-<Parameter key="ALP_HD_KVP[yarn.app.mapreduce.am.staging-dir]" value="/tmp"/>
-<Parameter key="ALP_HD_KVP[alpine.hadoopuser.enabled]" value="false"/>
-<Parameter key="connName" value="AWS-CDH57"/>
-<Parameter key="userName" value="yarn"/>
-<Parameter key="securityMode" value="simple"/>
-<Parameter key="hdfsPrincipal" value=""/>
-<Parameter key="hdfsKeyTab" value=""/>
-<Parameter key="mapredKeyTab" value=""/>
-</InPutFieldList>
 </Operator>
 <Link source="online_retail.csv" target="Variable"/>
 <Link source="Variable" target="Summary Statistics"/>
