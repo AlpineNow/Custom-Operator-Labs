@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?><Process Description="" UserName="3" Version="6.3.0.0">
+<Operator X="196" name="Salesforce Import - Account" Y="185" type="com.alpine.miner.gef.runoperator.plugin10.Plugin10Operator" uuid="1499368011217">
+<Note></Note>
+<Plugin10Proxy>
+<SignatureClassName name="com.alpine.connector.salesforce.SalesforceImportOperatorSignature"></SignatureClassName>
+</Plugin10Proxy>
+<OperatorDialog dataSourceSelectionEnabled="true" label="main">
+<DataSourceDropdownBoxImpl id="datasource" label="Data Source">
+<SelectedValue value=""></SelectedValue>
+<AvailableValues>
+<Value value="CDH5.7"></Value>
+</AvailableValues>
+</DataSourceDropdownBoxImpl>
+<StringBoxImpl isRequired="true" regex=".+" isLarge="false" id="tableToImport" label="Table To Import" value="Account"></StringBoxImpl>
+<StringBoxImpl isRequired="true" regex=".+" isLarge="false" id="userName" label="User Name" value=""></StringBoxImpl>
+<StringBoxImpl isRequired="true" regex=".+" isLarge="false" id="password" label="Password" value=""></StringBoxImpl>
+<StringBoxImpl isRequired="false" regex=".*" isLarge="false" id="securityToken" label="Security Token" value=""></StringBoxImpl>
+<StringBoxImpl isRequired="false" regex=".*" isLarge="false" id="whereClause" label="WHERE clause" value=""></StringBoxImpl>
+<HdfsFileSelectorImpl isRequired="true" isDirectorySelector="true" id="outputDirectory" label="Output Directory" selectedPath="@default_tempdir/alpine_out/@user_name/@flow_name"></HdfsFileSelectorImpl>
+<StringBoxImpl isRequired="true" regex=".+" isLarge="false" id="outputName" label="Output Name" value="@operator_name_uuid"></StringBoxImpl>
+<RadioButtonsImpl id="overwrite" label="Overwrite Output">
+<AvailableValues>
+<Value value="true"></Value>
+<Value value="false"></Value>
+</AvailableValues>
+<SelectedValue value="true"></SelectedValue>
+</RadioButtonsImpl>
+</OperatorDialog>
+<OperatorDataSourceManager runtimeDataSourceName="CDH5.7"></OperatorDataSourceManager>
+</Operator>
+<Operator X="483" name="Frequency" Y="189" type="com.alpine.miner.gef.runoperator.hadoop.HadoopFrequencyAnalysisOperator" uuid="1499370044596">
+<Note></Note>
+<Parameter value="Industry" key="columnNames"></Parameter>
+<InPutFieldList>
+<Parameter value="CDH5.7" key="connName"></Parameter>
+<Parameter value="" key="hadoopCompressionFormat"></Parameter>
+<Parameter value="/1499368011217" key="hadoopFileName"></Parameter>
+</InPutFieldList>
+</Operator>
+<Operator X="460" name="Summary Statistics" Y="340" type="com.alpine.miner.gef.runoperator.hadoop.HadoopValueAnalysisOperator" uuid="1499370328020">
+<Note></Note>
+<Parameter value="IsDeleted,MasterRecordId,Name,Type" key="columnNames"></Parameter>
+<Parameter value="Yes" key="doDistinct"></Parameter>
+<Parameter value="10" key="topN"></Parameter>
+<Parameter value="false" key="storeResults"></Parameter>
+<Parameter value="@default_tempdir/alpine_out/@user_name/@flow_name" key="resultsLocation"></Parameter>
+<Parameter value="summary_0" key="resultsName"></Parameter>
+<Parameter value="Yes" key="override"></Parameter>
+<Parameter value="@default_schema" key="hiveResultDatabase"></Parameter>
+<Parameter value="alp@user_id_@flow_id_summary_0" key="hiveResultTableName"></Parameter>
+<Parameter value="Yes" key="dropIfExist"></Parameter>
+<Parameter value="Yes" key="useSpark"></Parameter>
+<advancedSettings>
+<AdvancedParameterSubParameter defaultValue="" displayName="Disable Dynamic Allocation" overridden="false" userSpecified="false" value="false" key="noDynamicAllocation"></AdvancedParameterSubParameter>
+<AdvancedParameterSubParameter defaultValue="" displayName="Number of Spark Executors (-1=Automatic)" overridden="false" userSpecified="false" value="-1" key="numSparkWorkers"></AdvancedParameterSubParameter>
+<AdvancedParameterSubParameter defaultValue="" displayName="Spark Executor Memory (MB) (-1=Automatic)" overridden="false" userSpecified="false" value="-1" key="sparkExecutorMemory"></AdvancedParameterSubParameter>
+<AdvancedParameterSubParameter defaultValue="" displayName="Spark Driver Memory (MB) (-1=Automatic)" overridden="false" userSpecified="false" value="-1" key="sparkDriverMemory"></AdvancedParameterSubParameter>
+</advancedSettings>
+<InPutFieldList>
+<Parameter value="CDH5.7" key="connName"></Parameter>
+<Parameter value="" key="hadoopCompressionFormat"></Parameter>
+<Parameter value="/1499368011217" key="hadoopFileName"></Parameter>
+</InPutFieldList>
+</Operator>
+<Link source="Salesforce Import - Account" target="Frequency"></Link>
+<Link source="Salesforce Import - Account" target="Summary Statistics"></Link>
+<VariableModel>
+<Variable>
+<Name>@flow_name</Name>
+<Value>@flow_name</Value>
+</Variable>
+<Variable>
+<Name>@user_name</Name>
+<Value>@user_name</Value>
+</Variable>
+<Variable>
+<Name>@user_id</Name>
+<Value>@user_id</Value>
+</Variable>
+<Variable>
+<Name>@flow_id</Name>
+<Value>@flow_id</Value>
+</Variable>
+<Variable>
+<Name>@default_schema</Name>
+<Value>public</Value>
+</Variable>
+<Variable>
+<Name>@default_tempdir</Name>
+<Value>/tmp</Value>
+</Variable>
+<Variable>
+<Name>@default_delimiter</Name>
+<Value>,</Value>
+</Variable>
+<Variable>
+<Name>@pig_number_of_reducers</Name>
+<Value>-1</Value>
+</Variable>
+</VariableModel>
+</Process>
