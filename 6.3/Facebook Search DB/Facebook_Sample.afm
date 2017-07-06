@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Process Description="" UserName="1" Version="6.3.0.0">
+<Operator X="50" Y="54" name="Facebook Search" type="com.alpine.miner.gef.runoperator.plugin10.Plugin10Operator" uuid="1499298104174">
+<Note/>
+<Plugin10Proxy>
+<SignatureClassName name="com.alpine.plugin.facebook.FacebookSearchOperatorSignature"/>
+</Plugin10Proxy>
+<OperatorDialog dataSourceSelectionEnabled="true" label="main">
+<StringBoxImpl id="app_id" isLarge="false" isRequired="true" label="Application ID" regex="[0-9]+" value=""/>
+<StringBoxImpl id="app_secret" isLarge="false" isRequired="true" label="Application Secret" regex="[0-9a-f]+" value=""/>
+<StringBoxImpl id="user_access_token" isLarge="false" isRequired="false" label="User Access Token" regex="[A-Za-z0-9]+" value=""/>
+<StringBoxImpl id="search_string" isLarge="false" isRequired="true" label="Search String" regex=".+" value="me/posts"/>
+<StringBoxImpl id="field_list" isLarge="false" isRequired="true" label="Field List" regex=".+" value="id,created_time,json"/>
+<StringBoxImpl id="search_limit" isLarge="false" isRequired="true" label="Search Count Limit" regex="[0-9]+" value="100"/>
+<DBSchemaDropdownBoxImpl id="outputSchema" label="Output Schema">
+<AvailableValues>
+<Value value="@default_schema"/>
+</AvailableValues>
+<SelectedValue value="@default_schema"/>
+</DBSchemaDropdownBoxImpl>
+<StringBoxImpl id="resultTableName" isLarge="false" isRequired="true" label="Output Table" regex=".+" value="@operator_name_uuid"/>
+<RadioButtonsImpl id="dropIfExist" label="Drop If Exists">
+<AvailableValues>
+<Value value="Yes"/>
+<Value value="No"/>
+</AvailableValues>
+<SelectedValue value="Yes"/>
+</RadioButtonsImpl>
+</OperatorDialog>
+<OperatorDataSourceManager runtimeDataSourceName="miner_demo"/>
+<Parameter key="dbConnectionName" value="miner_demo"/>
+</Operator>
+<VariableModel>
+<Variable>
+<Name>@flow_name</Name>
+<Value>@flow_name</Value>
+</Variable>
+<Variable>
+<Name>@user_name</Name>
+<Value>@user_name</Value>
+</Variable>
+<Variable>
+<Name>@user_id</Name>
+<Value>@user_id</Value>
+</Variable>
+<Variable>
+<Name>@flow_id</Name>
+<Value>@flow_id</Value>
+</Variable>
+<Variable>
+<Name>@default_schema</Name>
+<Value>public</Value>
+</Variable>
+<Variable>
+<Name>@default_tempdir</Name>
+<Value>/tmp</Value>
+</Variable>
+<Variable>
+<Name>@default_delimiter</Name>
+<Value>,</Value>
+</Variable>
+<Variable>
+<Name>@pig_number_of_reducers</Name>
+<Value>-1</Value>
+</Variable>
+</VariableModel>
+</Process>
