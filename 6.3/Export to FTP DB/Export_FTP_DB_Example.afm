@@ -14,8 +14,8 @@
 <OperatorDialog dataSourceSelectionEnabled="true" label="main">
 <StringBoxImpl id="hostNameKey" isLarge="false" isRequired="true" label="FTP Server Hostname" regex="(.*)+" value="10.0.0.42"/>
 <StringBoxImpl id="portKey" isLarge="false" isRequired="false" label="FTP Server Port" regex="([0-9])+" value="21"/>
-<StringBoxImpl id="userKey" isLarge="false" isRequired="true" label="Username" regex=".*" value="emillie"/>
-<StringBoxImpl id="passwordKey" isLarge="false" isRequired="true" label="Password" regex=".*" value="emillie"/>
+<StringBoxImpl id="userKey" isLarge="false" isRequired="true" label="Username" regex=".*" value=""/>
+<StringBoxImpl id="passwordKey" isLarge="false" isRequired="true" label="Password" regex=".*" value=""/>
 <StringBoxImpl id="accountKey" isLarge="false" isRequired="false" label="Account" regex=".*" value=""/>
 <StringBoxImpl id="outputDirKey" isLarge="false" isRequired="true" label="Output Directory" regex="^/.*$" value="/emillie"/>
 <StringBoxImpl id="outputNameKey" isLarge="false" isRequired="true" label="Output Name" regex="^[-_.0-9a-zA-Z]+$" value="credit.csv"/>
