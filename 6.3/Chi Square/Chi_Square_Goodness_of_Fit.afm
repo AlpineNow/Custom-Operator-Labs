@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?><Process Description="" UserName="1398" Version="6.3.0.0">
+<DataSources>
+<DataSource name="CDH57" type="Hadoop">
+<Parameter value="CDH57" key="connName"></Parameter>
+<Parameter value="10.0.0.143" key="hdfsHostname"></Parameter>
+<Parameter value="8020" key="hdfsPort"></Parameter>
+<Parameter value="Cloudera CDH5.4-5.7" key="hadoopVersion"></Parameter>
+<Parameter value="10.0.0.143" key="jobHostname"></Parameter>
+<Parameter value="8032" key="jobPort"></Parameter>
+<Parameter value="yarn" key="userName"></Parameter>
+<Parameter value="false" key="useHA"></Parameter>
+<Parameter value="hadoop" key="groupName"></Parameter>
+<Parameter value="simple" key="securityMode"></Parameter>
+<Parameter value="" key="hdfsPrincipal"></Parameter>
+<Parameter value="" key="hdfsKeyTab"></Parameter>
+<Parameter value="" key="mapredPrincipal"></Parameter>
+<Parameter value="" key="mapredKeyTab"></Parameter>
+<Parameter value="cdh57singlenode.alpinenow.local" key="schedulerHost"></Parameter>
+<Parameter value="8030" key="schedulerPort"></Parameter>
+<Parameter value="authentication" key="ALP_HD_KVP[hadoop.rpc.protection]"></Parameter>
+<Parameter value="simple" key="ALP_HD_KVP[hadoop.security.authentication]"></Parameter>
+<Parameter value="org.apache.hadoop.mapred.MapTask$MapOutputBuffer" key="ALP_HD_KVP[mapreduce.job.map.output.collector.class]"></Parameter>
+<Parameter value="org.apache.hadoop.mapreduce.task.reduce.Shuffle" key="ALP_HD_KVP[mapreduce.job.reduce.shuffle.consumer.plugin.class]"></Parameter>
+<Parameter value="10.0.0.143:10020" key="ALP_HD_KVP[mapreduce.jobhistory.address]"></Parameter>
+<Parameter value="/etc/security/keytab/jhs.service.keytab" key="ALP_HD_KVP[mapreduce.jobhistory.keytab]"></Parameter>
+<Parameter value="jhs/_HOST@REALM.TLD" key="ALP_HD_KVP[mapreduce.jobhistory.principal]"></Parameter>
+<Parameter value="cdh57singlenode.alpinenow.local:19888" key="ALP_HD_KVP[mapreduce.jobhistory.webapp.address]"></Parameter>
+<Parameter value="-1" key="ALP_HD_KVP[mapreduce.reduce.memory.mb]"></Parameter>
+<Parameter value="/user" key="ALP_HD_KVP[yarn.app.mapreduce.am.staging-dir]"></Parameter>
+<Parameter value="cdh57singlenode.alpinenow.local:8033" key="ALP_HD_KVP[yarn.resourcemanager.admin.address]"></Parameter>
+<Parameter value="/etc/krb5.keytab" key="ALP_HD_KVP[yarn.resourcemanager.keytab]"></Parameter>
+<Parameter value="cdh57singlenode.alpinenow.local:8031" key="ALP_HD_KVP[yarn.resourcemanager.resource-tracker.address]"></Parameter>
+<Parameter value="cdh57singlenode.alpinenow.local:8030" key="ALP_HD_KVP[yarn.resourcemanager.scheduler.address]"></Parameter>
+<Parameter value="true" key="ALP_HD_KVP[yarn.log-aggregation-enable]"></Parameter>
+<Parameter value="/tmp/logs" key="ALP_HD_KVP[yarn.nodemanager.remote-app-log-dir]"></Parameter>
+<Parameter value="logs" key="ALP_HD_KVP[yarn.nodemanager.remote-app-log-dir-suffix]"></Parameter>
+<Parameter value="false" key="ALP_HD_KVP[alpine.hadoopuser.enabled]"></Parameter>
+<Parameter value="false" key="ALP_HD_KVP[hive.security.thirdparty.enabled]"></Parameter>
+</DataSource>
+</DataSources>
+<Operator name="election92.csv" uuid="1499380078481" type="com.alpine.miner.gef.runoperator.hadoop.HadoopFileOperator" Y="670" X="239">
+<Note></Note>
+<Parameter value="CDH57" key="connName"></Parameter>
+<Parameter value="/csv/election92.csv" key="hadoopFileName"></Parameter>
+<Parameter value="Text File" key="hadoopFileFormat"></Parameter>
+<HadoopFileStructureModel delimiter="Comma" quoteChar="&quot;" other="" escapChar="\" includeHeader="true">
+<col t="chararray" n="county"></col>
+<col t="chararray" n="state"></col>
+<col t="long" n="msa"></col>
+<col t="chararray" n="pmsa"></col>
+<col t="long" n="popdensity"></col>
+<col t="long" n="pop"></col>
+<col t="double" n="popchange"></col>
+<col t="double" n="age6574"></col>
+<col t="double" n="age75"></col>
+<col t="long" n="crime"></col>
+<col t="double" n="college"></col>
+<col t="long" n="income"></col>
+<col t="double" n="farm"></col>
+<col t="double" n="democrat"></col>
+<col t="double" n="republican"></col>
+<col t="double" n="Perot"></col>
+<col t="double" n="white"></col>
+<col t="double" n="black"></col>
+<col t="double" n="turnout"></col>
+</HadoopFileStructureModel>
+<InPutFieldList>
+<Parameter value="CDH57" key="connName"></Parameter>
+<Parameter value="" key="hadoopCompressionFormat"></Parameter>
+<Parameter value="/csv/election92.csv" key="hadoopFileName"></Parameter>
+</InPutFieldList>
+</Operator>
+<Operator name="Chi Square, Goodness of Fit-StatePopulation" uuid="1499380579353" type="com.alpine.miner.gef.runoperator.plugin10.Plugin10Operator" Y="734" X="499">
+<Note></Note>
+<Plugin10Proxy>
+<SignatureClassName name="com.alpine.plugins.chisquaregof.GoodnessOfFitSignature"></SignatureClassName>
+</Plugin10Proxy>
+<OperatorDialog label="main" dataSourceSelectionEnabled="true">
+<ParentOperatorDropdownBoxImpl id="input_parent" label="Observed Dataset">
+<AvailableValues>
+<Value value="1499380078481"></Value>
+</AvailableValues>
+<SelectedValue value="1499380078481"></SelectedValue>
+</ParentOperatorDropdownBoxImpl>
+<TabularDatasetColumnDropdownBoxImpl id="input_cat" parentBoxID="input_parent" isRequired="true" label="Observed Events Column" sourceOperatorUUID="1499380078481" selectionGroupId="input_cat">
+<AvailableValues>
+<Value value="state"></Value>
+</AvailableValues>
+<SelectedValue value="state"></SelectedValue>
+<ColumnFilter>
+<AcceptedNameRegex regex=".+"></AcceptedNameRegex>
+<AcceptedType type="String"></AcceptedType>
+</ColumnFilter>
+</TabularDatasetColumnDropdownBoxImpl>
+<TabularDatasetColumnDropdownBoxImpl id="input_count" parentBoxID="input_parent" isRequired="true" label="Observed Frequency Column" sourceOperatorUUID="1499380078481" selectionGroupId="input_count">
+<AvailableValues>
+<Value value="pop"></Value>
+</AvailableValues>
+<SelectedValue value="pop"></SelectedValue>
+<ColumnFilter>
+<AcceptedNameRegex regex=".+"></AcceptedNameRegex>
+<AcceptedType type="Int"></AcceptedType>
+<AcceptedType type="Long"></AcceptedType>
+<AcceptedType type="Float"></AcceptedType>
+<AcceptedType type="Double"></AcceptedType>
+</ColumnFilter>
+</TabularDatasetColumnDropdownBoxImpl>
+<ParentOperatorDropdownBoxImpl id="expect_parent" label="Expected Dataset">
+<AvailableValues>
+<Value value="1499381649904"></Value>
+</AvailableValues>
+<SelectedValue value="1499381649904"></SelectedValue>
+</ParentOperatorDropdownBoxImpl>
+<TabularDatasetColumnDropdownBoxImpl id="expect_cat" parentBoxID="expect_parent" isRequired="true" label="Expected Events Column" sourceOperatorUUID="1499381649904" selectionGroupId="expect_cat">
+<AvailableValues>
+<Value value="State_Code"></Value>
+</AvailableValues>
+<SelectedValue value="State_Code"></SelectedValue>
+<ColumnFilter>
+<AcceptedNameRegex regex=".+"></AcceptedNameRegex>
+<AcceptedType type="String"></AcceptedType>
+</ColumnFilter>
+</TabularDatasetColumnDropdownBoxImpl>
+<TabularDatasetColumnDropdownBoxImpl id="expect_count" parentBoxID="expect_parent" isRequired="true" label="Expected Frequency Column" sourceOperatorUUID="1499381649904" selectionGroupId="expect_count">
+<AvailableValues>
+<Value value="Pop1990"></Value>
+</AvailableValues>
+<SelectedValue value="Pop1990"></SelectedValue>
+<ColumnFilter>
+<AcceptedNameRegex regex=".+"></AcceptedNameRegex>
+<AcceptedType type="Int"></AcceptedType>
+<AcceptedType type="Long"></AcceptedType>
+<AcceptedType type="Float"></AcceptedType>
+<AcceptedType type="Double"></AcceptedType>
+</ColumnFilter>
+</TabularDatasetColumnDropdownBoxImpl>
+<DoubleBoxImpl min="0.0" id="threshold" max="1.0" value="0.05" label="Significance Threshold" inclusiveMax="false" inclusiveMin="false"></DoubleBoxImpl>
+<DropdownBoxImpl id="badData" label="Write Rows Removed Due to Null Data To File">
+<AvailableValues>
+<Value value="Do Not Write Null Rows to File"></Value>
+<Value value="Write Up to 1000 Null Rows to File"></Value>
+<Value value="Write All Null Rows to File"></Value>
+<Value value="Do Not Write or Count Null Rows (Fastest)"></Value>
+</AvailableValues>
+<SelectedValue value="Do Not Write Null Rows to File"></SelectedValue>
+</DropdownBoxImpl>
+<HdfsFileSelectorImpl id="outputDirectory" isRequired="true" isDirectorySelector="true" selectedPath="@default_tempdir/alpine_out/@user_name/@flow_name" label="Output Directory"></HdfsFileSelectorImpl>
+<StringBoxImpl id="outputName" isRequired="true" regex=".+" value="@operator_name_uuid" isLarge="false" label="Output Name"></StringBoxImpl>
+<RadioButtonsImpl id="overwrite" label="Overwrite Output">
+<AvailableValues>
+<Value value="true"></Value>
+<Value value="false"></Value>
+</AvailableValues>
+<SelectedValue value="true"></SelectedValue>
+</RadioButtonsImpl>
+<DropdownBoxImpl id="storageFormat" label="Storage Format">
+<AvailableValues>
+<Value value="Parquet"></Value>
+<Value value="Avro"></Value>
+<Value value="CSV"></Value>
+</AvailableValues>
+<SelectedValue value="CSV"></SelectedValue>
+</DropdownBoxImpl>
+<AdvancedSparkSettingsBoxImpl id="sparkSettings" label="Advanced Spark Settings">
+<AdvancedParameterSubParameter overridden="false" value="false" displayName="Disable Dynamic Allocation" defaultValue="false" userSpecified="false" key="noDynamicAllocation"></AdvancedParameterSubParameter>
+<AdvancedParameterSubParameter overridden="false" value="" displayName="Number of Executors" defaultValue="3" userSpecified="false" key="spark_numExecutors"></AdvancedParameterSubParameter>
+<AdvancedParameterSubParameter overridden="false" value="" displayName="Executor Memory in MB" defaultValue="-1" userSpecified="false" key="spark_executorMB"></AdvancedParameterSubParameter>
+<AdvancedParameterSubParameter overridden="false" value="" displayName="Driver Memory in MB" defaultValue="-1" userSpecified="false" key="spark_driverMB"></AdvancedParameterSubParameter>
+<AdvancedParameterSubParameter overridden="false" value="" displayName="Number of Executor Cores" defaultValue="-1" userSpecified="false" key="spark_numExecutorCores"></AdvancedParameterSubParameter>
+<AdvancedParameterSubParameter overridden="false" value="" displayName="Number of Partitions" defaultValue="" userSpecified="false" key="numPart"></AdvancedParameterSubParameter>
+</AdvancedSparkSettingsBoxImpl>
+</OperatorDialog>
+<OperatorDataSourceManager runtimeDataSourceName="CDH57"></OperatorDataSourceManager>
+<InPutFieldList>
+<Parameter value="CDH57" key="connName"></Parameter>
+</InPutFieldList>
+</Operator>
+<Operator name="CensusData.csv-1" uuid="1499381649904" type="com.alpine.miner.gef.runoperator.hadoop.HadoopFileOperator" Y="819" X="235">
+<Note></Note>
+<Parameter value="CDH57" key="connName"></Parameter>
+<Parameter value="/Datasets/CensusData.csv" key="hadoopFileName"></Parameter>
+<Parameter value="Text File" key="hadoopFileFormat"></Parameter>
+<HadoopFileStructureModel delimiter="Comma" quoteChar="&quot;" other="" escapChar="\" includeHeader="false">
+<col t="chararray" n="Rank"></col>
+<col t="chararray" n="StateName"></col>
+<col t="chararray" n="State_Code"></col>
+<col t="long" n="Pop1980"></col>
+<col t="long" n="Pop1990"></col>
+</HadoopFileStructureModel>
+<InPutFieldList>
+<Parameter value="CDH57" key="connName"></Parameter>
+<Parameter value="" key="hadoopCompressionFormat"></Parameter>
+<Parameter value="/Datasets/CensusData.csv" key="hadoopFileName"></Parameter>
+</InPutFieldList>
+</Operator>
+<Link source="election92.csv" target="Chi Square, Goodness of Fit-StatePopulation"></Link>
+<Link source="CensusData.csv-1" target="Chi Square, Goodness of Fit-StatePopulation"></Link>
+<VariableModel>
+<Variable>
+<Name>@flow_name</Name>
+<Value>@flow_name</Value>
+</Variable>
+<Variable>
+<Name>@user_name</Name>
+<Value>@user_name</Value>
+</Variable>
+<Variable>
+<Name>@user_id</Name>
+<Value>@user_id</Value>
+</Variable>
+<Variable>
+<Name>@flow_id</Name>
+<Value>@flow_id</Value>
+</Variable>
+<Variable>
+<Name>@default_schema</Name>
+<Value>public</Value>
+</Variable>
+<Variable>
+<Name>@default_tempdir</Name>
+<Value>/tmp</Value>
+</Variable>
+<Variable>
+<Name>@default_delimiter</Name>
+<Value>,</Value>
+</Variable>
+<Variable>
+<Name>@pig_number_of_reducers</Name>
+<Value>-1</Value>
+</Variable>
+</VariableModel>
+</Process>
