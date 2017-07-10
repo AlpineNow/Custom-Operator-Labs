@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="UTF-8"?><Process Description="" UserName="1398" Version="6.3.0.0">
+<Operator name="Python Variable Operator - Add One" uuid="1484703245969" type="com.alpine.miner.gef.runoperator.plugin10.Plugin10Operator" Y="123" X="382">
+<Note></Note>
+<Plugin10Proxy>
+<SignatureClassName name="com.alpine.plugins.python.variable.PythonVariableOperatorSignature"></SignatureClassName>
+</Plugin10Proxy>
+<OperatorDialog label="main" dataSourceSelectionEnabled="true">
+<HdfsFileSelectorImpl id="path" isRequired="false" isDirectorySelector="false" selectedPath="" label="Python Script from HDFS"></HdfsFileSelectorImpl>
+<ChorusFileDropdownImpl id="chorus_path" isRequired="false" label="Python Script from Chorus">
+<SelectedValue id="1697" name="AddOne.py"></SelectedValue>
+<extensionFilter>
+<Value value=".py"></Value>
+</extensionFilter>
+</ChorusFileDropdownImpl>
+<TabularDatasetColumnCheckboxesImpl id="inputColId" isRequired="true" label="Input Columns" sourceOperatorUUID="1497978040179" selectionGroupId="main">
+<AvailableValues>
+<Value value="humidity"></Value>
+</AvailableValues>
+<SelectedValues>
+<Value value="humidity"></Value>
+</SelectedValues>
+<ColumnFilter>
+<AcceptedNameRegex regex=".+"></AcceptedNameRegex>
+<AcceptedType type="*"></AcceptedType>
+</ColumnFilter>
+</TabularDatasetColumnCheckboxesImpl>
+<StringBoxImpl id="outputColNameId" isRequired="true" regex="^[A-Za-z]+\w*$" value="New_Column" isLarge="false" label="Output Column Name"></StringBoxImpl>
+<DropdownBoxImpl id="outputType" label="Output Column Type">
+<AvailableValues>
+<Value value="DateTime"></Value>
+<Value value="Double"></Value>
+<Value value="String"></Value>
+<Value value="Float"></Value>
+<Value value="Int"></Value>
+<Value value="Long"></Value>
+</AvailableValues>
+<SelectedValue value="Long"></SelectedValue>
+</DropdownBoxImpl>
+<RadioButtonsImpl id="keepOldColumns" label="Keep Old Columns">
+<AvailableValues>
+<Value value="Yes"></Value>
+<Value value="No"></Value>
+</AvailableValues>
+<SelectedValue value="Yes"></SelectedValue>
+</RadioButtonsImpl>
+<DropdownBoxImpl id="storageFormat" label="Storage Format">
+<AvailableValues>
+<Value value="Parquet"></Value>
+<Value value="Avro"></Value>
+<Value value="CSV"></Value>
+</AvailableValues>
+<SelectedValue value="CSV"></SelectedValue>
+</DropdownBoxImpl>
+<HdfsFileSelectorImpl id="outputDirectory" isRequired="true" isDirectorySelector="true" selectedPath="/tmp/alpine_out/Rachel/PythonCustomOperator" label="Output Directory"></HdfsFileSelectorImpl>
+<StringBoxImpl id="outputName" isRequired="true" regex=".+" value="@operator_name_uuid" isLarge="false" label="Output Name"></StringBoxImpl>
+<RadioButtonsImpl id="overwrite" label="Overwrite Output">
+<AvailableValues>
+<Value value="true"></Value>
+<Value value="false"></Value>
+</AvailableValues>
+<SelectedValue value="true"></SelectedValue>
+</RadioButtonsImpl>
+<AdvancedSparkSettingsBoxImpl id="sparkSettings" label="Advanced Spark Settings">
+<AdvancedParameterSubParameter overridden="false" value="false" displayName="Disable Dynamic Allocation" defaultValue="false" userSpecified="false" key="noDynamicAllocation"></AdvancedParameterSubParameter>
+<AdvancedParameterSubParameter overridden="false" value="" displayName="Number of Executors" defaultValue="3" userSpecified="false" key="spark_numExecutors"></AdvancedParameterSubParameter>
+<AdvancedParameterSubParameter overridden="false" value="" displayName="Executor Memory in MB" defaultValue="-1" userSpecified="false" key="spark_executorMB"></AdvancedParameterSubParameter>
+<AdvancedParameterSubParameter overridden="false" value="" displayName="Driver Memory in MB" defaultValue="-1" userSpecified="false" key="spark_driverMB"></AdvancedParameterSubParameter>
+<AdvancedParameterSubParameter overridden="false" value="" displayName="Number of Executor Cores" defaultValue="-1" userSpecified="false" key="spark_numExecutorCores"></AdvancedParameterSubParameter>
+</AdvancedSparkSettingsBoxImpl>
+</OperatorDialog>
+<OperatorDataSourceManager runtimeDataSourceName="CDH57"></OperatorDataSourceManager>
+<InPutFieldList>
+<Parameter value="/tmp/logs" key="ALP_HD_KVP[yarn.nodemanager.remote-app-log-dir]"></Parameter>
+<Parameter value="hadoop" key="groupName"></Parameter>
+<Parameter value="8032" key="jobPort"></Parameter>
+<Parameter value="8030" key="schedulerPort"></Parameter>
+<Parameter value="10.0.0.143" key="hdfsHostname"></Parameter>
+<Parameter value="cdh57singlenode.alpinenow.local:8030" key="ALP_HD_KVP[yarn.resourcemanager.scheduler.address]"></Parameter>
+<Parameter value="cdh57singlenode.alpinenow.local:8031" key="ALP_HD_KVP[yarn.resourcemanager.resource-tracker.address]"></Parameter>
+<Parameter value="/etc/security/keytab/jhs.service.keytab" key="ALP_HD_KVP[mapreduce.jobhistory.keytab]"></Parameter>
+<Parameter value="Cloudera CDH5.4-5.7" key="hadoopVersion"></Parameter>
+<Parameter value="true" key="ALP_HD_KVP[yarn.log-aggregation-enable]"></Parameter>
+<Parameter value="CDH57" key="connName"></Parameter>
+<Parameter value="false" key="ALP_HD_KVP[hive.security.thirdparty.enabled]"></Parameter>
+<Parameter value="simple" key="securityMode"></Parameter>
+<Parameter value="yarn" key="userName"></Parameter>
+<Parameter value="jhs/_HOST@REALM.TLD" key="ALP_HD_KVP[mapreduce.jobhistory.principal]"></Parameter>
+<Parameter value="authentication" key="ALP_HD_KVP[hadoop.rpc.protection]"></Parameter>
+<Parameter value="8020" key="hdfsPort"></Parameter>
+<Parameter value="cdh57singlenode.alpinenow.local:8033" key="ALP_HD_KVP[yarn.resourcemanager.admin.address]"></Parameter>
+<Parameter value="cdh57singlenode.alpinenow.local:19888" key="ALP_HD_KVP[mapreduce.jobhistory.webapp.address]"></Parameter>
+<Parameter value="false" key="useHA"></Parameter>
+<Parameter value="cdh57singlenode.alpinenow.local" key="schedulerHost"></Parameter>
+<Parameter value="" key="mapredPrincipal"></Parameter>
+<Parameter value="10.0.0.143:10020" key="ALP_HD_KVP[mapreduce.jobhistory.address]"></Parameter>
+<Parameter value="logs" key="ALP_HD_KVP[yarn.nodemanager.remote-app-log-dir-suffix]"></Parameter>
+<Parameter value="org.apache.hadoop.mapreduce.task.reduce.Shuffle" key="ALP_HD_KVP[mapreduce.job.reduce.shuffle.consumer.plugin.class]"></Parameter>
+<Parameter value="10.0.0.143" key="jobHostname"></Parameter>
+<Parameter value="/user" key="ALP_HD_KVP[yarn.app.mapreduce.am.staging-dir]"></Parameter>
+<Parameter value="false" key="ALP_HD_KVP[alpine.hadoopuser.enabled]"></Parameter>
+<Parameter value="org.apache.hadoop.mapred.MapTask$MapOutputBuffer" key="ALP_HD_KVP[mapreduce.job.map.output.collector.class]"></Parameter>
+<Parameter value="" key="hdfsKeyTab"></Parameter>
+<Parameter value="" key="hdfsPrincipal"></Parameter>
+<Parameter value="" key="mapredKeyTab"></Parameter>
+<Parameter value="/etc/krb5.keytab" key="ALP_HD_KVP[yarn.resourcemanager.keytab]"></Parameter>
+<Parameter value="-1" key="ALP_HD_KVP[mapreduce.reduce.memory.mb]"></Parameter>
+<Parameter value="simple" key="ALP_HD_KVP[hadoop.security.authentication]"></Parameter>
+</InPutFieldList>
+</Operator>
+<Operator name="golf.csv" uuid="1497978040179" type="com.alpine.miner.gef.runoperator.hadoop.HadoopFileOperator" Y="220" X="124">
+<Note></Note>
+<Parameter value="CDH57" key="connName"></Parameter>
+<Parameter value="/Datasets/golf.csv" key="hadoopFileName"></Parameter>
+<Parameter value="Text File" key="hadoopFileFormat"></Parameter>
+<HadoopFileStructureModel delimiter="Comma" quoteChar="&quot;" other="" escapChar="\" includeHeader="true">
+<col t="chararray" n="outlook"></col>
+<col t="long" n="temperature"></col>
+<col t="long" n="humidity"></col>
+<col t="chararray" n="wind"></col>
+<col t="chararray" n="play"></col>
+</HadoopFileStructureModel>
+<InPutFieldList>
+<Parameter value="CDH57" key="connName"></Parameter>
+<Parameter value="" key="hadoopCompressionFormat"></Parameter>
+<Parameter value="/Datasets/golf.csv" key="hadoopFileName"></Parameter>
+</InPutFieldList>
+</Operator>
+<Operator name="Python Variable - Three Cols" uuid="1498771115868" type="com.alpine.miner.gef.runoperator.plugin10.Plugin10Operator" Y="254" X="378">
+<Note></Note>
+<Plugin10Proxy>
+<SignatureClassName name="com.alpine.plugins.python.variable.PythonVariableOperatorSignature"></SignatureClassName>
+</Plugin10Proxy>
+<OperatorDialog label="main" dataSourceSelectionEnabled="true">
+<HdfsFileSelectorImpl id="path" isRequired="false" isDirectorySelector="false" selectedPath="/Datasets/ProcessThreeColumns.py" label="Python Script from HDFS"></HdfsFileSelectorImpl>
+<ChorusFileDropdownImpl id="chorus_path" isRequired="false" label="Python Script from Chorus">
+<extensionFilter>
+<Value value=".py"></Value>
+</extensionFilter>
+</ChorusFileDropdownImpl>
+<TabularDatasetColumnCheckboxesImpl id="inputColId" isRequired="true" label="Input Columns" sourceOperatorUUID="1497978040179" selectionGroupId="main">
+<AvailableValues>
+<Value value="outlook"></Value>
+<Value value="temperature"></Value>
+<Value value="humidity"></Value>
+</AvailableValues>
+<SelectedValues>
+<Value value="outlook"></Value>
+<Value value="temperature"></Value>
+<Value value="humidity"></Value>
+</SelectedValues>
+<ColumnFilter>
+<AcceptedNameRegex regex=".+"></AcceptedNameRegex>
+<AcceptedType type="*"></AcceptedType>
+</ColumnFilter>
+</TabularDatasetColumnCheckboxesImpl>
+<StringBoxImpl id="outputColNameId" isRequired="true" regex="^[A-Za-z]+\w*$" value="Product_Column" isLarge="false" label="Output Column Name"></StringBoxImpl>
+<DropdownBoxImpl id="outputType" label="Output Column Type">
+<AvailableValues>
+<Value value="DateTime"></Value>
+<Value value="Double"></Value>
+<Value value="String"></Value>
+<Value value="Float"></Value>
+<Value value="Int"></Value>
+<Value value="Long"></Value>
+</AvailableValues>
+<SelectedValue value="String"></SelectedValue>
+</DropdownBoxImpl>
+<RadioButtonsImpl id="keepOldColumns" label="Keep Old Columns">
+<AvailableValues>
+<Value value="Yes"></Value>
+<Value value="No"></Value>
+</AvailableValues>
+<SelectedValue value="Yes"></SelectedValue>
+</RadioButtonsImpl>
+<DropdownBoxImpl id="storageFormat" label="Storage Format">
+<AvailableValues>
+<Value value="Parquet"></Value>
+<Value value="Avro"></Value>
+<Value value="CSV"></Value>
+</AvailableValues>
+<SelectedValue value="CSV"></SelectedValue>
+</DropdownBoxImpl>
+<HdfsFileSelectorImpl id="outputDirectory" isRequired="true" isDirectorySelector="true" selectedPath="@default_tempdir/alpine_out/@user_name/@flow_name" label="Output Directory"></HdfsFileSelectorImpl>
+<StringBoxImpl id="outputName" isRequired="true" regex=".+" value="@operator_name_uuid" isLarge="false" label="Output Name"></StringBoxImpl>
+<RadioButtonsImpl id="overwrite" label="Overwrite Output">
+<AvailableValues>
+<Value value="true"></Value>
+<Value value="false"></Value>
+</AvailableValues>
+<SelectedValue value="true"></SelectedValue>
+</RadioButtonsImpl>
+<AdvancedSparkSettingsBoxImpl id="sparkSettings" label="Advanced Spark Settings">
+<AdvancedParameterSubParameter overridden="false" value="false" displayName="Disable Dynamic Allocation" defaultValue="false" userSpecified="false" key="noDynamicAllocation"></AdvancedParameterSubParameter>
+<AdvancedParameterSubParameter overridden="false" value="" displayName="Number of Executors" defaultValue="3" userSpecified="false" key="spark_numExecutors"></AdvancedParameterSubParameter>
+<AdvancedParameterSubParameter overridden="false" value="" displayName="Executor Memory in MB" defaultValue="-1" userSpecified="false" key="spark_executorMB"></AdvancedParameterSubParameter>
+<AdvancedParameterSubParameter overridden="false" value="" displayName="Driver Memory in MB" defaultValue="-1" userSpecified="false" key="spark_driverMB"></AdvancedParameterSubParameter>
+<AdvancedParameterSubParameter overridden="false" value="" displayName="Number of Executor Cores" defaultValue="-1" userSpecified="false" key="spark_numExecutorCores"></AdvancedParameterSubParameter>
+</AdvancedSparkSettingsBoxImpl>
+</OperatorDialog>
+<OperatorDataSourceManager runtimeDataSourceName="CDH57"></OperatorDataSourceManager>
+<InPutFieldList>
+<Parameter value="/tmp/logs" key="ALP_HD_KVP[yarn.nodemanager.remote-app-log-dir]"></Parameter>
+<Parameter value="hadoop" key="groupName"></Parameter>
+<Parameter value="8032" key="jobPort"></Parameter>
+<Parameter value="8030" key="schedulerPort"></Parameter>
+<Parameter value="10.0.0.143" key="hdfsHostname"></Parameter>
+<Parameter value="cdh57singlenode.alpinenow.local:8030" key="ALP_HD_KVP[yarn.resourcemanager.scheduler.address]"></Parameter>
+<Parameter value="cdh57singlenode.alpinenow.local:8031" key="ALP_HD_KVP[yarn.resourcemanager.resource-tracker.address]"></Parameter>
+<Parameter value="/etc/security/keytab/jhs.service.keytab" key="ALP_HD_KVP[mapreduce.jobhistory.keytab]"></Parameter>
+<Parameter value="Cloudera CDH5.4-5.7" key="hadoopVersion"></Parameter>
+<Parameter value="true" key="ALP_HD_KVP[yarn.log-aggregation-enable]"></Parameter>
+<Parameter value="CDH57" key="connName"></Parameter>
+<Parameter value="false" key="ALP_HD_KVP[hive.security.thirdparty.enabled]"></Parameter>
+<Parameter value="simple" key="securityMode"></Parameter>
+<Parameter value="yarn" key="userName"></Parameter>
+<Parameter value="jhs/_HOST@REALM.TLD" key="ALP_HD_KVP[mapreduce.jobhistory.principal]"></Parameter>
+<Parameter value="authentication" key="ALP_HD_KVP[hadoop.rpc.protection]"></Parameter>
+<Parameter value="8020" key="hdfsPort"></Parameter>
+<Parameter value="cdh57singlenode.alpinenow.local:8033" key="ALP_HD_KVP[yarn.resourcemanager.admin.address]"></Parameter>
+<Parameter value="cdh57singlenode.alpinenow.local:19888" key="ALP_HD_KVP[mapreduce.jobhistory.webapp.address]"></Parameter>
+<Parameter value="false" key="useHA"></Parameter>
+<Parameter value="cdh57singlenode.alpinenow.local" key="schedulerHost"></Parameter>
+<Parameter value="" key="mapredPrincipal"></Parameter>
+<Parameter value="10.0.0.143:10020" key="ALP_HD_KVP[mapreduce.jobhistory.address]"></Parameter>
+<Parameter value="logs" key="ALP_HD_KVP[yarn.nodemanager.remote-app-log-dir-suffix]"></Parameter>
+<Parameter value="org.apache.hadoop.mapreduce.task.reduce.Shuffle" key="ALP_HD_KVP[mapreduce.job.reduce.shuffle.consumer.plugin.class]"></Parameter>
+<Parameter value="10.0.0.143" key="jobHostname"></Parameter>
+<Parameter value="/user" key="ALP_HD_KVP[yarn.app.mapreduce.am.staging-dir]"></Parameter>
+<Parameter value="false" key="ALP_HD_KVP[alpine.hadoopuser.enabled]"></Parameter>
+<Parameter value="org.apache.hadoop.mapred.MapTask$MapOutputBuffer" key="ALP_HD_KVP[mapreduce.job.map.output.collector.class]"></Parameter>
+<Parameter value="" key="hdfsKeyTab"></Parameter>
+<Parameter value="" key="hdfsPrincipal"></Parameter>
+<Parameter value="" key="mapredKeyTab"></Parameter>
+<Parameter value="/etc/krb5.keytab" key="ALP_HD_KVP[yarn.resourcemanager.keytab]"></Parameter>
+<Parameter value="-1" key="ALP_HD_KVP[mapreduce.reduce.memory.mb]"></Parameter>
+<Parameter value="simple" key="ALP_HD_KVP[hadoop.security.authentication]"></Parameter>
+</InPutFieldList>
+</Operator>
+<Operator name="Python Variable" uuid="1498771408123" type="com.alpine.miner.gef.runoperator.plugin10.Plugin10Operator" Y="399" X="376">
+<Note></Note>
+<Plugin10Proxy>
+<SignatureClassName name="com.alpine.plugins.python.variable.PythonVariableOperatorSignature"></SignatureClassName>
+</Plugin10Proxy>
+<OperatorDialog label="main" dataSourceSelectionEnabled="true">
+<HdfsFileSelectorImpl id="path" isRequired="false" isDirectorySelector="false" selectedPath="/Datasets/SkipLines.py" label="Python Script from HDFS"></HdfsFileSelectorImpl>
+<ChorusFileDropdownImpl id="chorus_path" isRequired="false" label="Python Script from Chorus">
+<extensionFilter>
+<Value value=".py"></Value>
+</extensionFilter>
+</ChorusFileDropdownImpl>
+<TabularDatasetColumnCheckboxesImpl id="inputColId" isRequired="true" label="Input Columns" sourceOperatorUUID="1497978040179" selectionGroupId="main">
+<AvailableValues>
+<Value value="humidity"></Value>
+</AvailableValues>
+<SelectedValues>
+<Value value="humidity"></Value>
+</SelectedValues>
+<ColumnFilter>
+<AcceptedNameRegex regex=".+"></AcceptedNameRegex>
+<AcceptedType type="*"></AcceptedType>
+</ColumnFilter>
+</TabularDatasetColumnCheckboxesImpl>
+<StringBoxImpl id="outputColNameId" isRequired="true" regex="^[A-Za-z]+\w*$" value="Humidity_LT_80" isLarge="false" label="Output Column Name"></StringBoxImpl>
+<DropdownBoxImpl id="outputType" label="Output Column Type">
+<AvailableValues>
+<Value value="DateTime"></Value>
+<Value value="Double"></Value>
+<Value value="String"></Value>
+<Value value="Float"></Value>
+<Value value="Int"></Value>
+<Value value="Long"></Value>
+</AvailableValues>
+<SelectedValue value="Int"></SelectedValue>
+</DropdownBoxImpl>
+<RadioButtonsImpl id="keepOldColumns" label="Keep Old Columns">
+<AvailableValues>
+<Value value="Yes"></Value>
+<Value value="No"></Value>
+</AvailableValues>
+<SelectedValue value="No"></SelectedValue>
+</RadioButtonsImpl>
+<DropdownBoxImpl id="storageFormat" label="Storage Format">
+<AvailableValues>
+<Value value="Parquet"></Value>
+<Value value="Avro"></Value>
+<Value value="CSV"></Value>
+</AvailableValues>
+<SelectedValue value="CSV"></SelectedValue>
+</DropdownBoxImpl>
+<HdfsFileSelectorImpl id="outputDirectory" isRequired="true" isDirectorySelector="true" selectedPath="@default_tempdir/alpine_out/@user_name/@flow_name" label="Output Directory"></HdfsFileSelectorImpl>
+<StringBoxImpl id="outputName" isRequired="true" regex=".+" value="@operator_name_uuid" isLarge="false" label="Output Name"></StringBoxImpl>
+<RadioButtonsImpl id="overwrite" label="Overwrite Output">
+<AvailableValues>
+<Value value="true"></Value>
+<Value value="false"></Value>
+</AvailableValues>
+<SelectedValue value="true"></SelectedValue>
+</RadioButtonsImpl>
+<AdvancedSparkSettingsBoxImpl id="sparkSettings" label="Advanced Spark Settings">
+<AdvancedParameterSubParameter overridden="false" value="false" displayName="Disable Dynamic Allocation" defaultValue="false" userSpecified="false" key="noDynamicAllocation"></AdvancedParameterSubParameter>
+<AdvancedParameterSubParameter overridden="false" value="" displayName="Number of Executors" defaultValue="3" userSpecified="false" key="spark_numExecutors"></AdvancedParameterSubParameter>
+<AdvancedParameterSubParameter overridden="false" value="" displayName="Executor Memory in MB" defaultValue="-1" userSpecified="false" key="spark_executorMB"></AdvancedParameterSubParameter>
+<AdvancedParameterSubParameter overridden="false" value="" displayName="Driver Memory in MB" defaultValue="-1" userSpecified="false" key="spark_driverMB"></AdvancedParameterSubParameter>
+<AdvancedParameterSubParameter overridden="false" value="" displayName="Number of Executor Cores" defaultValue="-1" userSpecified="false" key="spark_numExecutorCores"></AdvancedParameterSubParameter>
+</AdvancedSparkSettingsBoxImpl>
+</OperatorDialog>
+<OperatorDataSourceManager runtimeDataSourceName="CDH57"></OperatorDataSourceManager>
+<InPutFieldList>
+<Parameter value="/tmp/logs" key="ALP_HD_KVP[yarn.nodemanager.remote-app-log-dir]"></Parameter>
+<Parameter value="hadoop" key="groupName"></Parameter>
+<Parameter value="8032" key="jobPort"></Parameter>
+<Parameter value="8030" key="schedulerPort"></Parameter>
+<Parameter value="10.0.0.143" key="hdfsHostname"></Parameter>
+<Parameter value="cdh57singlenode.alpinenow.local:8030" key="ALP_HD_KVP[yarn.resourcemanager.scheduler.address]"></Parameter>
+<Parameter value="cdh57singlenode.alpinenow.local:8031" key="ALP_HD_KVP[yarn.resourcemanager.resource-tracker.address]"></Parameter>
+<Parameter value="/etc/security/keytab/jhs.service.keytab" key="ALP_HD_KVP[mapreduce.jobhistory.keytab]"></Parameter>
+<Parameter value="Cloudera CDH5.4-5.7" key="hadoopVersion"></Parameter>
+<Parameter value="true" key="ALP_HD_KVP[yarn.log-aggregation-enable]"></Parameter>
+<Parameter value="CDH57" key="connName"></Parameter>
+<Parameter value="false" key="ALP_HD_KVP[hive.security.thirdparty.enabled]"></Parameter>
+<Parameter value="simple" key="securityMode"></Parameter>
+<Parameter value="yarn" key="userName"></Parameter>
+<Parameter value="jhs/_HOST@REALM.TLD" key="ALP_HD_KVP[mapreduce.jobhistory.principal]"></Parameter>
+<Parameter value="authentication" key="ALP_HD_KVP[hadoop.rpc.protection]"></Parameter>
+<Parameter value="8020" key="hdfsPort"></Parameter>
+<Parameter value="cdh57singlenode.alpinenow.local:8033" key="ALP_HD_KVP[yarn.resourcemanager.admin.address]"></Parameter>
+<Parameter value="cdh57singlenode.alpinenow.local:19888" key="ALP_HD_KVP[mapreduce.jobhistory.webapp.address]"></Parameter>
+<Parameter value="false" key="useHA"></Parameter>
+<Parameter value="cdh57singlenode.alpinenow.local" key="schedulerHost"></Parameter>
+<Parameter value="" key="mapredPrincipal"></Parameter>
+<Parameter value="10.0.0.143:10020" key="ALP_HD_KVP[mapreduce.jobhistory.address]"></Parameter>
+<Parameter value="logs" key="ALP_HD_KVP[yarn.nodemanager.remote-app-log-dir-suffix]"></Parameter>
+<Parameter value="org.apache.hadoop.mapreduce.task.reduce.Shuffle" key="ALP_HD_KVP[mapreduce.job.reduce.shuffle.consumer.plugin.class]"></Parameter>
+<Parameter value="10.0.0.143" key="jobHostname"></Parameter>
+<Parameter value="/user" key="ALP_HD_KVP[yarn.app.mapreduce.am.staging-dir]"></Parameter>
+<Parameter value="false" key="ALP_HD_KVP[alpine.hadoopuser.enabled]"></Parameter>
+<Parameter value="org.apache.hadoop.mapred.MapTask$MapOutputBuffer" key="ALP_HD_KVP[mapreduce.job.map.output.collector.class]"></Parameter>
+<Parameter value="" key="hdfsKeyTab"></Parameter>
+<Parameter value="" key="hdfsPrincipal"></Parameter>
+<Parameter value="" key="mapredKeyTab"></Parameter>
+<Parameter value="/etc/krb5.keytab" key="ALP_HD_KVP[yarn.resourcemanager.keytab]"></Parameter>
+<Parameter value="-1" key="ALP_HD_KVP[mapreduce.reduce.memory.mb]"></Parameter>
+<Parameter value="simple" key="ALP_HD_KVP[hadoop.security.authentication]"></Parameter>
+</InPutFieldList>
+</Operator>
+<Link source="golf.csv" target="Python Variable Operator - Add One"></Link>
+<Link source="golf.csv" target="Python Variable - Three Cols"></Link>
+<Link source="golf.csv" target="Python Variable"></Link>
+<VariableModel>
+<Variable>
+<Name>@flow_name</Name>
+<Value>@flow_name</Value>
+</Variable>
+<Variable>
+<Name>@user_name</Name>
+<Value>@user_name</Value>
+</Variable>
+<Variable>
+<Name>@user_id</Name>
+<Value>@user_id</Value>
+</Variable>
+<Variable>
+<Name>@flow_id</Name>
+<Value>@flow_id</Value>
+</Variable>
+<Variable>
+<Name>@default_schema</Name>
+<Value>public</Value>
+</Variable>
+<Variable>
+<Name>@default_tempdir</Name>
+<Value>/tmp</Value>
+</Variable>
+<Variable>
+<Name>@default_delimiter</Name>
+<Value>,</Value>
+</Variable>
+<Variable>
+<Name>@pig_number_of_reducers</Name>
+<Value>-1</Value>
+</Variable>
+<Variable>
+<Name>@default_prefix</Name>
+<Value>ch1398</Value>
+</Variable>
+</VariableModel>
+</Process>
