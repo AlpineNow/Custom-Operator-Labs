@@ -11,13 +11,8 @@
 <col t="chararray" n="wind"></col>
 <col t="chararray" n="play"></col>
 </HadoopFileStructureModel>
-<InPutFieldList>
-<Parameter value="CDH57" key="connName"></Parameter>
-<Parameter value="" key="hadoopCompressionFormat"></Parameter>
-<Parameter value="/Datasets/golf.csv" key="hadoopFileName"></Parameter>
-</InPutFieldList>
 </Operator>
-<Operator name="Chi Square Test" uuid="1498080713953" type="com.alpine.miner.gef.runoperator.plugin10.Plugin10Operator" Y="214" X="540">
+<Operator name="Chi Square Test" uuid="1498080713953" type="com.alpine.miner.gef.runoperator.plugin10.Plugin10Operator" Y="216" X="788">
 <Note></Note>
 <Plugin10Proxy>
 <SignatureClassName name="com.alpine.plugins.chisquare.ChiSquareOperatorSignature"></SignatureClassName>
@@ -95,24 +90,6 @@
 <Parameter value="CDH57" key="connName"></Parameter>
 </InPutFieldList>
 </Operator>
-<Operator name="Column Filter" uuid="1498080844659" type="com.alpine.miner.gef.runoperator.hadoop.HadoopColumnFilterOperator" Y="211" X="816">
-<Note></Note>
-<Parameter value="IndependentVariable,ChiSquareStatistic" key="columnNames"></Parameter>
-<Parameter value="false" key="storeResults"></Parameter>
-<Parameter value="@default_tempdir/alpine_out/@user_name/@flow_name" key="resultsLocation"></Parameter>
-<Parameter value="colfil_0" key="resultsName"></Parameter>
-<Parameter value="Yes" key="override"></Parameter>
-<Parameter value="@default_schema" key="hiveResultDatabase"></Parameter>
-<Parameter value="alp@user_id_@flow_id_colfil_0" key="hiveResultTableName"></Parameter>
-<Parameter value="Yes" key="dropIfExist"></Parameter>
-<Parameter value="parquet" key="outputFormat"></Parameter>
-<Parameter value="gzip" key="outputCompression"></Parameter>
-<InPutFieldList>
-<Parameter value="CDH57" key="connName"></Parameter>
-<Parameter value="" key="hadoopCompressionFormat"></Parameter>
-<Parameter value="/1498080713953" key="hadoopFileName"></Parameter>
-</InPutFieldList>
-</Operator>
 <Operator name="Row Filter" uuid="1498251387925" type="com.alpine.miner.gef.runoperator.hadoop.HadoopRowFilterOperator" Y="372" X="523">
 <Note></Note>
 <Parameter value="false" key="useRowLimit"></Parameter>
@@ -121,9 +98,6 @@
 <Parameter value="@default_tempdir/alpine_out/@user_name/@flow_name" key="resultsLocation"></Parameter>
 <Parameter value="rowfil_0" key="resultsName"></Parameter>
 <Parameter value="Yes" key="override"></Parameter>
-<Parameter value="@default_schema" key="hiveResultDatabase"></Parameter>
-<Parameter value="alp@user_id_@flow_id_rowfil_0" key="hiveResultTableName"></Parameter>
-<Parameter value="Yes" key="dropIfExist"></Parameter>
 <Parameter value="parquet" key="outputFormat"></Parameter>
 <Parameter value="gzip" key="outputCompression"></Parameter>
 <RowFilterConditionModel conditionValue="" sqlType="nosql" useAll="true">
@@ -212,7 +186,6 @@
 </InPutFieldList>
 </Operator>
 <Link source="golf.csv" target="Chi Square Test"></Link>
-<Link source="Chi Square Test" target="Column Filter"></Link>
 <Link source="golf.csv" target="Row Filter"></Link>
 <Link source="Row Filter" target="Chi Square, Independence Test"></Link>
 <VariableModel>
