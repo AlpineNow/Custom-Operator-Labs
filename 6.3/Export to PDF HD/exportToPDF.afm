@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?><Process Description="" UserName="555" Version="6.3.0.0">
+<Operator X="137" name="golfnew.csv" Y="196" type="com.alpine.miner.gef.runoperator.hadoop.HadoopFileOperator" uuid="1501022747808">
+<Note></Note>
+<Parameter value="CDH57_Local" key="connName"></Parameter>
+<Parameter value="/automation_test_data/csv/golfnew.csv" key="hadoopFileName"></Parameter>
+<Parameter value="Text File" key="hadoopFileFormat"></Parameter>
+<HadoopFileStructureModel quoteChar="&quot;" other="" delimiter="Comma" escapChar="\" includeHeader="true">
+<col t="chararray" n="outlook"></col>
+<col t="long" n="temperature"></col>
+<col t="long" n="humidity"></col>
+<col t="chararray" n="wind"></col>
+<col t="chararray" n="play"></col>
+</HadoopFileStructureModel>
+</Operator>
+<Operator X="458" name="Export To PDF (HD)" Y="206" type="com.alpine.miner.gef.runoperator.plugin10.Plugin10Operator" uuid="1501027403130">
+<Note></Note>
+<Plugin10Proxy>
+<SignatureClassName name="com.alpine.export.ExportPdfSignature"></SignatureClassName>
+</Plugin10Proxy>
+<OperatorDialog dataSourceSelectionEnabled="true" label="main">
+<StringBoxImpl isRequired="true" regex="^[A-Za-z0-9._)(-]{1}[A-Za-z0-9._)(\s-]+$" isLarge="false" id="fileID" label="Output File Name" value="my_pdf"></StringBoxImpl>
+<RadioButtonsImpl id="overwriteFileID" label="Create New Version If Exists">
+<AvailableValues>
+<Value value="true"></Value>
+<Value value="false"></Value>
+</AvailableValues>
+<SelectedValue value="true"></SelectedValue>
+</RadioButtonsImpl>
+<StringBoxImpl isRequired="true" regex="^\d+$" isLarge="false" id="marginID" label="Page Side Margin" value="10"></StringBoxImpl>
+<StringBoxImpl isRequired="true" regex="^\d+$" isLarge="false" id="bottomMarginID" label="Page Bottom Margin" value="0"></StringBoxImpl>
+<StringBoxImpl isRequired="true" regex="^\d+$" isLarge="false" id="maxOutPutRowsID" label="Max Output Row" value="1000"></StringBoxImpl>
+</OperatorDialog>
+<OperatorDataSourceManager runtimeDataSourceName="CDH57_Local"></OperatorDataSourceManager>
+<InPutFieldList>
+<Parameter value="CDH57_Local" key="connName"></Parameter>
+</InPutFieldList>
+</Operator>
+<Link source="golfnew.csv" target="Export To PDF (HD)"></Link>
+<VariableModel>
+<Variable>
+<Name>@flow_name</Name>
+<Value>@flow_name</Value>
+</Variable>
+<Variable>
+<Name>@user_name</Name>
+<Value>@user_name</Value>
+</Variable>
+<Variable>
+<Name>@user_id</Name>
+<Value>@user_id</Value>
+</Variable>
+<Variable>
+<Name>@flow_id</Name>
+<Value>@flow_id</Value>
+</Variable>
+<Variable>
+<Name>@default_schema</Name>
+<Value>public</Value>
+</Variable>
+<Variable>
+<Name>@default_tempdir</Name>
+<Value>/tmp</Value>
+</Variable>
+<Variable>
+<Name>@default_delimiter</Name>
+<Value>,</Value>
+</Variable>
+<Variable>
+<Name>@pig_number_of_reducers</Name>
+<Value>-1</Value>
+</Variable>
+</VariableModel>
+</Process>
