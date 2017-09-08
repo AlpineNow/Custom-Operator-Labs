@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?><Process Description="" UserName="2" Version="6.3.0.1">
+<Operator name="titanic.csv" uuid="1504656439565" type="com.alpine.miner.gef.runoperator.hadoop.HadoopFileOperator" Y="141" X="308">
+<Note></Note>
+<Parameter value="avalanche_cdh5_ha" key="connName"></Parameter>
+<Parameter value="/Datasets/titanic.csv" key="hadoopFileName"></Parameter>
+<Parameter value="Text File" key="hadoopFileFormat"></Parameter>
+<HadoopFileStructureModel delimiter="Comma" quoteChar="&quot;" other="" escapChar="\" includeHeader="true">
+<col t="long" n="pclass"></col>
+<col t="long" n="survived"></col>
+<col t="chararray" n="name"></col>
+<col t="chararray" n="sex"></col>
+<col t="long" n="age"></col>
+<col t="long" n="sibsp"></col>
+<col t="long" n="parch"></col>
+<col t="chararray" n="ticket"></col>
+<col t="double" n="fare"></col>
+<col t="chararray" n="cabin"></col>
+<col t="chararray" n="embarked"></col>
+<col t="chararray" n="boat"></col>
+<col t="long" n="body"></col>
+<col t="chararray" n="home"></col>
+</HadoopFileStructureModel>
+</Operator>
+<Operator name="golfnew.csv" uuid="1504656443863" type="com.alpine.miner.gef.runoperator.hadoop.HadoopFileOperator" Y="316" X="263">
+<Note></Note>
+<Parameter value="avalanche_cdh5_ha" key="connName"></Parameter>
+<Parameter value="/Datasets/golfnew.csv" key="hadoopFileName"></Parameter>
+<Parameter value="Text File" key="hadoopFileFormat"></Parameter>
+<HadoopFileStructureModel delimiter="Comma" quoteChar="&quot;" other="" escapChar="\" includeHeader="true">
+<col t="chararray" n="outlook"></col>
+<col t="long" n="temperature"></col>
+<col t="long" n="humidity"></col>
+<col t="chararray" n="wind"></col>
+<col t="chararray" n="play"></col>
+</HadoopFileStructureModel>
+</Operator>
+<Operator name="Spark ML GBT" uuid="1504656503981" type="com.alpine.miner.gef.runoperator.plugin10.Plugin10Operator" Y="200" X="575">
+<Note></Note>
+<Plugin10Proxy>
+<SignatureClassName name="com.alpine.gbt.classifier.GBTmlSignature"></SignatureClassName>
+</Plugin10Proxy>
+<OperatorDialog label="main" dataSourceSelectionEnabled="true">
+<TabularDatasetColumnDropdownBoxImpl id="dependentColumn" isRequired="true" label="Dependent Column" sourceOperatorUUID="1504656439565" selectionGroupId="main">
+<AvailableValues>
+<Value value="survived"></Value>
+</AvailableValues>
+<SelectedValue value="survived"></SelectedValue>
+<ColumnFilter>
+<AcceptedNameRegex regex=".+"></AcceptedNameRegex>
+<AcceptedType type="*"></AcceptedType>
+</ColumnFilter>
+</TabularDatasetColumnDropdownBoxImpl>
+<TabularDatasetColumnCheckboxesImpl id="independentColumns" isRequired="true" label="Independent Columns" sourceOperatorUUID="1504656439565" selectionGroupId="main">
+<AvailableValues>
+<Value value="sex"></Value>
+<Value value="age"></Value>
+<Value value="sibsp"></Value>
+<Value value="parch"></Value>
+</AvailableValues>
+<SelectedValues>
+<Value value="sex"></Value>
+<Value value="age"></Value>
+<Value value="sibsp"></Value>
+<Value value="parch"></Value>
+</SelectedValues>
+<ColumnFilter>
+<AcceptedNameRegex regex=".+"></AcceptedNameRegex>
+<AcceptedType type="*"></AcceptedType>
+</ColumnFilter>
+</TabularDatasetColumnCheckboxesImpl>
+<IntegerBoxImpl min="1" id="numTrees" max="2147483647" value="10" label="Number of Trees"></IntegerBoxImpl>
+<IntegerBoxImpl min="1" id="maxTreeDepth" max="2147483647" value="4" label="Maximum Tree Depth"></IntegerBoxImpl>
+<IntegerBoxImpl min="2" id="minSplitSize" max="2147483647" value="10" label="Minimum Instances Per Node"></IntegerBoxImpl>
+<DoubleBoxImpl min="0.0" id="baggingRate" max="1.0" value="0.5" label="Sub Sampling Rate" inclusiveMax="true" inclusiveMin="false"></DoubleBoxImpl>
+<DoubleBoxImpl min="0.0" id="shrinkage" max="1.7976931348623157E308" value="0.01" label="Step Size" inclusiveMax="true" inclusiveMin="false"></DoubleBoxImpl>
+<DoubleBoxImpl min="0.0" id="fracTraining" max="1.0" value="0.8" label="Fraction of Data for Training" inclusiveMax="true" inclusiveMin="false"></DoubleBoxImpl>
+<RadioButtonsImpl id="useOptNumTrees" label="Compute Deviance for Each Tree (slower)">
+<AvailableValues>
+<Value value="yes"></Value>
+<Value value="no"></Value>
+</AvailableValues>
+<SelectedValue value="yes"></SelectedValue>
+</RadioButtonsImpl>
+<RadioButtonsImpl id="fineTuneTerminalNodes" label="Finetune Terminal Nodes">
+<AvailableValues>
+<Value value="yes"></Value>
+<Value value="no"></Value>
+</AvailableValues>
+<SelectedValue value="yes"></SelectedValue>
+</RadioButtonsImpl>
+<IntegerBoxImpl min="2" id="discMaxNumBins" max="65536" value="10" label="Maximum Number of Bins [2, 65536]"></IntegerBoxImpl>
+<DoubleBoxImpl min="0.0" id="maxInfo" max="1.0" value="0.0" label="Maximum Information Gain For Split" inclusiveMax="true" inclusiveMin="true"></DoubleBoxImpl>
+<HdfsFileSelectorImpl id="checkpointDir" isRequired="true" isDirectorySelector="true" selectedPath="@default_tempdir/alpine_runtime/@user_name/@flow_name" label="Spark Checkpoint Directory"></HdfsFileSelectorImpl>
+<DropdownBoxImpl id="badData" label="Write Rows Removed Due to Null Data To File">
+<AvailableValues>
+<Value value="Do Not Write Null Rows to File"></Value>
+<Value value="Write Up to 1000 Null Rows to File"></Value>
+<Value value="Write All Null Rows to File"></Value>
+<Value value="Do Not Write or Count Null Rows (Fastest)"></Value>
+</AvailableValues>
+<SelectedValue value="Do Not Write Null Rows to File"></SelectedValue>
+</DropdownBoxImpl>
+<AdvancedSparkSettingsBoxImpl id="sparkSettings" label="Advanced Spark Settings">
+<AdvancedParameterSubParameter overridden="false" value="false" displayName="Disable Dynamic Allocation" defaultValue="false" userSpecified="false" key="noDynamicAllocation"></AdvancedParameterSubParameter>
+<AdvancedParameterSubParameter overridden="false" value="" displayName="Number of Executors" defaultValue="3" userSpecified="false" key="spark_numExecutors"></AdvancedParameterSubParameter>
+<AdvancedParameterSubParameter overridden="false" value="" displayName="Executor Memory in MB" defaultValue="-1" userSpecified="false" key="spark_executorMB"></AdvancedParameterSubParameter>
+<AdvancedParameterSubParameter overridden="false" value="" displayName="Driver Memory in MB" defaultValue="-1" userSpecified="false" key="spark_driverMB"></AdvancedParameterSubParameter>
+<AdvancedParameterSubParameter overridden="false" value="" displayName="Number of Executor Cores" defaultValue="-1" userSpecified="false" key="spark_numExecutorCores"></AdvancedParameterSubParameter>
+<AdvancedParameterSubParameter overridden="false" value="false" displayName="Repartition Data" defaultValue="No" userSpecified="false" key="repartitionRDD"></AdvancedParameterSubParameter>
+<AdvancedParameterSubParameter overridden="false" value="-1" displayName="Number of Partitions" defaultValue="" userSpecified="false" key="numPartitions"></AdvancedParameterSubParameter>
+</AdvancedSparkSettingsBoxImpl>
+</OperatorDialog>
+<OperatorDataSourceManager runtimeDataSourceName="avalanche_cdh5_ha"></OperatorDataSourceManager>
+<InPutFieldList>
+<Parameter value="avalanche_cdh5_ha" key="connName"></Parameter>
+</InPutFieldList>
+</Operator>
+<Operator name="Spark ML GBT-1" uuid="1504657994013" type="com.alpine.miner.gef.runoperator.plugin10.Plugin10Operator" Y="347" X="500">
+<Note></Note>
+<Plugin10Proxy>
+<SignatureClassName name="com.alpine.gbt.classifier.GBTmlSignature"></SignatureClassName>
+</Plugin10Proxy>
+<OperatorDialog label="main" dataSourceSelectionEnabled="true">
+<TabularDatasetColumnDropdownBoxImpl id="dependentColumn" isRequired="true" label="Dependent Column" sourceOperatorUUID="1504656443863" selectionGroupId="main">
+<AvailableValues>
+<Value value="play"></Value>
+</AvailableValues>
+<SelectedValue value="play"></SelectedValue>
+<ColumnFilter>
+<AcceptedNameRegex regex=".+"></AcceptedNameRegex>
+<AcceptedType type="*"></AcceptedType>
+</ColumnFilter>
+</TabularDatasetColumnDropdownBoxImpl>
+<TabularDatasetColumnCheckboxesImpl id="independentColumns" isRequired="true" label="Independent Columns" sourceOperatorUUID="1504656443863" selectionGroupId="main">
+<AvailableValues>
+<Value value="outlook"></Value>
+<Value value="temperature"></Value>
+<Value value="humidity"></Value>
+<Value value="wind"></Value>
+</AvailableValues>
+<SelectedValues>
+<Value value="outlook"></Value>
+<Value value="temperature"></Value>
+<Value value="humidity"></Value>
+<Value value="wind"></Value>
+</SelectedValues>
+<ColumnFilter>
+<AcceptedNameRegex regex=".+"></AcceptedNameRegex>
+<AcceptedType type="*"></AcceptedType>
+</ColumnFilter>
+</TabularDatasetColumnCheckboxesImpl>
+<IntegerBoxImpl min="1" id="numTrees" max="2147483647" value="20" label="Number of Trees"></IntegerBoxImpl>
+<IntegerBoxImpl min="1" id="maxTreeDepth" max="2147483647" value="6" label="Maximum Tree Depth"></IntegerBoxImpl>
+<IntegerBoxImpl min="2" id="minSplitSize" max="2147483647" value="10" label="Minimum Instances Per Node"></IntegerBoxImpl>
+<DoubleBoxImpl min="0.0" id="baggingRate" max="1.0" value="0.5" label="Sub Sampling Rate" inclusiveMax="true" inclusiveMin="false"></DoubleBoxImpl>
+<DoubleBoxImpl min="0.0" id="shrinkage" max="1.7976931348623157E308" value="0.01" label="Step Size" inclusiveMax="true" inclusiveMin="false"></DoubleBoxImpl>
+<DoubleBoxImpl min="0.0" id="fracTraining" max="1.0" value="0.8" label="Fraction of Data for Training" inclusiveMax="true" inclusiveMin="false"></DoubleBoxImpl>
+<RadioButtonsImpl id="useOptNumTrees" label="Compute Deviance for Each Tree (slower)">
+<AvailableValues>
+<Value value="yes"></Value>
+<Value value="no"></Value>
+</AvailableValues>
+<SelectedValue value="yes"></SelectedValue>
+</RadioButtonsImpl>
+<RadioButtonsImpl id="fineTuneTerminalNodes" label="Finetune Terminal Nodes">
+<AvailableValues>
+<Value value="yes"></Value>
+<Value value="no"></Value>
+</AvailableValues>
+<SelectedValue value="yes"></SelectedValue>
+</RadioButtonsImpl>
+<IntegerBoxImpl min="2" id="discMaxNumBins" max="65536" value="256" label="Maximum Number of Bins [2, 65536]"></IntegerBoxImpl>
+<DoubleBoxImpl min="0.0" id="maxInfo" max="1.0" value="0.0" label="Maximum Information Gain For Split" inclusiveMax="true" inclusiveMin="true"></DoubleBoxImpl>
+<HdfsFileSelectorImpl id="checkpointDir" isRequired="true" isDirectorySelector="true" selectedPath="@default_tempdir/alpine_runtime/@user_name/@flow_name" label="Spark Checkpoint Directory"></HdfsFileSelectorImpl>
+<DropdownBoxImpl id="badData" label="Write Rows Removed Due to Null Data To File">
+<AvailableValues>
+<Value value="Do Not Write Null Rows to File"></Value>
+<Value value="Write Up to 1000 Null Rows to File"></Value>
+<Value value="Write All Null Rows to File"></Value>
+<Value value="Do Not Write or Count Null Rows (Fastest)"></Value>
+</AvailableValues>
+<SelectedValue value="Do Not Write Null Rows to File"></SelectedValue>
+</DropdownBoxImpl>
+<AdvancedSparkSettingsBoxImpl id="sparkSettings" label="Advanced Spark Settings">
+<AdvancedParameterSubParameter overridden="false" value="false" displayName="Disable Dynamic Allocation" defaultValue="false" userSpecified="false" key="noDynamicAllocation"></AdvancedParameterSubParameter>
+<AdvancedParameterSubParameter overridden="false" value="" displayName="Number of Executors" defaultValue="3" userSpecified="false" key="spark_numExecutors"></AdvancedParameterSubParameter>
+<AdvancedParameterSubParameter overridden="false" value="" displayName="Executor Memory in MB" defaultValue="-1" userSpecified="false" key="spark_executorMB"></AdvancedParameterSubParameter>
+<AdvancedParameterSubParameter overridden="false" value="" displayName="Driver Memory in MB" defaultValue="-1" userSpecified="false" key="spark_driverMB"></AdvancedParameterSubParameter>
+<AdvancedParameterSubParameter overridden="false" value="" displayName="Number of Executor Cores" defaultValue="-1" userSpecified="false" key="spark_numExecutorCores"></AdvancedParameterSubParameter>
+<AdvancedParameterSubParameter overridden="false" value="false" displayName="Repartition Data" defaultValue="No" userSpecified="false" key="repartitionRDD"></AdvancedParameterSubParameter>
+<AdvancedParameterSubParameter overridden="false" value="-1" displayName="Number of Partitions" defaultValue="" userSpecified="false" key="numPartitions"></AdvancedParameterSubParameter>
+</AdvancedSparkSettingsBoxImpl>
+</OperatorDialog>
+<OperatorDataSourceManager runtimeDataSourceName="avalanche_cdh5_ha"></OperatorDataSourceManager>
+<InPutFieldList>
+<Parameter value="avalanche_cdh5_ha" key="connName"></Parameter>
+</InPutFieldList>
+</Operator>
+<Link source="titanic.csv" target="Spark ML GBT"></Link>
+<Link source="golfnew.csv" target="Spark ML GBT-1"></Link>
+<VariableModel>
+<Variable>
+<Name>@flow_name</Name>
+<Value>@flow_name</Value>
+</Variable>
+<Variable>
+<Name>@user_name</Name>
+<Value>@user_name</Value>
+</Variable>
+<Variable>
+<Name>@user_id</Name>
+<Value>@user_id</Value>
+</Variable>
+<Variable>
+<Name>@flow_id</Name>
+<Value>@flow_id</Value>
+</Variable>
+<Variable>
+<Name>@default_schema</Name>
+<Value>public</Value>
+</Variable>
+<Variable>
+<Name>@default_tempdir</Name>
+<Value>/tmp</Value>
+</Variable>
+<Variable>
+<Name>@default_delimiter</Name>
+<Value>,</Value>
+</Variable>
+<Variable>
+<Name>@pig_number_of_reducers</Name>
+<Value>-1</Value>
+</Variable>
+</VariableModel>
+</Process>
