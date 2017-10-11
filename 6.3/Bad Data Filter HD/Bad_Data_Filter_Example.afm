@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Process Description="" UserName="30126" Version="6.3.1.0">
+<Operator X="50" name="titanic.csv" Y="50" type="com.alpine.miner.gef.runoperator.hadoop.HadoopFileOperator" uuid="1507746907346">
+<Note></Note>
+<Parameter value="CDH57" key="connName"></Parameter>
+<Parameter value="/Datasets/titanic.csv" key="hadoopFileName"></Parameter>
+<Parameter value="Text File" key="hadoopFileFormat"></Parameter>
+<HadoopFileStructureModel quoteChar="&quot;" other="" delimiter="Comma" escapChar="\" includeHeader="true">
+<col t="long" n="pclass"></col>
+<col t="long" n="survived"></col>
+<col t="chararray" n="name"></col>
+<col t="chararray" n="sex"></col>
+<col t="long" n="age"></col>
+<col t="long" n="sibsp"></col>
+<col t="long" n="parch"></col>
+<col t="chararray" n="ticket"></col>
+<col t="double" n="fare"></col>
+<col t="chararray" n="cabin"></col>
+<col t="chararray" n="embarked"></col>
+<col t="chararray" n="boat"></col>
+<col t="long" n="body"></col>
+<col t="chararray" n="home"></col>
+</HadoopFileStructureModel>
+</Operator>
+<Operator X="350" name="Bad Data Filter - All Columns" Y="50" type="com.alpine.miner.gef.runoperator.plugin10.Plugin10Operator" uuid="1507746910903">
+<Note></Note>
+<Plugin10Proxy>
+<SignatureClassName name="com.alpine.baddata.BadDataReportingPluginSignature"></SignatureClassName>
+</Plugin10Proxy>
+<OperatorDialog dataSourceSelectionEnabled="true" label="main">
+<TabularDatasetColumnCheckboxesImpl isRequired="false" id="columns_to_verify" label="Columns to Verify (Optional)" sourceOperatorUUID="" selectionGroupId="">
+<AvailableValues></AvailableValues>
+<SelectedValues></SelectedValues>
+<ColumnFilter>
+<AcceptedNameRegex regex=".+"></AcceptedNameRegex>
+<AcceptedType type="*"></AcceptedType>
+</ColumnFilter>
+</TabularDatasetColumnCheckboxesImpl>
+<DropdownBoxImpl id="storageFormat" label="Storage Format">
+<AvailableValues>
+<Value value="Parquet"></Value>
+<Value value="Avro"></Value>
+<Value value="CSV"></Value>
+</AvailableValues>
+<SelectedValue value="CSV"></SelectedValue>
+</DropdownBoxImpl>
+<HdfsFileSelectorImpl isRequired="true" isDirectorySelector="true" id="outputDirectory" label="Output Directory" selectedPath="@default_tempdir/alpine_out/@user_name/@flow_name"></HdfsFileSelectorImpl>
+<StringBoxImpl isRequired="true" regex=".+" isLarge="false" id="outputName" label="Output Name" value="@operator_name_uuid"></StringBoxImpl>
+<RadioButtonsImpl id="overwrite" label="Overwrite Output">
+<AvailableValues>
+<Value value="true"></Value>
+<Value value="false"></Value>
+</AvailableValues>
+<SelectedValue value="true"></SelectedValue>
+</RadioButtonsImpl>
+<AdvancedSparkSettingsBoxImpl id="sparkSettings" label="Advanced Spark Settings">
+<AdvancedParameterSubParameter defaultValue="false" displayName="Disable Dynamic Allocation" overridden="false" userSpecified="false" value="false" key="noDynamicAllocation"></AdvancedParameterSubParameter>
+<AdvancedParameterSubParameter defaultValue="3" displayName="Number of Executors" overridden="false" userSpecified="false" value="3" key="spark_numExecutors"></AdvancedParameterSubParameter>
+<AdvancedParameterSubParameter defaultValue="-1" displayName="Executor Memory in MB" overridden="false" userSpecified="false" value="-1" key="spark_executorMB"></AdvancedParameterSubParameter>
+<AdvancedParameterSubParameter defaultValue="-1" displayName="Driver Memory in MB" overridden="false" userSpecified="false" value="-1" key="spark_driverMB"></AdvancedParameterSubParameter>
+<AdvancedParameterSubParameter defaultValue="-1" displayName="Number of Executor Cores" overridden="false" userSpecified="false" value="-1" key="spark_numExecutorCores"></AdvancedParameterSubParameter>
+</AdvancedSparkSettingsBoxImpl>
+</OperatorDialog>
+<OperatorDataSourceManager runtimeDataSourceName="CDH57"></OperatorDataSourceManager>
+<InPutFieldList>
+<Parameter value="CDH57" key="connName"></Parameter>
+</InPutFieldList>
+</Operator>
+<Operator X="206" name="Bad Data Filter - Some Columns" Y="181" type="com.alpine.miner.gef.runoperator.plugin10.Plugin10Operator" uuid="1507746936937">
+<Note></Note>
+<Plugin10Proxy>
+<SignatureClassName name="com.alpine.baddata.BadDataReportingPluginSignature"></SignatureClassName>
+</Plugin10Proxy>
+<OperatorDialog dataSourceSelectionEnabled="true" label="main">
+<TabularDatasetColumnCheckboxesImpl isRequired="false" id="columns_to_verify" label="Columns to Verify (Optional)" sourceOperatorUUID="1507746907346" selectionGroupId="">
+<AvailableValues>
+<Value value="age"></Value>
+</AvailableValues>
+<SelectedValues>
+<Value value="age"></Value>
+</SelectedValues>
+<ColumnFilter>
+<AcceptedNameRegex regex=".+"></AcceptedNameRegex>
+<AcceptedType type="*"></AcceptedType>
+</ColumnFilter>
+</TabularDatasetColumnCheckboxesImpl>
+<DropdownBoxImpl id="storageFormat" label="Storage Format">
+<AvailableValues>
+<Value value="Parquet"></Value>
+<Value value="Avro"></Value>
+<Value value="CSV"></Value>
+</AvailableValues>
+<SelectedValue value="CSV"></SelectedValue>
+</DropdownBoxImpl>
+<HdfsFileSelectorImpl isRequired="true" isDirectorySelector="true" id="outputDirectory" label="Output Directory" selectedPath="@default_tempdir/alpine_out/@user_name/@flow_name"></HdfsFileSelectorImpl>
+<StringBoxImpl isRequired="true" regex=".+" isLarge="false" id="outputName" label="Output Name" value="@operator_name_uuid"></StringBoxImpl>
+<RadioButtonsImpl id="overwrite" label="Overwrite Output">
+<AvailableValues>
+<Value value="true"></Value>
+<Value value="false"></Value>
+</AvailableValues>
+<SelectedValue value="true"></SelectedValue>
+</RadioButtonsImpl>
+<AdvancedSparkSettingsBoxImpl id="sparkSettings" label="Advanced Spark Settings">
+<AdvancedParameterSubParameter defaultValue="false" displayName="Disable Dynamic Allocation" overridden="false" userSpecified="false" value="false" key="noDynamicAllocation"></AdvancedParameterSubParameter>
+<AdvancedParameterSubParameter defaultValue="3" displayName="Number of Executors" overridden="false" userSpecified="false" value="" key="spark_numExecutors"></AdvancedParameterSubParameter>
+<AdvancedParameterSubParameter defaultValue="-1" displayName="Executor Memory in MB" overridden="false" userSpecified="false" value="" key="spark_executorMB"></AdvancedParameterSubParameter>
+<AdvancedParameterSubParameter defaultValue="-1" displayName="Driver Memory in MB" overridden="false" userSpecified="false" value="" key="spark_driverMB"></AdvancedParameterSubParameter>
+<AdvancedParameterSubParameter defaultValue="-1" displayName="Number of Executor Cores" overridden="false" userSpecified="false" value="" key="spark_numExecutorCores"></AdvancedParameterSubParameter>
+</AdvancedSparkSettingsBoxImpl>
+</OperatorDialog>
+<OperatorDataSourceManager runtimeDataSourceName="CDH57"></OperatorDataSourceManager>
+<InPutFieldList>
+<Parameter value="CDH57" key="connName"></Parameter>
+</InPutFieldList>
+</Operator>
+<Link source="titanic.csv" target="Bad Data Filter - All Columns"></Link>
+<Link source="titanic.csv" target="Bad Data Filter - Some Columns"></Link>
+<VariableModel>
+<Variable>
+<Name>@flow_name</Name>
+<Value>@flow_name</Value>
+</Variable>
+<Variable>
+<Name>@user_name</Name>
+<Value>@user_name</Value>
+</Variable>
+<Variable>
+<Name>@user_id</Name>
+<Value>@user_id</Value>
+</Variable>
+<Variable>
+<Name>@flow_id</Name>
+<Value>@flow_id</Value>
+</Variable>
+<Variable>
+<Name>@default_schema</Name>
+<Value>public</Value>
+</Variable>
+<Variable>
+<Name>@default_tempdir</Name>
+<Value>/tmp2</Value>
+</Variable>
+<Variable>
+<Name>@default_delimiter</Name>
+<Value>,</Value>
+</Variable>
+<Variable>
+<Name>@pig_number_of_reducers</Name>
+<Value>-1</Value>
+</Variable>
+</VariableModel>
+</Process>
