@@ -1,9 +1,11 @@
-# Custom-Operator-Previews
-A repository for beta versions of upcoming Alpine operators, along with example Alpine workflows and dataset. As they haven't yet been thoroughly QA tested, please use them at your own risk.
+# Custom-Operator-Labs
+A repository for prototypes and experimental operators, along with example Spotfire Data Science workflows and datasets. Labs operators are not included in the product and are therefore not under support. Please use them at your own risk.
 
-To use these operators they must first be installed onto your Alpine server. Please see the Alpine documentation for help with this step. You can find [instructions here](https://alpine.atlassian.net/wiki/display/V6/How+To+Compile+and+Run+the+Sample+Operators#HowToCompileandRuntheSampleOperators-UploadinganOperatortoAlpine) under the heading *Uploading an Operator to Alpine.*
+Note that all prototypes and experimental operators seen may be unavailable or removed without notice.
 
-These operators are developed internally using the [Alpine Custom Operator SDK](https://github.com/AlpineNow/PluginSDK) which you can use to develop your own custom operators. 
+To use these operators they must first be installed onto your Spotfire Data Science server. Please see the Spotfire Data Science documentation for help with this step. You can find [instructions here](https://alpine.atlassian.net/wiki/display/V6/How+To+Compile+and+Run+the+Sample+Operators#HowToCompileandRuntheSampleOperators-UploadinganOperatortoAlpine) under the heading *Uploading an Operator to Spotfire Data Science.*
+
+These operators are developed internally using the [Spotfire Data Science Custom Operator SDK](https://github.com/AlpineNow/PluginSDK) which you can use to develop your own custom operators. 
 
 Alpine Version | Custom Operator SDK | Spark Version 
 -------------- | --------------------------- | -------------
