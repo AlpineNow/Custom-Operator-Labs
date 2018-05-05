@@ -16,5 +16,6 @@ Alpine Version | Custom Operator SDK | Spark Version
 6.0            | Version 1.6, [Scaladoc](http://alpinenow.github.io/PluginSDK/1.6/api/), [Source](https://github.com/AlpineNow/PluginSDK/tree/v1.6)  | 1.5.1  
 6.1            | [Version 1.7](https://github.com/AlpineNow/CustomPlugins/wiki/Release-Notes), [Scaladoc](http://alpinenow.github.io/PluginSDK/1.7/api/), [Source](https://github.com/AlpineNow/PluginSDK/tree/v1.7)  | 1.6.1
 6.2            | Version 1.8, [Scaladoc](http://alpinenow.github.io/PluginSDK/1.8/api/), [Source](https://github.com/AlpineNow/PluginSDK/tree/v1.8)  | 1.6.1
-6.3            | Version 1.9 | 1.6.1
+6.3            | Version 1.9, [Scaladoc](http://alpinenow.github.io/PluginSDK/1.9/api/), [Source](https://github.com/AlpineNow/PluginSDK/tree/v1.9)  | 1.6.1
+6.4            | Version 1.10, [Scaladoc](http://alpinenow.github.io/PluginSDK/1.10/api/), [Source](https://github.com/AlpineNow/PluginSDK/tree/v1.10)  | 1.6.1
 
